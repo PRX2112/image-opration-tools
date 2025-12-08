@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
             }
         }));
 
-        const zipContent = await zip.generateAsync({ type: 'nodebuffer' });
+        const zipContent = await zip.generateAsync({ type: 'uint8array' });
 
         return new NextResponse(zipContent, {
             status: 200,
