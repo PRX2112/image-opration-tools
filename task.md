@@ -101,9 +101,9 @@
   - [x] Horizontal flip
   - [x] Vertical flip
   - [x] Reset option
-- [/] Image Enlarger (`/tools/enlarge`)
-  - [/] 2x / 4x upscale
-  - [/] Smart sharpen
+- [x] Image Enlarger (`/tools/enlarge`)
+  - [x] 2x / 4x upscale
+  - [x] Smart sharpen
   - [ ] AI upscaling (optional via Replicate)
 
 ## Phase 9: Cloud Storage & Processing (Week 6)

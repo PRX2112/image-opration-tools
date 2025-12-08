@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Menu, X, Image as ImageIcon } from 'lucide-react';
 import { useState } from 'react';
 import DropdownMenu from './DropdownMenu';
+import UserNav from './UserNav';
 
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -77,14 +78,9 @@ export default function Header() {
                         </Link>
                     </div>
 
-                    {/* Auth Buttons */}
-                    <div className="hidden md:flex items-center gap-3">
-                        <Link href="/login" className="btn btn-ghost text-sm">
-                            Login
-                        </Link>
-                        <Link href="/signup" className="btn btn-primary text-sm">
-                            Sign Up
-                        </Link>
+                    {/* User Navigation */}
+                    <div className="hidden md:flex">
+                        <UserNav />
                     </div>
 
                     {/* Mobile Menu Button */}
