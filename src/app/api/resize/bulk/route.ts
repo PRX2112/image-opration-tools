@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
 
         const zipContent = await zip.generateAsync({ type: 'uint8array' });
 
-        return new NextResponse(zipContent, {
+        return new NextResponse(new Blob([zipContent]), {
             status: 200,
             headers: {
                 'Content-Type': 'application/zip',
