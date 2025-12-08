@@ -63,7 +63,7 @@ export default function ConvertTool({ defaultInputFormat, defaultOutputFormat = 
                     <div className="max-w-2xl mx-auto animate-fade-in">
                         <BulkFileUpload
                             onFilesSelect={addFiles}
-                            accept={defaultInputFormat ? { [`image/${defaultInputFormat}`]: [] } : undefined}
+                            accept={defaultInputFormat ? `image/${defaultInputFormat}` : undefined}
                             maxSizeMB={10}
                             maxFiles={20}
                         />
@@ -151,8 +151,8 @@ export default function ConvertTool({ defaultInputFormat, defaultOutputFormat = 
                                             key={fmt.value}
                                             onClick={() => setTargetFormat(fmt.value)}
                                             className={`py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center gap-2 ${targetFormat === fmt.value
-                                                    ? 'bg-primary text-white shadow-lg'
-                                                    : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                                                ? 'bg-primary text-white shadow-lg'
+                                                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                                                 }`}
                                         >
                                             {fmt.label}
