@@ -120,14 +120,14 @@ export default async function DashboardPage() {
                 </div>
 
                 {/* Google Drive Integration - Only for Pro/Business */}
-                {(subscriptionTier === 'pro_monthly' ||
-                    subscriptionTier === 'pro_yearly' ||
-                    subscriptionTier === 'business_monthly' ||
-                    subscriptionTier === 'business_yearly') && (
+                {(() => {
+                    const basePlan = subscriptionTier.split('_')[0]; // Get 'pro' or 'business' from 'pro_monthly' etc
+                    return (basePlan === 'pro' || basePlan === 'business') ? (
                         <div className="mb-8">
                             <DriveConnectionCard />
                         </div>
-                    )}
+                    ) : null;
+                })()}
 
                 {/* Image History */}
                 <div className="bg-white dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-gray-700/50 p-6 shadow-sm dark:shadow-none">

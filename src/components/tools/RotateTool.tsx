@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useImageTransform } from '@/hooks/useImageTransform';
 import FileUpload from '@/components/FileUpload';
 import { downloadFile } from '@/utils/imageUtils';
@@ -10,6 +11,10 @@ import {
     RotateCw,
     Save
 } from 'lucide-react';
+import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
+import { useSession } from 'next-auth/react';
+import { PLANS } from '@/config/plans';
+import { useUsageTracking } from '@/hooks/useUsageTracking';
 
 interface RotateToolProps {
     title?: string;
@@ -32,13 +37,32 @@ export default function RotateTool({ title }: RotateToolProps) {
         getPreviewStyle
     } = useImageTransform();
 
+    const [processedImageBlob, setProcessedImageBlob] = useState<Blob | null>(null);
+    const [processedFileName, setProcessedFileName] = useState<string>('');
+    const { data: session } = useSession();
+    const { usage } = useUsageTracking();
+
     const handleSave = async () => {
         await applyTransform();
     };
 
     const handleDownload = () => {
         if (result) {
-            downloadFile(result.image, `rotated-image.${originalFile?.name.split('.').pop() || 'png'}`);
+            const filename = `rotated-image.${originalFile?.name.split('.').pop() || 'png'}`;
+            downloadFile(result.image, filename);
+
+            // Convert base64 to blob for Drive save
+            const base64Data = result.image.split(',')[1];
+            const byteCharacters = atob(base64Data);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], { type: 'image/png' });
+
+            setProcessedImageBlob(blob);
+            setProcessedFileName(filename);
         }
     };
 
@@ -204,13 +228,30 @@ export default function RotateTool({ title }: RotateToolProps) {
                                     )}
                                 </button>
                             ) : (
-                                <button
-                                    onClick={handleDownload}
-                                    className="btn btn-primary w-full text-lg py-4 shadow-xl shadow-blue-500/20"
-                                >
-                                    <Download className="w-5 h-5 mr-2" />
-                                    Download Result
-                                </button>
+                                <>
+                                    <button
+                                        onClick={handleDownload}
+                                        className="btn btn-primary w-full text-lg py-4 shadow-xl shadow-blue-500/20"
+                                    >
+                                        <Download className="w-5 h-5 mr-2" />
+                                        Download Result
+                                    </button>
+
+                                    {/* Save to Drive Button */}
+                                    {session && usage && processedImageBlob && (() => {
+                                        const subscriptionTier = usage.subscriptionTier || 'free';
+                                        const basePlan = subscriptionTier.split('_')[0];
+                                        const plan = PLANS[basePlan];
+
+                                        return plan?.driveIntegration ? (
+                                            <SaveToDriveButton
+                                                file={processedImageBlob}
+                                                fileName={processedFileName}
+                                                toolUsed="rotate"
+                                            />
+                                        ) : null;
+                                    })()}
+                                </>
                             )}
 
                             {error && (

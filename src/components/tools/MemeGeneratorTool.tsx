@@ -15,6 +15,9 @@ import {
     Trash2,
     Move
 } from 'lucide-react';
+import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
+import { useSession } from 'next-auth/react';
+import { PLANS } from '@/config/plans';
 
 interface MemeGeneratorToolProps {
     title?: string;
@@ -38,6 +41,9 @@ export default function MemeGeneratorTool({ title }: MemeGeneratorToolProps) {
 
     const [showUpgrade, setShowUpgrade] = useState(false);
     const [upgradeReason, setUpgradeReason] = useState<'downloads' | 'file_size' | 'storage'>('downloads');
+    const [processedImageBlob, setProcessedImageBlob] = useState<Blob | null>(null);
+    const [processedFileName, setProcessedFileName] = useState<string>('');
+    const { data: session } = useSession();
 
     // Usage tracking
     const { usage, limits, canDownload, canProcessFile, trackDownload } = useUsageTracking();
@@ -126,6 +132,16 @@ export default function MemeGeneratorTool({ title }: MemeGeneratorToolProps) {
         }
 
         downloadMeme();
+
+        // Convert canvas to blob for Drive save
+        if (canvasRef.current) {
+            canvasRef.current.toBlob((blob) => {
+                if (blob) {
+                    setProcessedImageBlob(blob);
+                    setProcessedFileName('meme.png');
+                }
+            }, 'image/png');
+        }
 
         // Track download
         if (originalFile) {
@@ -313,6 +329,21 @@ export default function MemeGeneratorTool({ title }: MemeGeneratorToolProps) {
                                 <Download className="w-5 h-5 mr-2" />
                                 Download Meme
                             </button>
+
+                            {/* Save to Drive Button */}
+                            {session && usage && processedImageBlob && (() => {
+                                const subscriptionTier = usage.subscriptionTier || 'free';
+                                const basePlan = subscriptionTier.split('_')[0];
+                                const plan = PLANS[basePlan];
+
+                                return plan?.driveIntegration ? (
+                                    <SaveToDriveButton
+                                        file={processedImageBlob}
+                                        fileName={processedFileName}
+                                        toolUsed="meme-generator"
+                                    />
+                                ) : null;
+                            })()}
                         </div>
                     </div>
                 )}

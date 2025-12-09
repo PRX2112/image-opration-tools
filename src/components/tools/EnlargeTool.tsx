@@ -20,6 +20,9 @@ import {
 } from 'react-compare-slider';
 import UpgradePrompt from '@/components/UpgradePrompt';
 import UsageStats from '@/components/UsageStats';
+import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
+import { useSession } from 'next-auth/react';
+import { PLANS } from '@/config/plans';
 
 interface EnlargeToolProps {
     title?: string;
@@ -43,6 +46,11 @@ export default function EnlargeTool({ title }: EnlargeToolProps) {
 
     const [showUpgrade, setShowUpgrade] = useState(false);
     const [upgradeReason, setUpgradeReason] = useState<'downloads' | 'file_size' | 'storage'>('downloads');
+    const [processedImageBlob, setProcessedImageBlob] = useState<Blob | null>(null);
+    const [processedFileName, setProcessedFileName] = useState<string>('');
+
+    // Session for Drive integration
+    const { data: session } = useSession();
 
     // Usage tracking
     const { usage, limits, canDownload, canProcessFile, trackDownload } = useUsageTracking();
@@ -82,6 +90,20 @@ export default function EnlargeTool({ title }: EnlargeToolProps) {
         }
 
         downloadFile(result.image, `enlarged-${factor}x-image.${originalFile?.name.split('.').pop() || 'png'}`);
+
+        // Convert base64 to blob for Drive save
+        const base64Data = result.image.split(',')[1];
+        const byteCharacters = atob(base64Data);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'image/png' });
+        const filename = `enlarged-${factor}x-image.${originalFile?.name.split('.').pop() || 'png'}`;
+
+        setProcessedImageBlob(blob);
+        setProcessedFileName(filename);
 
         // Track download
         if (originalFile) {
@@ -268,13 +290,30 @@ export default function EnlargeTool({ title }: EnlargeToolProps) {
                                     )}
                                 </button>
                             ) : (
-                                <button
-                                    onClick={handleDownload}
-                                    className="btn btn-primary w-full text-lg py-4 shadow-xl shadow-indigo-500/20"
-                                >
-                                    <Download className="w-5 h-5 mr-2" />
-                                    Download Result
-                                </button>
+                                <>
+                                    <button
+                                        onClick={handleDownload}
+                                        className="btn btn-primary w-full text-lg py-4 shadow-xl shadow-indigo-500/20"
+                                    >
+                                        <Download className="w-5 h-5 mr-2" />
+                                        Download Result
+                                    </button>
+
+                                    {/* Save to Drive Button - Only for Pro/Business users */}
+                                    {session && usage && processedImageBlob && (() => {
+                                        const subscriptionTier = usage.subscriptionTier || 'free';
+                                        const basePlan = subscriptionTier.split('_')[0];
+                                        const plan = PLANS[basePlan];
+
+                                        return plan?.driveIntegration ? (
+                                            <SaveToDriveButton
+                                                file={processedImageBlob}
+                                                fileName={processedFileName}
+                                                toolUsed="enlarge"
+                                            />
+                                        ) : null;
+                                    })()}
+                                </>
                             )}
 
                             {error && (

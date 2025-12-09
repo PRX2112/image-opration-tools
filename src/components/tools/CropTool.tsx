@@ -17,6 +17,9 @@ import {
 } from 'lucide-react';
 import UpgradePrompt from '@/components/UpgradePrompt';
 import UsageStats from '@/components/UsageStats';
+import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
+import { useSession } from 'next-auth/react';
+import { PLANS } from '@/config/plans';
 
 const ASPECT_RATIOS = [
     { label: 'Free', value: undefined, icon: Maximize },
@@ -77,6 +80,11 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
     const imgRef = useRef<HTMLImageElement>(null);
     const [showUpgrade, setShowUpgrade] = useState(false);
     const [upgradeReason, setUpgradeReason] = useState<'downloads' | 'file_size' | 'storage'>('downloads');
+    const [processedImageBlob, setProcessedImageBlob] = useState<Blob | null>(null);
+    const [processedFileName, setProcessedFileName] = useState<string>('');
+
+    // Session for Drive integration
+    const { data: session } = useSession();
 
     // Usage tracking
     const { usage, limits, canDownload, canProcessFile, trackDownload } = useUsageTracking();
@@ -152,7 +160,51 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
             height: completedCrop.height * scaleY,
         };
 
-        await cropImage(serverCrop, 0, format);
+        // Call crop API and get result
+        const base64 = originalFile ? await (async () => {
+            return new Promise<string>((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result as string);
+                reader.onerror = reject;
+                reader.readAsDataURL(originalFile);
+            });
+        })() : '';
+
+        const response = await fetch('/api/crop', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                image: base64,
+                crop: serverCrop,
+                rotate: 0,
+                format,
+            }),
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+
+            // Convert base64 to blob for Drive save
+            const base64Data = result.image.split(',')[1];
+            const byteCharacters = atob(base64Data);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], { type: `image/${format}` });
+            const filename = `cropped-image.${format === 'jpg' ? 'jpg' : format}`;
+
+            // Download
+            const link = document.createElement('a');
+            link.href = result.image;
+            link.download = filename;
+            link.click();
+
+            // Store for Drive save
+            setProcessedImageBlob(blob);
+            setProcessedFileName(filename);
+        }
 
         // Track download
         if (originalFile) {
@@ -318,6 +370,21 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
                                     </>
                                 )}
                             </button>
+
+                            {/* Save to Drive Button - Only for Pro/Business users */}
+                            {session && usage && processedImageBlob && (() => {
+                                const subscriptionTier = usage.subscriptionTier || 'free';
+                                const basePlan = subscriptionTier.split('_')[0];
+                                const plan = PLANS[basePlan];
+
+                                return plan?.driveIntegration ? (
+                                    <SaveToDriveButton
+                                        file={processedImageBlob}
+                                        fileName={processedFileName}
+                                        toolUsed="crop"
+                                    />
+                                ) : null;
+                            })()}
                         </div>
                     )}
                 </div>
