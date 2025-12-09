@@ -206,7 +206,7 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
                                 <FileUpload
                                     onFileSelect={handleFileSelect}
                                     accept="image/*"
-                                    maxSizeMB={10}
+                                    maxSizeMB={limits.maxFileSize === Infinity ? Infinity : limits.maxFileSize / (1024 * 1024)}
                                 />
                             </div>
                         )}

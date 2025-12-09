@@ -1,19 +1,44 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PLANS } from '@/config/plans';
 import PricingCard from '@/components/pricing/PricingCard';
 import { motion } from 'framer-motion';
 import { useSession } from 'next-auth/react';
-import { db } from '@/db/db';
 
 export default function PricingPage() {
     const { data: session } = useSession();
     const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
     const [currentPlan, setCurrentPlan] = useState<string>('free');
+    const [isLoading, setIsLoading] = useState(true);
 
-    // In a real implementation, fetch user's current plan from the database
-    // For now, we'll use 'free' as default
+    // Fetch user's current plan from the database
+    useEffect(() => {
+        async function fetchCurrentPlan() {
+            if (!session?.user) {
+                setCurrentPlan('free');
+                setIsLoading(false);
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/usage/current');
+                if (response.ok) {
+                    const data = await response.json();
+                    // Extract base plan from subscriptionTier (e.g., 'pro_monthly' -> 'pro')
+                    const tier = data.usage?.subscriptionTier || 'free';
+                    const basePlan = tier.split('_')[0]; // Remove '_monthly' or '_yearly' suffix
+                    setCurrentPlan(basePlan);
+                }
+            } catch (error) {
+                console.error('Error fetching current plan:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+
+        fetchCurrentPlan();
+    }, [session]);
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-16 px-4">
@@ -37,8 +62,8 @@ export default function PricingPage() {
                         <button
                             onClick={() => setBillingCycle('monthly')}
                             className={`px-6 py-2 rounded-md font-medium transition-all ${billingCycle === 'monthly'
-                                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
-                                    : 'text-gray-400 hover:text-white'
+                                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                                : 'text-gray-400 hover:text-white'
                                 }`}
                         >
                             Monthly
@@ -46,8 +71,8 @@ export default function PricingPage() {
                         <button
                             onClick={() => setBillingCycle('yearly')}
                             className={`px-6 py-2 rounded-md font-medium transition-all ${billingCycle === 'yearly'
-                                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
-                                    : 'text-gray-400 hover:text-white'
+                                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                                : 'text-gray-400 hover:text-white'
                                 }`}
                         >
                             Yearly

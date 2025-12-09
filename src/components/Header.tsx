@@ -60,7 +60,7 @@ export default function Header() {
                             <ImageIcon className="w-6 h-6 text-white" />
                         </div>
                         <span className="text-xl font-bold gradient-text hidden sm:block">
-                            GetPixelTool
+                            ResizeMe
                         </span>
                     </Link>
 

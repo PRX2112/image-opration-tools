@@ -37,7 +37,7 @@ export default function Footer() {
     const socialLinks = [
         { icon: Github, href: '#', label: 'GitHub' },
         { icon: Twitter, href: '#', label: 'Twitter' },
-        { icon: Mail, href: 'mailto:support@resizeme.com', label: 'Email' },
+        { icon: Mail, href: 'mailto:handleresizeme@gmail.com', label: 'Email' },
     ];
 
     return (
@@ -53,7 +53,7 @@ export default function Footer() {
                             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
                                 <ImageIcon className="w-5 h-5 text-white" />
                             </div>
-                            <h3 className="text-xl font-bold gradient-text">GetPixelTool</h3>
+                            <h3 className="text-xl font-bold gradient-text">ResizeMe</h3>
                         </div>
                         <p className="text-sm text-gray-600 dark:text-gray-400 max-w-xs">
                             Professional image tools right in your browser. Resize, crop,
@@ -131,7 +131,7 @@ export default function Footer() {
                 <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
                     <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
                         <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-1">
-                            © {currentYear} GetPixelTool. Made with <Heart className="w-4 h-4 text-red-500 fill-current" /> for the web.
+                            © {currentYear} ResizeMe. Made with <Heart className="w-4 h-4 text-red-500 fill-current" /> for the web.
                         </p>
                         <p className="text-xs text-gray-500 dark:text-gray-500">
                             All processing happens in your browser. Your images never leave your device.

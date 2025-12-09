@@ -250,7 +250,7 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
                                 <FileUpload
                                     onFileSelect={handleFileSelect}
                                     accept="image/*"
-                                    maxSizeMB={10}
+                                    maxSizeMB={limits.maxFileSize === Infinity ? Infinity : limits.maxFileSize / (1024 * 1024)}
                                 />
                             </div>
                         )}

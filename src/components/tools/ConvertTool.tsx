@@ -112,7 +112,7 @@ export default function ConvertTool({ defaultInputFormat, defaultOutputFormat = 
                         <BulkFileUpload
                             onFilesSelect={handleFilesSelect}
                             accept={defaultInputFormat ? `image/${defaultInputFormat}` : undefined}
-                            maxSizeMB={10}
+                            maxSizeMB={limits.maxFileSize === Infinity ? Infinity : limits.maxFileSize / (1024 * 1024)}
                             maxFiles={20}
                         />
                         {error && (

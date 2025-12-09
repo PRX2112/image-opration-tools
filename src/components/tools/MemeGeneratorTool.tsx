@@ -1,8 +1,11 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useMemeGenerator, MemeText } from '@/hooks/useMemeGenerator';
+import { useUsageTracking } from '@/hooks/useUsageTracking';
 import FileUpload from '@/components/FileUpload';
+import UpgradePrompt from '@/components/UpgradePrompt';
+import UsageStats from '@/components/UsageStats';
 import {
     Download,
     RotateCcw,
@@ -32,6 +35,12 @@ export default function MemeGeneratorTool({ title }: MemeGeneratorToolProps) {
         downloadMeme,
         reset
     } = useMemeGenerator();
+
+    const [showUpgrade, setShowUpgrade] = useState(false);
+    const [upgradeReason, setUpgradeReason] = useState<'downloads' | 'file_size' | 'storage'>('downloads');
+
+    // Usage tracking
+    const { usage, limits, canDownload, canProcessFile, trackDownload } = useUsageTracking();
 
     const containerRef = useRef<HTMLDivElement>(null);
     const isDraggingRef = useRef(false);
@@ -98,10 +107,45 @@ export default function MemeGeneratorTool({ title }: MemeGeneratorToolProps) {
         isDraggingRef.current = false;
     };
 
+    const handleFileSelect = async (file: File) => {
+        // Check file size before loading
+        if (!canProcessFile(file.size)) {
+            setUpgradeReason('file_size');
+            setShowUpgrade(true);
+            return;
+        }
+        await loadFile(file);
+    };
+
+    const handleDownload = async () => {
+        // Check if user can download
+        if (!canDownload()) {
+            setUpgradeReason('downloads');
+            setShowUpgrade(true);
+            return;
+        }
+
+        downloadMeme();
+
+        // Track download
+        if (originalFile) {
+            await trackDownload(originalFile.size, 'Meme Generator', originalFile.name);
+        }
+    };
+
     const selectedText = texts.find(t => t.id === selectedTextId);
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50 dark:from-yellow-900/20 dark:via-orange-900/20 dark:to-red-900/20 py-12">
+            {/* Upgrade Prompt */}
+            {showUpgrade && usage && (
+                <UpgradePrompt
+                    reason={upgradeReason}
+                    currentPlan={usage.subscriptionTier}
+                    onClose={() => setShowUpgrade(false)}
+                />
+            )}
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-12 animate-fade-in">
@@ -115,12 +159,19 @@ export default function MemeGeneratorTool({ title }: MemeGeneratorToolProps) {
                     </p>
                 </div>
 
+                {/* Usage Stats */}
+                {usage && limits && (
+                    <div className="mb-8 max-w-2xl mx-auto">
+                        <UsageStats usage={usage} limits={limits} compact />
+                    </div>
+                )}
+
                 {!originalFile ? (
                     <div className="max-w-2xl mx-auto animate-fade-in">
                         <FileUpload
-                            onFileSelect={loadFile}
+                            onFileSelect={handleFileSelect}
                             accept="image/*"
-                            maxSizeMB={10}
+                            maxSizeMB={limits.maxFileSize === Infinity ? Infinity : limits.maxFileSize / (1024 * 1024)}
                         />
                         {error && (
                             <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-600 dark:text-red-400 text-sm text-center">
@@ -185,8 +236,8 @@ export default function MemeGeneratorTool({ title }: MemeGeneratorToolProps) {
                                             key={text.id}
                                             onClick={() => setSelectedTextId(text.id)}
                                             className={`p-3 rounded-lg cursor-pointer border-2 transition-all ${selectedTextId === text.id
-                                                    ? 'border-primary bg-primary/5'
-                                                    : 'border-transparent bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
+                                                ? 'border-primary bg-primary/5'
+                                                : 'border-transparent bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
                                                 }`}
                                         >
                                             <div className="flex justify-between items-center">
@@ -256,7 +307,7 @@ export default function MemeGeneratorTool({ title }: MemeGeneratorToolProps) {
 
                             {/* Download */}
                             <button
-                                onClick={downloadMeme}
+                                onClick={handleDownload}
                                 className="btn btn-primary w-full text-lg py-4 shadow-xl shadow-yellow-500/20"
                             >
                                 <Download className="w-5 h-5 mr-2" />

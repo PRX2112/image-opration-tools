@@ -112,7 +112,7 @@ export default function CompressTool({ defaultFormat, title }: CompressToolProps
                         <FileUpload
                             onFileSelect={handleFileSelect}
                             accept="image/*"
-                            maxSizeMB={10}
+                            maxSizeMB={limits.maxFileSize === Infinity ? Infinity : limits.maxFileSize / (1024 * 1024)}
                         />
                         {error && (
                             <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-600 dark:text-red-400 text-sm text-center">

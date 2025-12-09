@@ -6,6 +6,7 @@ import { eq, desc } from 'drizzle-orm';
 import { formatPrice } from '@/config/plans';
 import { CreditCard, Calendar, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
+import CancelSubscriptionButton from '@/components/CancelSubscriptionButton';
 
 export default async function BillingPage() {
     const session = await auth();
@@ -29,11 +30,6 @@ export default async function BillingPage() {
         .where(eq(payments.userId, session.user.id))
         .orderBy(desc(payments.createdAt))
         .limit(10);
-
-    const handleCancelSubscription = async () => {
-        'use server';
-        // This will be handled by client-side component
-    };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-12 px-4">
@@ -70,10 +66,10 @@ export default async function BillingPage() {
                                     <p className="text-gray-400 text-sm mb-1">Status</p>
                                     <span
                                         className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${subscription.status === 'active'
-                                                ? 'bg-green-500/20 text-green-400'
-                                                : subscription.status === 'canceled'
-                                                    ? 'bg-red-500/20 text-red-400'
-                                                    : 'bg-yellow-500/20 text-yellow-400'
+                                            ? 'bg-green-500/20 text-green-400'
+                                            : subscription.status === 'canceled'
+                                                ? 'bg-red-500/20 text-red-400'
+                                                : 'bg-yellow-500/20 text-yellow-400'
                                             }`}
                                     >
                                         {subscription.status}
@@ -119,22 +115,7 @@ export default async function BillingPage() {
                                     Change Plan
                                 </Link>
                                 {subscription.status === 'active' && subscription.cancelAtPeriodEnd === 0 && (
-                                    <button
-                                        onClick={() => {
-                                            if (
-                                                confirm(
-                                                    'Are you sure you want to cancel your subscription? You will continue to have access until the end of your billing period.'
-                                                )
-                                            ) {
-                                                fetch('/api/subscription/cancel', { method: 'POST' })
-                                                    .then(() => window.location.reload())
-                                                    .catch(console.error);
-                                            }
-                                        }}
-                                        className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
-                                    >
-                                        Cancel Subscription
-                                    </button>
+                                    <CancelSubscriptionButton />
                                 )}
                             </div>
                         </div>
@@ -178,10 +159,10 @@ export default async function BillingPage() {
                                             <td className="py-4 px-4">
                                                 <span
                                                     className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${payment.status === 'success'
-                                                            ? 'bg-green-500/20 text-green-400'
-                                                            : payment.status === 'failed'
-                                                                ? 'bg-red-500/20 text-red-400'
-                                                                : 'bg-yellow-500/20 text-yellow-400'
+                                                        ? 'bg-green-500/20 text-green-400'
+                                                        : payment.status === 'failed'
+                                                            ? 'bg-red-500/20 text-red-400'
+                                                            : 'bg-yellow-500/20 text-yellow-400'
                                                         }`}
                                                 >
                                                     {payment.status}
