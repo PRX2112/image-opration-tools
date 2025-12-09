@@ -311,7 +311,7 @@ export default function TermsPage() {
                             </p>
                             <div className="bg-gray-100 dark:bg-gray-900/50 rounded-lg p-6 space-y-2">
                                 <p className="text-gray-700 dark:text-gray-300">
-                                    <strong>Email:</strong> legal@resizeme.in
+                                    <strong>Email:</strong> handleresizeme@gmail.com
                                 </p>
                                 <p className="text-gray-700 dark:text-gray-300">
                                     <strong>Support:</strong> handleresizeme@gmail.com

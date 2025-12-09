@@ -11,6 +11,18 @@ export const authConfig: NextAuthConfig = {
         Google({
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            authorization: {
+                params: {
+                    access_type: 'offline',
+                    prompt: 'consent',
+                    scope: [
+                        'openid',
+                        'email',
+                        'profile',
+                        'https://www.googleapis.com/auth/drive.file', // Access to files created by the app
+                    ].join(' '),
+                },
+            },
         }),
         Credentials({
             name: 'credentials',

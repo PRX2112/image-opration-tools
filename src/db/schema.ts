@@ -134,6 +134,25 @@ export const payments = pgTable('payment', {
     createdAt: timestamp('createdAt', { mode: 'date' }).defaultNow().notNull(),
 });
 
+// Google Drive files table (for tracking images saved to Drive)
+export const driveFiles = pgTable('driveFile', {
+    id: text('id')
+        .primaryKey()
+        .$defaultFn(() => crypto.randomUUID()),
+    userId: text('userId')
+        .notNull()
+        .references(() => users.id, { onDelete: 'cascade' }),
+    driveFileId: text('driveFileId').notNull().unique(), // Google Drive file ID
+    fileName: text('fileName').notNull(),
+    mimeType: text('mimeType').notNull(),
+    fileSize: integer('fileSize').notNull(), // in bytes
+    toolUsed: text('toolUsed').notNull(), // 'resize', 'crop', 'compress', etc.
+    webViewLink: text('webViewLink'), // Google Drive shareable link
+    thumbnailLink: text('thumbnailLink'), // Google Drive thumbnail URL
+    createdAt: timestamp('createdAt', { mode: 'date' }).defaultNow().notNull(),
+    updatedAt: timestamp('updatedAt', { mode: 'date' }).defaultNow().notNull(),
+});
+
 // Relations
 export const usersRelations = relations(users, ({ many }) => ({
     accounts: many(accounts),
@@ -142,6 +161,7 @@ export const usersRelations = relations(users, ({ many }) => ({
     usage: many(userUsage),
     subscriptions: many(subscriptions),
     payments: many(payments),
+    driveFiles: many(driveFiles),
 }));
 
 export const accountsRelations = relations(accounts, ({ one }) => ({
@@ -192,5 +212,12 @@ export const paymentsRelations = relations(payments, ({ one }) => ({
     subscription: one(subscriptions, {
         fields: [payments.subscriptionId],
         references: [subscriptions.id],
+    }),
+}));
+
+export const driveFilesRelations = relations(driveFiles, ({ one }) => ({
+    user: one(users, {
+        fields: [driveFiles.userId],
+        references: [users.id],
     }),
 }));

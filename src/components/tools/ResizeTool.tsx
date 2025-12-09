@@ -18,6 +18,9 @@ import {
 import { formatFileSize, calculatePercentageSize, fileToBase64, downloadFile } from '@/utils/imageUtils';
 import UpgradePrompt from '@/components/UpgradePrompt';
 import UsageStats from '@/components/UsageStats';
+import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
+import { useSession } from 'next-auth/react';
+import { PLANS } from '@/config/plans';
 
 const PRESET_SIZES = [
     { name: 'Instagram Post', width: 1080, height: 1080, icon: Instagram },
@@ -69,6 +72,11 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
     const [isServerProcessing, setIsServerProcessing] = useState(false);
     const [showUpgrade, setShowUpgrade] = useState(false);
     const [upgradeReason, setUpgradeReason] = useState<'downloads' | 'file_size' | 'storage'>('downloads');
+    const [processedImageBlob, setProcessedImageBlob] = useState<Blob | null>(null);
+    const [processedFileName, setProcessedFileName] = useState<string>('');
+
+    // Session for Drive integration
+    const { data: session } = useSession();
 
     // Usage tracking
     const { usage, limits, canDownload, canProcessFile, trackDownload, showUpgradePrompt } = useUsageTracking();
@@ -166,9 +174,23 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
 
                 const result = await response.json();
 
+                // Convert base64 to blob for Drive save
+                const base64Data = result.image.split(',')[1];
+                const byteCharacters = atob(base64Data);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                const blob = new Blob([byteArray], { type: `image/${format}` });
+
                 // Download the result
                 const filename = `resized-${width}x${height}.${format}`;
                 downloadFile(result.image, filename);
+
+                // Store for Drive save
+                setProcessedImageBlob(blob);
+                setProcessedFileName(filename);
 
                 // Track download
                 await trackDownload(originalFile.size, 'Resize Tool', originalFile.name);
@@ -448,6 +470,21 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
                                 <Download className="w-5 h-5" />
                                 {isProcessing || isServerProcessing ? 'Processing...' : `Download (${width} × ${height}px)`}
                             </button>
+
+                            {/* Save to Drive Button - Only for Pro/Business users */}
+                            {session && usage && processedImageBlob && (() => {
+                                const subscriptionTier = usage.subscriptionTier || 'free';
+                                const basePlan = subscriptionTier.split('_')[0];
+                                const plan = PLANS[basePlan];
+
+                                return plan?.driveIntegration ? (
+                                    <SaveToDriveButton
+                                        file={processedImageBlob}
+                                        fileName={processedFileName}
+                                        toolUsed="resize"
+                                    />
+                                ) : null;
+                            })()}
 
                             {/* Info */}
                             <div className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">

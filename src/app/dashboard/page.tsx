@@ -5,6 +5,7 @@ import { userUsage, imageHistory } from '@/db/schema';
 import { eq, desc } from 'drizzle-orm';
 import { LogOut, Settings, Image, Download, HardDrive } from 'lucide-react';
 import Link from 'next/link';
+import DriveConnectionCard from '@/components/drive/DriveConnectionCard';
 
 export default async function DashboardPage() {
     const session = await auth();
@@ -117,6 +118,16 @@ export default async function DashboardPage() {
                         </div>
                     </div>
                 </div>
+
+                {/* Google Drive Integration - Only for Pro/Business */}
+                {(subscriptionTier === 'pro_monthly' ||
+                    subscriptionTier === 'pro_yearly' ||
+                    subscriptionTier === 'business_monthly' ||
+                    subscriptionTier === 'business_yearly') && (
+                        <div className="mb-8">
+                            <DriveConnectionCard />
+                        </div>
+                    )}
 
                 {/* Image History */}
                 <div className="bg-white dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-gray-700/50 p-6 shadow-sm dark:shadow-none">

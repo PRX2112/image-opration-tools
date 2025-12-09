@@ -18,6 +18,7 @@ export interface Plan {
         downloadsPerMonth: number;
         storageLimit: number; // in bytes
     };
+    driveIntegration: boolean; // Google Drive integration
     popular?: boolean;
     razorpayPlanId?: {
         monthly?: string;
@@ -36,14 +37,14 @@ export const PLANS: Record<string, Plan> = {
         },
         currency: 'INR',
         features: [
-            { text: 'Basic image tools', included: true },
+            { text: 'All image tools access', included: true },
             { text: '10MB file size limit', included: true },
             { text: '50 downloads per month', included: true },
-            { text: 'No image history', included: false },
-            { text: 'Standard support', included: true },
-            { text: 'AI upscaling', included: false },
-            { text: 'Priority processing', included: false },
+            { text: 'Image history tracking', included: false },
+            { text: 'Google Drive storage', included: false },
+            { text: 'Priority support', included: false },
         ],
+        driveIntegration: false,
         limits: {
             maxFileSize: 10 * 1024 * 1024, // 10MB
             downloadsPerMonth: 50,
@@ -60,14 +61,15 @@ export const PLANS: Record<string, Plan> = {
         },
         currency: 'INR',
         features: [
-            { text: 'All image tools', included: true },
+            { text: 'All image tools access', included: true },
             { text: '200MB file size limit', included: true },
             { text: '500 downloads per month', included: true },
-            { text: 'Image history & cloud storage', included: true },
-            { text: 'Priority support', included: true },
-            { text: 'AI upscaling', included: true },
+            { text: 'Image history tracking', included: true },
+            { text: 'Save to Google Drive', included: true },
             { text: 'Batch processing', included: true },
+            { text: 'Priority support', included: true },
         ],
+        driveIntegration: true,
         limits: {
             maxFileSize: 200 * 1024 * 1024, // 200MB
             downloadsPerMonth: 500,
@@ -90,15 +92,14 @@ export const PLANS: Record<string, Plan> = {
         },
         currency: 'INR',
         features: [
-            { text: 'All Pro features', included: true },
+            { text: 'All Pro features included', included: true },
             { text: 'Unlimited file size', included: true },
             { text: 'Unlimited downloads', included: true },
-            { text: 'Unlimited cloud storage', included: true },
+            { text: 'Save to Google Drive', included: true },
             { text: 'Priority support', included: true },
-            { text: 'API access', included: true },
-            { text: 'Custom branding', included: true },
-            { text: 'Team collaboration', included: true },
+            { text: 'Advanced batch processing', included: true },
         ],
+        driveIntegration: true,
         limits: {
             maxFileSize: Infinity,
             downloadsPerMonth: Infinity,

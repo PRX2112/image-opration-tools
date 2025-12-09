@@ -18,6 +18,9 @@ import {
 } from 'react-compare-slider';
 import UpgradePrompt from '@/components/UpgradePrompt';
 import UsageStats from '@/components/UsageStats';
+import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
+import { useSession } from 'next-auth/react';
+import { PLANS } from '@/config/plans';
 
 interface CompressToolProps {
     defaultFormat?: string;
@@ -39,6 +42,9 @@ export default function CompressTool({ defaultFormat, title }: CompressToolProps
 
     const [showUpgrade, setShowUpgrade] = useState(false);
     const [upgradeReason, setUpgradeReason] = useState<'downloads' | 'file_size' | 'storage'>('downloads');
+
+    // Session for Drive integration
+    const { data: session } = useSession();
 
     // Usage tracking
     const { usage, limits, canDownload, canProcessFile, trackDownload } = useUsageTracking();
@@ -242,6 +248,34 @@ export default function CompressTool({ defaultFormat, title }: CompressToolProps
                                     </>
                                 )}
                             </button>
+
+                            {/* Save to Drive Button - Only for Pro/Business users */}
+                            {session && usage && compressedResult && (() => {
+                                const subscriptionTier = usage.subscriptionTier || 'free';
+                                const basePlan = subscriptionTier.split('_')[0];
+                                const plan = PLANS[basePlan];
+
+                                if (!plan?.driveIntegration) return null;
+
+                                // Convert base64 to blob
+                                const base64Data = compressedResult.image.split(',')[1];
+                                const byteCharacters = atob(base64Data);
+                                const byteNumbers = new Array(byteCharacters.length);
+                                for (let i = 0; i < byteCharacters.length; i++) {
+                                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                                }
+                                const byteArray = new Uint8Array(byteNumbers);
+                                const ext = compressedResult.format === 'jpeg' ? 'jpg' : compressedResult.format;
+                                const blob = new Blob([byteArray], { type: `image/${ext}` });
+
+                                return (
+                                    <SaveToDriveButton
+                                        file={blob}
+                                        fileName={`compressed-image.${ext}`}
+                                        toolUsed="compress"
+                                    />
+                                );
+                            })()}
                         </div>
                     </div>
                 )}
