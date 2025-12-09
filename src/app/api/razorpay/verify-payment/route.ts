@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
-import { verifyPaymentSignature } from '@/lib/razorpay';
+import { verifySubscriptionSignature } from '@/lib/razorpay';
 import { db } from '@/db/db';
 import { subscriptions, payments, userUsage } from '@/db/schema';
 import { eq } from 'drizzle-orm';
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Verify payment signature
-        const isValid = verifyPaymentSignature(
+        const isValid = verifySubscriptionSignature(
             razorpay_subscription_id,
             razorpay_payment_id,
             razorpay_signature

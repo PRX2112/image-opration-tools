@@ -50,6 +50,28 @@ export function verifyPaymentSignature(
 }
 
 /**
+ * Verify Razorpay subscription payment signature
+ * @param subscriptionId - Razorpay subscription ID
+ * @param paymentId - Razorpay payment ID
+ * @param signature - Razorpay signature
+ * @returns boolean indicating if signature is valid
+ */
+export function verifySubscriptionSignature(
+    subscriptionId: string,
+    paymentId: string,
+    signature: string
+): boolean {
+    // For subscriptions: payment_id + "|" + subscription_id
+    const body = paymentId + '|' + subscriptionId;
+    const expectedSignature = crypto
+        .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET!)
+        .update(body)
+        .digest('hex');
+
+    return expectedSignature === signature;
+}
+
+/**
  * Verify Razorpay webhook signature
  * @param body - Webhook request body as string
  * @param signature - Razorpay signature from header

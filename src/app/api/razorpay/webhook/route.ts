@@ -60,6 +60,14 @@ export async function POST(request: NextRequest) {
                 await handlePaymentFailed(payload.payment.entity);
                 break;
 
+            case 'payment.authorized':
+                console.log('Payment authorized:', payload.payment.entity.id);
+                break;
+
+            case 'payment.captured':
+                console.log('Payment captured:', payload.payment.entity.id);
+                break;
+
             default:
                 console.log('Unhandled event type:', eventType);
         }
