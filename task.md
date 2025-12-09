@@ -187,7 +187,23 @@
   - [ ] File metadata storage
 - [ ] API routes for history CRUD
 
-## Phase 13: SEO & Marketing (Future)
+## Phase 13: Ads Implementation ✅
+- [x] Create AdSense account (User action)
+- [x] Create AdUnit component with error handling
+- [x] Create AdBanner component with plan-based visibility
+- [x] Update plan configuration (free vs ad-free)
+- [x] Integrate ads into all tool pages
+  - [x] ResizeTool
+  - [x] CompressTool
+  - [x] CropTool
+  - [x] EnlargeTool
+  - [x] RotateTool
+  - [x] FlipTool
+  - [x] MemeGeneratorTool
+- [x] Integrate ads into Homepage
+- [x] Add AdSense script to layout
+
+## Phase 14: SEO & Marketing (Future)
 - [ ] Tool-specific SEO pages
   - [ ] `/resize-image-online`
   - [ ] `/compress-jpeg-free`

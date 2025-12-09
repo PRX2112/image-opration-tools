@@ -15,6 +15,7 @@ import {
   FlipHorizontal,
   Maximize,
 } from 'lucide-react';
+import AdBanner from '@/components/ads/AdBanner';
 
 export default function Home() {
   const tools = [
@@ -204,6 +205,9 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
+        <AdBanner adSlot="homepage-bottom" />
+      </div>
       <section className="py-20 bg-white dark:bg-gray-950">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="card relative overflow-hidden">

@@ -16,6 +16,7 @@ import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
 import { useSession } from 'next-auth/react';
 import { PLANS } from '@/config/plans';
 import { useUsageTracking } from '@/hooks/useUsageTracking';
+import AdBanner from '@/components/ads/AdBanner';
 
 interface FlipToolProps {
     title?: string;
@@ -213,6 +214,9 @@ export default function FlipTool({ title }: FlipToolProps) {
                                     {error}
                                 </div>
                             )}
+
+                            {/* Ad Banner for Free Users */}
+                            <AdBanner adSlot="flip-tool-bottom" />
                         </div>
                     </div>
                 )}

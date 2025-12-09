@@ -21,6 +21,7 @@ import UsageStats from '@/components/UsageStats';
 import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
 import { useSession } from 'next-auth/react';
 import { PLANS } from '@/config/plans';
+import AdBanner from '@/components/ads/AdBanner';
 
 interface CompressToolProps {
     defaultFormat?: string;
@@ -279,6 +280,9 @@ export default function CompressTool({ defaultFormat, title }: CompressToolProps
                         </div>
                     </div>
                 )}
+
+                {/* Ad Banner for Free Users */}
+                <AdBanner adSlot="compress-tool-bottom" />
             </div>
         </div>
     );

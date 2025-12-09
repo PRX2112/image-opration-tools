@@ -21,6 +21,7 @@ import UsageStats from '@/components/UsageStats';
 import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
 import { useSession } from 'next-auth/react';
 import { PLANS } from '@/config/plans';
+import AdBanner from '@/components/ads/AdBanner';
 
 const PRESET_SIZES = [
     { name: 'Instagram Post', width: 1080, height: 1080, icon: Instagram },
@@ -492,6 +493,9 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
                                     💡 {useServerProcessing ? 'Server-side processing with Sharp for best quality.' : 'Your image is processed in your browser.'}
                                 </p>
                             </div>
+
+                            {/* Ad Banner for Free Users */}
+                            <AdBanner adSlot="resize-tool-bottom" />
                         </div>
                     )}
                 </div>

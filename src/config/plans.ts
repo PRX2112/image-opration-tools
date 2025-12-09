@@ -19,6 +19,7 @@ export interface Plan {
         storageLimit: number; // in bytes
     };
     driveIntegration: boolean; // Google Drive integration
+    adFree: boolean; // Ad-free experience
     popular?: boolean;
     razorpayPlanId?: {
         monthly?: string;
@@ -42,9 +43,11 @@ export const PLANS: Record<string, Plan> = {
             { text: '50 downloads per month', included: true },
             { text: 'Image history tracking', included: false },
             { text: 'Google Drive storage', included: false },
+            { text: 'Ad-free experience', included: false },
             { text: 'Priority support', included: false },
         ],
         driveIntegration: false,
+        adFree: false,
         limits: {
             maxFileSize: 10 * 1024 * 1024, // 10MB
             downloadsPerMonth: 50,
@@ -66,10 +69,12 @@ export const PLANS: Record<string, Plan> = {
             { text: '500 downloads per month', included: true },
             { text: 'Image history tracking', included: true },
             { text: 'Save to Google Drive', included: true },
+            { text: 'Ad-free experience', included: true },
             { text: 'Batch processing', included: true },
             { text: 'Priority support', included: true },
         ],
         driveIntegration: true,
+        adFree: true,
         limits: {
             maxFileSize: 200 * 1024 * 1024, // 200MB
             downloadsPerMonth: 500,
@@ -96,10 +101,12 @@ export const PLANS: Record<string, Plan> = {
             { text: 'Unlimited file size', included: true },
             { text: 'Unlimited downloads', included: true },
             { text: 'Save to Google Drive', included: true },
+            { text: 'Ad-free experience', included: true },
             { text: 'Priority support', included: true },
             { text: 'Advanced batch processing', included: true },
         ],
         driveIntegration: true,
+        adFree: true,
         limits: {
             maxFileSize: Infinity,
             downloadsPerMonth: Infinity,

@@ -20,6 +20,7 @@ import UsageStats from '@/components/UsageStats';
 import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
 import { useSession } from 'next-auth/react';
 import { PLANS } from '@/config/plans';
+import AdBanner from '@/components/ads/AdBanner';
 
 const ASPECT_RATIOS = [
     { label: 'Free', value: undefined, icon: Maximize },
@@ -385,6 +386,9 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
                                     />
                                 ) : null;
                             })()}
+
+                            {/* Ad Banner for Free Users */}
+                            <AdBanner adSlot="crop-tool-bottom" />
                         </div>
                     )}
                 </div>

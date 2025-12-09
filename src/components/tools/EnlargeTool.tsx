@@ -23,6 +23,7 @@ import UsageStats from '@/components/UsageStats';
 import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
 import { useSession } from 'next-auth/react';
 import { PLANS } from '@/config/plans';
+import AdBanner from '@/components/ads/AdBanner';
 
 interface EnlargeToolProps {
     title?: string;
@@ -321,6 +322,9 @@ export default function EnlargeTool({ title }: EnlargeToolProps) {
                                     {error}
                                 </div>
                             )}
+
+                            {/* Ad Banner for Free Users */}
+                            <AdBanner adSlot="enlarge-tool-bottom" />
                         </div>
                     </div>
                 )}

@@ -15,6 +15,7 @@ import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
 import { useSession } from 'next-auth/react';
 import { PLANS } from '@/config/plans';
 import { useUsageTracking } from '@/hooks/useUsageTracking';
+import AdBanner from '@/components/ads/AdBanner';
 
 interface RotateToolProps {
     title?: string;
@@ -259,6 +260,9 @@ export default function RotateTool({ title }: RotateToolProps) {
                                     {error}
                                 </div>
                             )}
+
+                            {/* Ad Banner for Free Users */}
+                            <AdBanner adSlot="rotate-tool-bottom" />
                         </div>
                     </div>
                 )}
