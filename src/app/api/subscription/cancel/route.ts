@@ -3,7 +3,7 @@ import { auth } from '@/lib/auth';
 import { cancelSubscription as cancelRazorpaySubscription } from '@/lib/razorpay';
 import { db } from '@/db/db';
 import { subscriptions, userUsage } from '@/db/schema';
-import { eq } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 
 export async function POST(request: NextRequest) {
     try {
@@ -20,8 +20,12 @@ export async function POST(request: NextRequest) {
         const [subscription] = await db
             .select()
             .from(subscriptions)
-            .where(eq(subscriptions.userId, session.user.id))
-            .where(eq(subscriptions.status, 'active'))
+            .where(
+                and(
+                    eq(subscriptions.userId, session.user.id),
+                    eq(subscriptions.status, 'active')
+                )
+            )
             .limit(1);
 
         if (!subscription) {
