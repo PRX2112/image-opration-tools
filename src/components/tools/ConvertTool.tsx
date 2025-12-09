@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useImageConvert } from '@/hooks/useImageConvert';
+import { useUsageTracking } from '@/hooks/useUsageTracking';
 import BulkFileUpload from '@/components/BulkFileUpload';
 import {
     Download,
@@ -11,6 +12,8 @@ import {
     FileImage,
     X,
 } from 'lucide-react';
+import UpgradePrompt from '@/components/UpgradePrompt';
+import UsageStats from '@/components/UsageStats';
 
 const FORMATS = [
     { value: 'png', label: 'PNG' },
@@ -39,13 +42,51 @@ export default function ConvertTool({ defaultInputFormat, defaultOutputFormat = 
 
     const [targetFormat, setTargetFormat] = useState(defaultOutputFormat);
     const [quality, setQuality] = useState(90);
+    const [showUpgrade, setShowUpgrade] = useState(false);
+    const [upgradeReason, setUpgradeReason] = useState<'downloads' | 'file_size' | 'storage'>('downloads');
 
-    const handleConvert = () => {
-        convertImages(targetFormat, quality);
+    // Usage tracking
+    const { usage, limits, canDownload, canProcessFile, trackDownload } = useUsageTracking();
+
+    const handleFilesSelect = async (selectedFiles: File[]) => {
+        // Check each file size
+        for (const file of selectedFiles) {
+            if (!canProcessFile(file.size)) {
+                setUpgradeReason('file_size');
+                setShowUpgrade(true);
+                return;
+            }
+        }
+        addFiles(selectedFiles);
+    };
+
+    const handleConvert = async () => {
+        // Check if user can download
+        if (!canDownload()) {
+            setUpgradeReason('downloads');
+            setShowUpgrade(true);
+            return;
+        }
+
+        await convertImages(targetFormat, quality);
+
+        // Track download for each file
+        for (const fileData of files) {
+            await trackDownload(fileData.file.size, 'Convert Tool', fileData.file.name);
+        }
     };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-blue-900/20 py-12">
+            {/* Upgrade Prompt */}
+            {showUpgrade && usage && (
+                <UpgradePrompt
+                    reason={upgradeReason}
+                    currentPlan={usage.subscriptionTier}
+                    onClose={() => setShowUpgrade(false)}
+                />
+            )}
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-12 animate-fade-in">
@@ -59,10 +100,17 @@ export default function ConvertTool({ defaultInputFormat, defaultOutputFormat = 
                     </p>
                 </div>
 
+                {/* Usage Stats */}
+                {usage && limits && (
+                    <div className="mb-8 max-w-2xl mx-auto">
+                        <UsageStats usage={usage} limits={limits} compact />
+                    </div>
+                )}
+
                 {files.length === 0 ? (
                     <div className="max-w-2xl mx-auto animate-fade-in">
                         <BulkFileUpload
-                            onFilesSelect={addFiles}
+                            onFilesSelect={handleFilesSelect}
                             accept={defaultInputFormat ? `image/${defaultInputFormat}` : undefined}
                             maxSizeMB={10}
                             maxFiles={20}

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import FileUpload from '@/components/FileUpload';
 import { useImageResize } from '@/hooks/useImageResize';
+import { useUsageTracking } from '@/hooks/useUsageTracking';
 import {
     Download,
     RotateCcw,
@@ -15,6 +16,8 @@ import {
     Monitor,
 } from 'lucide-react';
 import { formatFileSize, calculatePercentageSize, fileToBase64, downloadFile } from '@/utils/imageUtils';
+import UpgradePrompt from '@/components/UpgradePrompt';
+import UsageStats from '@/components/UsageStats';
 
 const PRESET_SIZES = [
     { name: 'Instagram Post', width: 1080, height: 1080, icon: Instagram },
@@ -64,6 +67,11 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
     const [format, setFormat] = useState(defaultFormat);
     const [useServerProcessing, setUseServerProcessing] = useState(true);
     const [isServerProcessing, setIsServerProcessing] = useState(false);
+    const [showUpgrade, setShowUpgrade] = useState(false);
+    const [upgradeReason, setUpgradeReason] = useState<'downloads' | 'file_size' | 'storage'>('downloads');
+
+    // Usage tracking
+    const { usage, limits, canDownload, canProcessFile, trackDownload, showUpgradePrompt } = useUsageTracking();
 
     // Update dimensions when image loads
     useEffect(() => {
@@ -79,6 +87,12 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
     }, [defaultFormat]);
 
     const handleFileSelect = async (file: File) => {
+        // Check file size before loading
+        if (!canProcessFile(file.size)) {
+            setUpgradeReason('file_size');
+            setShowUpgrade(true);
+            return;
+        }
         await loadImageFile(file);
     };
 
@@ -118,6 +132,13 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
     const handleDownload = async () => {
         if (!originalFile || !originalImage) return;
 
+        // Check if user can download
+        if (!canDownload()) {
+            setUpgradeReason('downloads');
+            setShowUpgrade(true);
+            return;
+        }
+
         try {
             if (useServerProcessing) {
                 setIsServerProcessing(true);
@@ -149,6 +170,9 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
                 const filename = `resized-${width}x${height}.${format}`;
                 downloadFile(result.image, filename);
 
+                // Track download
+                await trackDownload(originalFile.size, 'Resize Tool', originalFile.name);
+
                 setIsServerProcessing(false);
             } else {
                 // Use client-side processing
@@ -159,6 +183,9 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
                     quality: quality / 100,
                     format,
                 });
+
+                // Track download
+                await trackDownload(originalFile.size, 'Resize Tool', originalFile.name);
             }
         } catch (err) {
             console.error('Download failed:', err);
@@ -176,6 +203,15 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-blue-900/20 py-12">
+            {/* Upgrade Prompt */}
+            {showUpgrade && usage && (
+                <UpgradePrompt
+                    reason={upgradeReason}
+                    currentPlan={usage.subscriptionTier}
+                    onClose={() => setShowUpgrade(false)}
+                />
+            )}
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-12 animate-fade-in">
@@ -196,6 +232,13 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
                         <span className="font-bold">Try Bulk Resize →</span>
                     </a>
                 </div>
+
+                {/* Usage Stats - Show if user is logged in */}
+                {usage && limits && (
+                    <div className="mb-8 max-w-2xl mx-auto">
+                        <UsageStats usage={usage} limits={limits} compact />
+                    </div>
+                )}
 
                 {/* Main Content */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

@@ -5,6 +5,7 @@ import { Menu, X, Image as ImageIcon } from 'lucide-react';
 import { useState } from 'react';
 import DropdownMenu from './DropdownMenu';
 import UserNav from './UserNav';
+import ThemeToggle from './ThemeToggle';
 
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -59,7 +60,7 @@ export default function Header() {
                             <ImageIcon className="w-6 h-6 text-white" />
                         </div>
                         <span className="text-xl font-bold gradient-text hidden sm:block">
-                            ResizeMe
+                            GetPixelTool
                         </span>
                     </Link>
 
@@ -78,23 +79,27 @@ export default function Header() {
                         </Link>
                     </div>
 
-                    {/* User Navigation */}
-                    <div className="hidden md:flex">
+                    {/* Right side: Theme Toggle + User Nav */}
+                    <div className="hidden md:flex items-center gap-3">
+                        <ThemeToggle />
                         <UserNav />
                     </div>
 
-                    {/* Mobile Menu Button */}
-                    <button
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                        aria-label="Toggle menu"
-                    >
-                        {mobileMenuOpen ? (
-                            <X className="w-6 h-6" />
-                        ) : (
-                            <Menu className="w-6 h-6" />
-                        )}
-                    </button>
+                    {/* Mobile Menu Button + Theme Toggle */}
+                    <div className="md:hidden flex items-center gap-2">
+                        <ThemeToggle />
+                        <button
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                            aria-label="Toggle menu"
+                        >
+                            {mobileMenuOpen ? (
+                                <X className="w-6 h-6" />
+                            ) : (
+                                <Menu className="w-6 h-6" />
+                            )}
+                        </button>
+                    </div>
                 </div>
 
                 {/* Mobile Menu */}

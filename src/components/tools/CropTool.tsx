@@ -5,6 +5,7 @@ import ReactCrop, { Crop, PixelCrop, centerCrop, makeAspectCrop } from 'react-im
 import 'react-image-crop/dist/ReactCrop.css';
 import FileUpload from '@/components/FileUpload';
 import { useImageCrop } from '@/hooks/useImageCrop';
+import { useUsageTracking } from '@/hooks/useUsageTracking';
 import {
     Download,
     RotateCcw,
@@ -14,6 +15,8 @@ import {
     Maximize,
     Loader2,
 } from 'lucide-react';
+import UpgradePrompt from '@/components/UpgradePrompt';
+import UsageStats from '@/components/UsageStats';
 
 const ASPECT_RATIOS = [
     { label: 'Free', value: undefined, icon: Maximize },
@@ -72,6 +75,11 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
     const [aspect, setAspect] = useState<number | undefined>(undefined);
     const [format, setFormat] = useState(defaultFormat);
     const imgRef = useRef<HTMLImageElement>(null);
+    const [showUpgrade, setShowUpgrade] = useState(false);
+    const [upgradeReason, setUpgradeReason] = useState<'downloads' | 'file_size' | 'storage'>('downloads');
+
+    // Usage tracking
+    const { usage, limits, canDownload, canProcessFile, trackDownload } = useUsageTracking();
 
     const onImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
         if (aspect) {
@@ -91,6 +99,12 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
     };
 
     const handleFileSelect = async (file: File) => {
+        // Check file size before loading
+        if (!canProcessFile(file.size)) {
+            setUpgradeReason('file_size');
+            setShowUpgrade(true);
+            return;
+        }
         await loadImageFile(file);
         setCrop(undefined);
         setCompletedCrop(undefined);
@@ -118,6 +132,13 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
     const handleDownload = async () => {
         if (!completedCrop || !imgRef.current) return;
 
+        // Check if user can download
+        if (!canDownload()) {
+            setUpgradeReason('downloads');
+            setShowUpgrade(true);
+            return;
+        }
+
         // The completedCrop contains coordinates relative to the DISPLAYED image size.
         // We need to scale them to the ORIGINAL image natural size for the server.
         const image = imgRef.current;
@@ -132,6 +153,11 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
         };
 
         await cropImage(serverCrop, 0, format);
+
+        // Track download
+        if (originalFile) {
+            await trackDownload(originalFile.size, 'Crop Tool', originalFile.name);
+        }
     };
 
     const handleReset = () => {
@@ -143,6 +169,15 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-blue-900/20 py-12">
+            {/* Upgrade Prompt */}
+            {showUpgrade && usage && (
+                <UpgradePrompt
+                    reason={upgradeReason}
+                    currentPlan={usage.subscriptionTier}
+                    onClose={() => setShowUpgrade(false)}
+                />
+            )}
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-12 animate-fade-in">
@@ -155,6 +190,13 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
                         Crop your images to exact dimensions or common aspect ratios
                     </p>
                 </div>
+
+                {/* Usage Stats */}
+                {usage && limits && (
+                    <div className="mb-8 max-w-2xl mx-auto">
+                        <UsageStats usage={usage} limits={limits} compact />
+                    </div>
+                )}
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Left: Cropper / Upload */}
@@ -226,8 +268,8 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
                                             key={ratio.label}
                                             onClick={() => handleAspectRatioChange(ratio.value)}
                                             className={`flex items-center gap-2 p-3 rounded-lg border-2 transition-all ${aspect === ratio.value
-                                                    ? 'border-primary bg-primary/5 text-primary'
-                                                    : 'border-gray-200 dark:border-gray-700 hover:border-primary/50 text-gray-700 dark:text-gray-300'
+                                                ? 'border-primary bg-primary/5 text-primary'
+                                                : 'border-gray-200 dark:border-gray-700 hover:border-primary/50 text-gray-700 dark:text-gray-300'
                                                 }`}
                                         >
                                             <ratio.icon className="w-4 h-4" />
@@ -248,8 +290,8 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
                                             key={fmt.value}
                                             onClick={() => setFormat(fmt.value)}
                                             className={`py-2 px-4 rounded-lg font-medium transition-all ${format === fmt.value
-                                                    ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-lg'
-                                                    : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                                                ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-lg'
+                                                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                                                 }`}
                                         >
                                             {fmt.label}

@@ -1,6 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import { useImageCompress } from '@/hooks/useImageCompress';
+import { useUsageTracking } from '@/hooks/useUsageTracking';
 import FileUpload from '@/components/FileUpload';
 import { formatFileSize, downloadFile } from '@/utils/imageUtils';
 import {
@@ -14,6 +16,8 @@ import {
     ReactCompareSlider,
     ReactCompareSliderImage,
 } from 'react-compare-slider';
+import UpgradePrompt from '@/components/UpgradePrompt';
+import UsageStats from '@/components/UsageStats';
 
 interface CompressToolProps {
     defaultFormat?: string;
@@ -33,10 +37,38 @@ export default function CompressTool({ defaultFormat, title }: CompressToolProps
         reset,
     } = useImageCompress();
 
-    const handleDownload = () => {
-        if (compressedResult) {
-            const ext = compressedResult.format === 'jpeg' ? 'jpg' : compressedResult.format;
-            downloadFile(compressedResult.image, `compressed-image.${ext}`);
+    const [showUpgrade, setShowUpgrade] = useState(false);
+    const [upgradeReason, setUpgradeReason] = useState<'downloads' | 'file_size' | 'storage'>('downloads');
+
+    // Usage tracking
+    const { usage, limits, canDownload, canProcessFile, trackDownload } = useUsageTracking();
+
+    const handleFileSelect = async (file: File) => {
+        // Check file size before loading
+        if (!canProcessFile(file.size)) {
+            setUpgradeReason('file_size');
+            setShowUpgrade(true);
+            return;
+        }
+        await loadFile(file);
+    };
+
+    const handleDownload = async () => {
+        if (!compressedResult) return;
+
+        // Check if user can download
+        if (!canDownload()) {
+            setUpgradeReason('downloads');
+            setShowUpgrade(true);
+            return;
+        }
+
+        const ext = compressedResult.format === 'jpeg' ? 'jpg' : compressedResult.format;
+        downloadFile(compressedResult.image, `compressed-image.${ext}`);
+
+        // Track download
+        if (originalFile) {
+            await trackDownload(originalFile.size, 'Compress Tool', originalFile.name);
         }
     };
 
@@ -46,6 +78,15 @@ export default function CompressTool({ defaultFormat, title }: CompressToolProps
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-blue-900/20 py-12">
+            {/* Upgrade Prompt */}
+            {showUpgrade && usage && (
+                <UpgradePrompt
+                    reason={upgradeReason}
+                    currentPlan={usage.subscriptionTier}
+                    onClose={() => setShowUpgrade(false)}
+                />
+            )}
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-12 animate-fade-in">
@@ -59,10 +100,17 @@ export default function CompressTool({ defaultFormat, title }: CompressToolProps
                     </p>
                 </div>
 
+                {/* Usage Stats */}
+                {usage && limits && (
+                    <div className="mb-8 max-w-2xl mx-auto">
+                        <UsageStats usage={usage} limits={limits} compact />
+                    </div>
+                )}
+
                 {!originalFile ? (
                     <div className="max-w-2xl mx-auto animate-fade-in">
                         <FileUpload
-                            onFileSelect={loadFile}
+                            onFileSelect={handleFileSelect}
                             accept="image/*"
                             maxSizeMB={10}
                         />

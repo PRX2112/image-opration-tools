@@ -23,22 +23,22 @@
   - [x] Tool cards for all features (9 tools total)
   - [x] Dark theme refinements
 
-## Phase 2: Authentication & User System (Week 2)
-- [ ] Install NextAuth.js / Auth.js
-- [ ] Setup authentication
-  - [ ] Email + Password auth
-  - [ ] Google OAuth
-  - [ ] Auth middleware protection
-- [ ] Create auth pages
-  - [ ] `/login` page
-  - [ ] `/signup` page
-  - [ ] Auth modal component
-- [ ] User dashboard
-  - [ ] `/dashboard` route
-  - [ ] User image history
-  - [ ] Subscription status display
-  - [ ] Download limits tracking
-- [ ] Database setup for users
+## Phase 2: Authentication & User System (Week 2) ✅
+- [x] Install NextAuth.js / Auth.js
+- [x] Setup authentication
+  - [x] Email + Password auth
+  - [x] Google OAuth
+  - [x] Auth middleware protection
+- [x] Create auth pages
+  - [x] `/login` page
+  - [x] `/signup` page
+  - [ ] Auth modal component (optional)
+- [x] User dashboard
+  - [x] `/dashboard` route
+  - [x] User image history
+  - [x] Subscription status display
+  - [x] Download limits tracking
+- [x] Database setup for users
 
 ## Phase 3: Pricing & Payments (Week 2)
 - [ ] Install Stripe SDK

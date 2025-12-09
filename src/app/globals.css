@@ -12,7 +12,7 @@
   }
 
   body {
-    @apply antialiased;
+    @apply antialiased bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300;
   }
 }
 
@@ -28,22 +28,16 @@
 
   /* Glass Effect */
   .glass {
-    @apply bg-white/10 backdrop-blur-md border border-white/20;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .glass {
-      @apply bg-gray-950 border-white/10;
-    }
+    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50;
   }
 
   /* Card */
   .card {
-    @apply bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md transition-all duration-300;
+    @apply bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-md dark:shadow-gray-900/50 transition-all duration-300;
   }
 
   .card:hover {
-    @apply -translate-y-1 shadow-xl;
+    @apply -translate-y-1 shadow-xl dark:shadow-gray-900/70;
   }
 
   /* Buttons */
@@ -66,7 +60,7 @@
   }
 
   .btn-secondary {
-    @apply bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-2 border-gray-300 dark:border-gray-700;
+    @apply bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-2 border-gray-300 dark:border-gray-700;
   }
 
   .btn-secondary:hover {
@@ -78,7 +72,7 @@
   }
 
   .btn-ghost:hover {
-    @apply bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white;
+    @apply bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100;
   }
 }
 
@@ -137,7 +131,7 @@
 
   /* Selection */
   ::selection {
-    background: rgba(102, 126, 234, 0.3);
+    @apply bg-purple-200 dark:bg-purple-900/50 text-gray-900 dark:text-gray-100;
   }
 
   /* Focus */
