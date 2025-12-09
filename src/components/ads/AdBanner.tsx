@@ -25,11 +25,11 @@ export default function AdBanner({ adSlot, className = '' }: AdBannerProps) {
                 <div className="text-center mb-2">
                     <span className="text-xs text-gray-400 dark:text-gray-500">Advertisement</span>
                 </div>
-                <div className="flex justify-center">
+                <div className="flex justify-center w-full">
                     <AdUnit
                         adSlot={adSlot}
                         adFormat="auto"
-                        adStyle={{ display: 'block', textAlign: 'center', minHeight: '100px', width: '100%' }}
+                        adStyle={{ display: 'block', minHeight: '100px', width: '100%', maxWidth: '100%' }}
                     />
                 </div>
             </div>
@@ -52,7 +52,7 @@ export default function AdBanner({ adSlot, className = '' }: AdBannerProps) {
             <div className="text-center mb-2">
                 <span className="text-xs text-gray-400 dark:text-gray-500">Advertisement</span>
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-center w-full">
                 <AdUnit
                     adSlot={adSlot}
                     adFormat="auto"
