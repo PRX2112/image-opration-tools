@@ -28,20 +28,35 @@ export default function AdUnit({
         // Only push ad once
         if (isAdPushed.current) return;
 
-        // Don't push if the ad container ref is not available (e.g. placeholder mode or disabled)
+        // Don't push if the ad container ref is not available
         if (!adRef.current) return;
 
-        try {
-            // Initialize adsbygoogle array if it doesn't exist
-            if (typeof window !== 'undefined') {
-                window.adsbygoogle = window.adsbygoogle || [];
-
-                // Push the ad
-                window.adsbygoogle.push({});
-                isAdPushed.current = true;
+        const pushAd = () => {
+            if (isAdPushed.current) return;
+            try {
+                if (typeof window !== 'undefined') {
+                    window.adsbygoogle = window.adsbygoogle || [];
+                    window.adsbygoogle.push({});
+                    isAdPushed.current = true;
+                }
+            } catch (error) {
+                console.error('AdSense error:', error);
             }
-        } catch (error) {
-            console.error('AdSense error:', error);
+        };
+
+        // Check if element has width
+        if (adRef.current.offsetWidth > 0) {
+            pushAd();
+        } else {
+            // Wait for width to be available
+            const resizeObserver = new ResizeObserver(() => {
+                if (adRef.current && adRef.current.offsetWidth > 0) {
+                    pushAd();
+                    resizeObserver.disconnect();
+                }
+            });
+            resizeObserver.observe(adRef.current);
+            return () => resizeObserver.disconnect();
         }
     }, []);
 
