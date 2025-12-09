@@ -66,8 +66,8 @@ export async function POST(request: NextRequest) {
                 .where(eq(userUsage.userId, session.user.id))
                 .returning();
 
-            // Optionally save to image history
-            if (toolName && fileName) {
+            // Optionally save to image history (Only for paid plans)
+            if (toolName && fileName && usage.subscriptionTier !== 'free') {
                 await db.insert(imageHistory).values({
                     userId: session.user.id,
                     toolName,
