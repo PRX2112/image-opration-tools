@@ -18,7 +18,7 @@ declare global {
 export default function AdUnit({
     adSlot,
     adFormat = 'auto',
-    adStyle = { display: 'block' },
+    adStyle = { display: 'block', minHeight: '100px', width: '100%' },
     className = ''
 }: AdUnitProps) {
     const adRef = useRef<HTMLModElement>(null);

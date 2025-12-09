@@ -29,7 +29,7 @@ export default function AdBanner({ adSlot, className = '' }: AdBannerProps) {
                     <AdUnit
                         adSlot={adSlot}
                         adFormat="auto"
-                        adStyle={{ display: 'block', textAlign: 'center' }}
+                        adStyle={{ display: 'block', textAlign: 'center', minHeight: '100px', width: '100%' }}
                     />
                 </div>
             </div>
@@ -56,7 +56,7 @@ export default function AdBanner({ adSlot, className = '' }: AdBannerProps) {
                 <AdUnit
                     adSlot={adSlot}
                     adFormat="auto"
-                    adStyle={{ display: 'block', textAlign: 'center' }}
+                    adStyle={{ display: 'block', textAlign: 'center', minHeight: '100px', width: '100%' }}
                 />
             </div>
         </div>
