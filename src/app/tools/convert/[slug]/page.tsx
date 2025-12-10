@@ -48,6 +48,32 @@ export default async function FormatConvertPage({ params }: PageProps) {
     );
 }
 
+export async function generateMetadata({ params }: PageProps) {
+    const resolvedParams = await params;
+    const slug = resolvedParams.slug.toLowerCase();
+
+    // Parse slug for metadata
+    const parts = slug.split('-to-');
+    let title = `Convert Images to ${slug.toUpperCase()}`;
+    let desc = `Convert any image to ${slug.toUpperCase()} format online.`;
+
+    if (parts.length === 2) {
+        const [source, target] = parts;
+        const displaySource = source.toUpperCase();
+        const displayTarget = target.toUpperCase();
+        title = `Convert ${displaySource} to ${displayTarget} Online - Free Converter`;
+        desc = `Convert ${displaySource} images to ${displayTarget} format instantly. Fast, free, and secure online image converter.`;
+    }
+
+    return {
+        title,
+        description: desc,
+        alternates: {
+            canonical: `/convert-${slug}`
+        }
+    };
+}
+
 export function generateStaticParams() {
     const formats = ['png', 'jpg', 'webp', 'avif'];
     const paths = [];

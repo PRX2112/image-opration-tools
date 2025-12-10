@@ -28,6 +28,46 @@ export default function CropPage() {
                 }
             }} />
             <CropTool title="Crop Image" />
+
+            <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
+                <div className="text-center space-y-4">
+                    <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                        Online Image Cropper – Crop Photos for Free
+                    </h1>
+                    <p className="text-lg text-gray-600 dark:text-gray-300">
+                        Crop your images easily with our free online tool. Perfect for social media profiles, covers, and posts.
+                    </p>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-8">
+                    <section className="space-y-4">
+                        <h2 className="text-2xl font-semibold">How to Crop an Image</h2>
+                        <ol className="list-decimal pl-5 space-y-2 text-gray-600 dark:text-gray-300">
+                            <li>Upload your photo</li>
+                            <li>Select an aspect ratio (16:9, 1:1, etc.)</li>
+                            <li>Drag the crop area to adjust</li>
+                            <li>Download the cropped image</li>
+                        </ol>
+                    </section>
+
+                    <section className="space-y-4">
+                        <h2 className="text-2xl font-semibold">Crop Features</h2>
+                        <ul className="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300">
+                            <li>📐 Pre-set Social Media Ratios</li>
+                            <li>✂️ Freeform cropping</li>
+                            <li>🔄 Lossless cropping quality</li>
+                            <li>📱 Mobile-friendly interface</li>
+                        </ul>
+                    </section>
+                </div>
+
+                <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold">Supported Formats</h2>
+                    <p className="text-gray-600 dark:text-gray-300">
+                        You can crop <strong>JPG, PNG, and WEBP</strong> images. Perfect for adjusting profile pictures for Instagram, Facebook, Twitter, and LinkedIn.
+                    </p>
+                </section>
+            </div>
         </>
     );
 }
