@@ -163,20 +163,9 @@
 - [x] Database migration to production
 - [x] Deployment documentation (DEPLOYMENT.md)
 
-## Phase 11: Cloud Storage & Processing (Future)
-- [ ] Setup Cloudflare R2 / AWS S3
-  - [ ] Temporary file storage
-  - [ ] Auto file purge after 30 minutes
-  - [ ] Signed URLs only
-- [ ] Setup Redis / Upstash
-  - [ ] Job queues for bulk processing
-  - [ ] Rate limits
-- [ ] Security enhancements
-  - [ ] Virus scan on upload
-  - [ ] Enhanced file type validation
-  - [ ] Size limits enforcement
 
-## Phase 12: Dashboard Enhancements (Future)
+
+## Phase 11: Dashboard Enhancements (Future)
 - [ ] User dashboard improvements
   - [ ] Image processing history with thumbnails
   - [ ] Storage usage display
@@ -187,7 +176,7 @@
   - [ ] File metadata storage
 - [ ] API routes for history CRUD
 
-## Phase 13: Ads Implementation ✅
+## Phase 12: Ads Implementation ✅
 - [x] Create AdSense account (User action)
 - [x] Create AdUnit component with error handling
 - [x] Create AdBanner component with plan-based visibility
@@ -202,8 +191,11 @@
   - [x] MemeGeneratorTool
 - [x] Integrate ads into Homepage
 - [x] Add AdSense script to layout
+- [x] Configuration Guide (google-adsense-setup.md)
+- [x] Add ads.txt file
+- [x] Update Privacy Policy with AdSense disclosures
 
-## Phase 14: SEO & Marketing (Future)
+## Phase 13: SEO & Marketing (Future)
 - [ ] Tool-specific SEO pages
   - [ ] `/resize-image-online`
   - [ ] `/compress-jpeg-free`

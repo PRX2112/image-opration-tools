@@ -151,21 +151,49 @@ export default function PrivacyPage() {
                         </section>
 
                         <section className="mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">9. Children's Privacy</h2>
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">9. Advertising</h2>
+                            <p className="text-gray-700 dark:text-gray-300 mb-4">
+                                This site displays ads provided by Google AdSense to support the free tier of our service.
+                            </p>
+
+                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">9.1 Google AdSense & Cookies</h3>
+                            <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mb-4 space-y-2">
+                                <li>Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to this website or other websites.</li>
+                                <li>Google's use of advertising cookies enables it and its partners to serve ads to users based on their visit to this site and/or other sites on the Internet.</li>
+                                <li>Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" className="text-blue-600 dark:text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">Google Ads Settings</a>.</li>
+                                <li>Alternatively, users can opt out of a third-party vendor's use of cookies for personalized advertising by visiting <a href="https://www.aboutads.info/choices/" className="text-blue-600 dark:text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">www.aboutads.info</a>.</li>
+                            </ul>
+
+                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">9.2 Data Usage</h3>
+                            <p className="text-gray-700 dark:text-gray-300 mb-4">
+                                When you visit our website, certain data is collected to facilitate ad serving:
+                            </p>
+                            <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mb-4 space-y-2">
+                                <li><strong>Device Information:</strong> Browser type, operating system, and IP address.</li>
+                                <li><strong>Location Data:</strong> Approximate location based on IP address.</li>
+                                <li><strong>Browsing Activity:</strong> Pages visited and interactions with ads.</li>
+                            </ul>
+                            <p className="text-gray-700 dark:text-gray-300 mb-4">
+                                This data helps measure the effectiveness of advertising and protects against fraud and invalid traffic.
+                            </p>
+                        </section>
+
+                        <section className="mb-8">
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">10. Children's Privacy</h2>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
                                 Our service is not intended for children under 13 years of age. We do not knowingly collect personal information from children. If you believe we have collected information from a child, please contact us immediately.
                             </p>
                         </section>
 
                         <section className="mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">10. International Data Transfers</h2>
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">11. International Data Transfers</h2>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
                                 Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place to protect your data in accordance with this Privacy Policy.
                             </p>
                         </section>
 
                         <section className="mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">11. Data Retention</h2>
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">12. Data Retention</h2>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
                                 We retain your personal information for as long as necessary to:
                             </p>
@@ -180,7 +208,7 @@ export default function PrivacyPage() {
                         </section>
 
                         <section className="mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">12. Changes to This Privacy Policy</h2>
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">13. Changes to This Privacy Policy</h2>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
                                 We may update this Privacy Policy from time to time. We will notify you of any material changes by:
                             </p>
@@ -195,7 +223,7 @@ export default function PrivacyPage() {
                         </section>
 
                         <section className="mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">13. Contact Us</h2>
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">14. Contact Us</h2>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
                                 If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:
                             </p>
@@ -213,7 +241,7 @@ export default function PrivacyPage() {
                         </section>
 
                         <section className="mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">14. GDPR Compliance (EU Users)</h2>
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">15. GDPR Compliance (EU Users)</h2>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
                                 If you are located in the European Economic Area (EEA), you have additional rights under the General Data Protection Regulation (GDPR):
                             </p>
