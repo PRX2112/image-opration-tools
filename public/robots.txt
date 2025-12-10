@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://resizeme.pro
+
+# Sitemaps
+Sitemap: https://resizeme.pro/sitemap.xml

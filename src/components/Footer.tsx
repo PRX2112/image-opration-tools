@@ -31,6 +31,8 @@ export default function Footer() {
     const legalLinks = [
         { name: 'Privacy Policy', href: '/privacy' },
         { name: 'Terms of Service', href: '/terms' },
+        { name: 'Refund Policy', href: '/refund' },
+        { name: 'Shipping Policy', href: '/shipping' }, // Required by Payment Gateways
         { name: 'Contact Us', href: '/contact' },
     ];
 

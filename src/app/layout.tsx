@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ChatWidget from "@/components/ChatWidget";
 import SessionProvider from "@/components/SessionProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,8 +13,53 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "ResizeMe - Free Online Image Tools",
-  description: "Professional image tools for resizing, cropping, compressing, and converting. Fast, secure, and privacy-focused. All processing happens in your browser.",
+  metadataBase: new URL(process.env.SITE_URL || 'https://resizeme.pro'),
+  title: {
+    default: "ResizeMe - Free Online Image Tools",
+    template: "%s | ResizeMe"
+  },
+  description: "Professional image tools for resizing, cropping, compressing, and converting. Fast, secure, and privacy-focused. All processing happens in your browser/server.",
+  keywords: ["image resizer", "photo editor", "online image tools", "compress image", "crop image", "convert image format", "free online tools"],
+  authors: [{ name: "ResizeMe Team" }],
+  creator: "ResizeMe",
+  publisher: "ResizeMe",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://resizeme.pro',
+    siteName: 'ResizeMe',
+    title: 'ResizeMe - All-in-One Image Toolkit',
+    description: 'Resize, crop, compress, and convert images instantly. Free, secure, and high-quality.',
+    images: [
+      {
+        url: '/og-image.jpg', // We need to create this later
+        width: 1200,
+        height: 630,
+        alt: 'ResizeMe Preview',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ResizeMe - All-in-One Image Toolkit',
+    description: 'Resize, crop, compress, and convert images instantly.',
+    creator: '@resizeme',
+    images: ['/og-image.jpg'],
+  },
+  verification: {
+    google: "VerificationCodeHere", // User to provide later
+  }
 };
 
 export default function RootLayout({
@@ -46,6 +90,7 @@ export default function RootLayout({
             {/* <ChatWidget /> */}
           </ThemeProvider>
         </SessionProvider>
+        {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
       </body>
     </html>
   );

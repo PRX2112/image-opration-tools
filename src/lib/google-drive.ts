@@ -79,8 +79,26 @@ export async function uploadImageToDrive(params: {
 
         const driveFileId = response.data.id!;
         const webViewLink = response.data.webViewLink!;
-        const thumbnailLink = response.data.thumbnailLink;
+        let thumbnailLink = response.data.thumbnailLink;
         const fileSize = parseInt(response.data.size || '0');
+
+        // If thumbnail is missing, wait and try to fetch it again (Drive takes time to generate it)
+        if (!thumbnailLink) {
+            console.log('Thumbnail not available immediately, waiting...');
+            await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds
+
+            try {
+                const metadataResponse = await drive.files.get({
+                    fileId: driveFileId,
+                    fields: 'thumbnailLink',
+                });
+                if (metadataResponse.data.thumbnailLink) {
+                    thumbnailLink = metadataResponse.data.thumbnailLink;
+                }
+            } catch (err) {
+                console.error('Failed to fetch delayed metadata:', err);
+            }
+        }
 
         // Save metadata to database
         await db.insert(driveFiles).values({
