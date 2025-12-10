@@ -83,8 +83,8 @@ export const PLANS: Record<string, Plan> = {
         popular: true,
         razorpayPlanId: {
             // These will be created in Razorpay dashboard
-            monthly: 'plan_Rp8hABbIJJiShZ',
-            yearly: 'plan_Rp8k8g42wFHcYR',
+            monthly: 'plan_Rpn0a8C4h6KPRu', //'plan_Rp8hABbIJJiShZ',
+            yearly: 'plan_Rpn1HRdxT7wJWz' //'plan_Rp8k8g42wFHcYR',
         },
     },
     business: {
@@ -113,8 +113,8 @@ export const PLANS: Record<string, Plan> = {
             storageLimit: Infinity,
         },
         razorpayPlanId: {
-            monthly: 'plan_Rp8lIfjg5FKkXC',
-            yearly: 'plan_Rp8m8KaC4aJlLW',
+            monthly: 'plan_Rpn1uHYBJhqOeY', //'plan_Rp8lIfjg5FKkXC',
+            yearly: 'plan_Rpn2kgj7CaDMY2' //'plan_Rp8m8KaC4aJlLW',
         },
     },
 };
