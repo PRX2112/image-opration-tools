@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Menu, X, Image as ImageIcon } from 'lucide-react';
+import { Menu, X, Image as ImageIcon, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import DropdownMenu from './DropdownMenu';
 import UserNav from './UserNav';
@@ -9,6 +9,7 @@ import ThemeToggle from './ThemeToggle';
 
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [expandedMobileCategory, setExpandedMobileCategory] = useState<string | null>(null);
 
     const resizeTools = [
         { label: 'Image Resize', href: '/tools/resize', description: 'Resize to any dimension' },
@@ -49,6 +50,36 @@ export default function Header() {
         { label: 'Flip Image', href: '/tools/flip', description: 'Flip horizontally/vertically' },
         { label: 'Image Enlarger', href: '/tools/enlarge', description: 'Upscale images' },
     ];
+
+    const toggleMobileCategory = (category: string) => {
+        setExpandedMobileCategory(expandedMobileCategory === category ? null : category);
+    };
+
+    const MobileMenuItem = ({ label, items, category }: { label: string, items: typeof resizeTools, category: string }) => (
+        <div className="flex flex-col">
+            <button
+                onClick={() => toggleMobileCategory(category)}
+                className="flex items-center justify-between w-full px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+            >
+                {label}
+                <ChevronDown className={`w-4 h-4 transition-transform ${expandedMobileCategory === category ? 'rotate-180' : ''}`} />
+            </button>
+            {expandedMobileCategory === category && (
+                <div className="flex flex-col pl-4 mt-1 space-y-1">
+                    {items.map((item) => (
+                        <Link
+                            key={item.href}
+                            href={item.href}
+                            className="block px-4 py-2 text-sm text-gray-500 dark:text-gray-400 hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800/50 rounded-lg transition-colors"
+                            onClick={() => setMobileMenuOpen(false)}
+                        >
+                            {item.label}
+                        </Link>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
 
     return (
         <header className="sticky top-0 z-50 glass border-b border-white/10">
@@ -104,54 +135,37 @@ export default function Header() {
 
                 {/* Mobile Menu */}
                 {mobileMenuOpen && (
-                    <div className="md:hidden py-4 animate-fade-in border-t border-gray-200 dark:border-gray-700">
-                        <div className="flex flex-col gap-2">
-                            <Link
-                                href="/tools/resize"
-                                className="text-base font-medium text-gray-600 dark:text-gray-300 hover:text-primary transition-colors px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                                onClick={() => setMobileMenuOpen(false)}
-                            >
-                                Resize
-                            </Link>
-                            <Link
-                                href="/tools/crop"
-                                className="text-base font-medium text-gray-600 dark:text-gray-300 hover:text-primary transition-colors px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                                onClick={() => setMobileMenuOpen(false)}
-                            >
-                                Crop
-                            </Link>
-                            <Link
-                                href="/tools/compress"
-                                className="text-base font-medium text-gray-600 dark:text-gray-300 hover:text-primary transition-colors px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                                onClick={() => setMobileMenuOpen(false)}
-                            >
-                                Compress
-                            </Link>
-                            <Link
-                                href="/tools/convert"
-                                className="text-base font-medium text-gray-600 dark:text-gray-300 hover:text-primary transition-colors px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                                onClick={() => setMobileMenuOpen(false)}
-                            >
-                                Convert
-                            </Link>
+                    <div className="md:hidden py-4 animate-fade-in border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 absolute left-0 right-0 px-4 shadow-xl border-b">
+                        <div className="flex flex-col gap-2 max-h-[80vh] overflow-y-auto">
+                            <MobileMenuItem label="Resize" items={resizeTools} category="resize" />
+                            <MobileMenuItem label="Crop" items={cropTools} category="crop" />
+                            <MobileMenuItem label="Compress" items={compressTools} category="compress" />
+                            <MobileMenuItem label="Convert" items={convertTools} category="convert" />
+                            <MobileMenuItem label="More Tools" items={moreTools} category="more" />
+
+                            <div className="bg-gray-100 dark:bg-gray-800 h-px my-2 mx-4" />
+
                             <Link
                                 href="/pricing"
-                                className="text-base font-medium text-gray-600 dark:text-gray-300 hover:text-primary transition-colors px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                                className="px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
                                 onClick={() => setMobileMenuOpen(false)}
                             >
                                 Pricing
                             </Link>
-                            <div className="flex flex-col gap-2 px-4 mt-2">
+
+                            <div className="bg-gray-100 dark:bg-gray-800 h-px my-2 mx-4" />
+
+                            <div className="flex flex-col gap-2 px-4 pb-4">
                                 <Link
                                     href="/login"
-                                    className="btn btn-ghost"
+                                    className="btn btn-ghost w-full justify-center"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     Login
                                 </Link>
                                 <Link
                                     href="/signup"
-                                    className="btn btn-primary"
+                                    className="btn btn-primary w-full justify-center"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     Sign Up
