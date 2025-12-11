@@ -43,6 +43,11 @@ export async function POST(req: NextRequest) {
                 quality: quality,
                 effort: 6 // Max effort
             });
+        } else if (outputFormat === 'gif') {
+            sharpInstance = sharpInstance.gif({
+                colours: 128, // Reduce colors for compression
+                effort: 10,  // Max effort
+            });
         }
 
         const compressedBuffer = await sharpInstance.toBuffer();

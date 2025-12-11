@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
       { source: '/compress-jpg', destination: '/tools/compress/jpg' },
       { source: '/compress-png', destination: '/tools/compress/png' },
       { source: '/compress-webp', destination: '/tools/compress/webp' },
+      { source: '/compress-gif', destination: '/tools/compress/gif' },
 
       // Convert specific
       { source: '/convert-jpg-to-png', destination: '/tools/convert/jpg-to-png' },

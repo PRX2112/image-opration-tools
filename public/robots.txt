@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://resizeme.pro
+Host: https://resizeme.in
 
 # Sitemaps
-Sitemap: https://resizeme.pro/sitemap.xml
+Sitemap: https://resizeme.in/sitemap.xml

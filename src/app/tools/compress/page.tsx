@@ -64,7 +64,7 @@ export default function CompressPage() {
                 <section className="space-y-4">
                     <h2 className="text-2xl font-semibold">Supported Formats</h2>
                     <p className="text-gray-600 dark:text-gray-300">
-                        Our compressor works perfectly with <strong>JPG, PNG, and WEBP</strong> files.
+                        Our compressor works perfectly with <strong>JPG, PNG, WEBP, and GIF</strong> files.
                         Ideal for optimizing website images, email attachments, and storage saving.
                     </p>
                 </section>

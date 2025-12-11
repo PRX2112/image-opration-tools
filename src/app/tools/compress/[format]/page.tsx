@@ -1,7 +1,7 @@
 import CompressTool from '@/components/tools/CompressTool';
 import { notFound } from 'next/navigation';
 
-const VALID_FORMATS = ['png', 'jpg', 'jpeg', 'webp'];
+const VALID_FORMATS = ['png', 'jpg', 'jpeg', 'webp', 'gif'];
 
 interface PageProps {
     params: Promise<{
@@ -48,5 +48,6 @@ export function generateStaticParams() {
         { format: 'png' },
         { format: 'jpg' },
         { format: 'webp' },
+        { format: 'gif' },
     ];
 }
