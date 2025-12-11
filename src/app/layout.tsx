@@ -13,7 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.SITE_URL || 'https://resizeme.pro'),
+  metadataBase: new URL(process.env.SITE_URL || 'https://resizeme.in'),
   title: {
     default: "ResizeMe - Free Online Image Tools",
     template: "%s | ResizeMe"
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://resizeme.pro',
+    url: 'https://resizeme.in',
     siteName: 'ResizeMe',
     title: 'ResizeMe - All-in-One Image Toolkit',
     description: 'Resize, crop, compress, and convert images instantly. Free, secure, and high-quality.',
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     images: ['/og-image.jpg'],
   },
   verification: {
-    google: "VerificationCodeHere", // User to provide later
+    google: "google-site-verification=VerificationCodeHere", // Replace with your actual code
   }
 };
 
