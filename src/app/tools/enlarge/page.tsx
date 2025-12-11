@@ -4,7 +4,7 @@ import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
     title: 'Image Enlarger - Upscale Photos Online',
-    description: 'Enlarge images online without losing quality. Upscale photos by 2x or 4x using smart resizing algorithms. Improve image resolution free.',
+    description: 'Enlarge images online without losing quality. Upscale photos by 2x or 4x using smart resizing algorithms. Improve image resolution with our Pro tools.',
     alternates: {
         canonical: '/tools/enlarge'
     }
@@ -30,10 +30,10 @@ export default function EnlargePage() {
             <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
                 <div className="text-center space-y-4">
                     <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                        Online Image Enlarger – Upscale Photos for Free
+                        Online Image Enlarger – Upscale Photos
                     </h1>
                     <p className="text-lg text-gray-600 dark:text-gray-300">
-                        Make your small images larger without pixelation. Upscale low-resolution photos for printing or web use.
+                        Make your small images larger without pixelation. Upscale low-resolution photos for printing or web use with our advanced AI tools.
                     </p>
                 </div>
 
