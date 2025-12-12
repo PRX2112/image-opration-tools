@@ -1,6 +1,7 @@
 import ColorPickerTool from '@/components/tools/ColorPickerTool';
 import { Metadata } from 'next';
 import JsonLd from '@/components/JsonLd';
+import ToolRecommendations from '@/components/ToolRecommendations';
 
 export const metadata: Metadata = {
     title: 'Image Color Picker - Extract Colors Online',
@@ -59,6 +60,8 @@ export default function ColorPickerPage() {
                     </section>
                 </div>
             </div>
+
+            <ToolRecommendations currentTool="color-picker" />
         </>
     );
 }

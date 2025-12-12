@@ -3,6 +3,7 @@
 import CropTool from '@/components/tools/CropTool';
 import { Metadata } from 'next';
 import JsonLd from '@/components/JsonLd';
+import ToolRecommendations from '@/components/ToolRecommendations';
 
 export const metadata: Metadata = {
     title: 'Crop Image Online - Free Photo Cropper',
@@ -68,6 +69,8 @@ export default function CropPage() {
                     </p>
                 </section>
             </div>
+
+            <ToolRecommendations currentTool="crop" />
         </>
     );
 }

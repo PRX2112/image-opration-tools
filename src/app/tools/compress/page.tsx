@@ -3,6 +3,7 @@
 import CompressTool from '@/components/tools/CompressTool';
 import { Metadata } from 'next';
 import JsonLd from '@/components/JsonLd';
+import ToolRecommendations from '@/components/ToolRecommendations';
 
 export const metadata: Metadata = {
     title: 'Compress Image Online - Reduce File Size',
@@ -69,6 +70,8 @@ export default function CompressPage() {
                     </p>
                 </section>
             </div>
+
+            <ToolRecommendations currentTool="compress" />
         </>
     );
 }

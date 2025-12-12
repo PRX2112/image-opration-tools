@@ -1,6 +1,7 @@
 import MemeGeneratorTool from '@/components/tools/MemeGeneratorTool';
 import { Metadata } from 'next';
 import JsonLd from '@/components/JsonLd';
+import ToolRecommendations from '@/components/ToolRecommendations';
 
 export const metadata: Metadata = {
     title: 'Meme Generator Online - Create Memes Free',
@@ -59,6 +60,8 @@ export default function MemeGeneratorPage() {
                     </section>
                 </div>
             </div>
+
+            <ToolRecommendations currentTool="meme-generator" />
         </>
     );
 }

@@ -1,6 +1,7 @@
 import EnlargeTool from '@/components/tools/EnlargeTool';
 import { Metadata } from 'next';
 import JsonLd from '@/components/JsonLd';
+import ToolRecommendations from '@/components/ToolRecommendations';
 
 export const metadata: Metadata = {
     title: 'Image Enlarger - Upscale Photos Online',
@@ -59,6 +60,8 @@ export default function EnlargePage() {
                     </section>
                 </div>
             </div>
+
+            <ToolRecommendations currentTool="enlarge" />
         </>
     );
 }

@@ -3,6 +3,7 @@
 import ResizeTool from '@/components/tools/ResizeTool';
 import { Metadata } from 'next';
 import JsonLd from '@/components/JsonLd';
+import ToolRecommendations from '@/components/ToolRecommendations';
 
 export const metadata: Metadata = {
     title: 'Resize Image Online - Free, Fast & Secure',
@@ -69,6 +70,8 @@ export default function ResizePage() {
                     </p>
                 </section>
             </div>
+
+            <ToolRecommendations currentTool="resize" />
         </>
     );
 }

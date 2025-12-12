@@ -1,6 +1,7 @@
 import FlipTool from '@/components/tools/FlipTool';
 import { Metadata } from 'next';
 import JsonLd from '@/components/JsonLd';
+import ToolRecommendations from '@/components/ToolRecommendations';
 
 export const metadata: Metadata = {
     title: 'Flip Image Online - Mirror Photos Vertically & Horizontally',
@@ -59,6 +60,8 @@ export default function FlipPage() {
                     </section>
                 </div>
             </div>
+
+            <ToolRecommendations currentTool="flip" />
         </>
     );
 }

@@ -1,6 +1,7 @@
 import ConvertTool from '@/components/tools/ConvertTool';
 import { Metadata } from 'next';
 import JsonLd from '@/components/JsonLd';
+import ToolRecommendations from '@/components/ToolRecommendations';
 
 export const metadata: Metadata = {
     title: 'Image Converter Online - Convert JPG, PNG, WEBP, SVG',
@@ -67,6 +68,8 @@ export default function ConvertPage() {
                     </p>
                 </section>
             </div>
+
+            <ToolRecommendations currentTool="convert" />
         </>
     );
 }

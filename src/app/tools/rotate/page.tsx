@@ -1,6 +1,7 @@
 import RotateTool from '@/components/tools/RotateTool';
 import { Metadata } from 'next';
 import JsonLd from '@/components/JsonLd';
+import ToolRecommendations from '@/components/ToolRecommendations';
 
 export const metadata: Metadata = {
     title: 'Rotate Image Online - Turn Pictures 90, 180 Degrees',
@@ -59,6 +60,8 @@ export default function RotatePage() {
                     </section>
                 </div>
             </div>
+
+            <ToolRecommendations currentTool="rotate" />
         </>
     );
 }
