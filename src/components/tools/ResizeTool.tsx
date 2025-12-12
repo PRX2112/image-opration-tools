@@ -22,6 +22,10 @@ import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
 import { useSession } from 'next-auth/react';
 import { PLANS } from '@/config/plans';
 import AdBanner from '@/components/ads/AdBanner';
+import RecentUploads, { addRecentUpload } from '@/components/RecentUploads';
+import ToolRecommendations from '@/components/ToolRecommendations';
+import BookmarkPrompt, { incrementToolUsage } from '@/components/BookmarkPrompt';
+import { trackImageUpload, trackImageDownload, trackToolConversion, trackTimeOnTool } from '@/lib/analytics';
 
 const PRESET_SIZES = [
     { name: 'Instagram Post', width: 1080, height: 1080, icon: Instagram },
@@ -75,6 +79,8 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
     const [upgradeReason, setUpgradeReason] = useState<'downloads' | 'file_size' | 'storage'>('downloads');
     const [processedImageBlob, setProcessedImageBlob] = useState<Blob | null>(null);
     const [processedFileName, setProcessedFileName] = useState<string>('');
+    const [startTime, setStartTime] = useState<number>(0);
+    const [showRecommendations, setShowRecommendations] = useState(false);
 
     // Session for Drive integration
     const { data: session } = useSession();
@@ -102,6 +108,12 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
             setShowUpgrade(true);
             return;
         }
+
+        // Track upload and start timer
+        trackImageUpload('Resize Tool', file.size, file.type);
+        setStartTime(Date.now());
+        incrementToolUsage();
+
         await loadImageFile(file);
     };
 
@@ -193,8 +205,18 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
                 setProcessedImageBlob(blob);
                 setProcessedFileName(filename);
 
-                // Track download
+                // Track download and conversion
                 await trackDownload(originalFile.size, 'Resize Tool', originalFile.name);
+                trackImageDownload('Resize Tool', blob.size, `image/${format}`);
+
+                const processingTime = Date.now() - startTime;
+                trackToolConversion('Resize Tool', processingTime);
+
+                // Add to recent uploads
+                addRecentUpload('Resize Image', '/tools/resize');
+
+                // Show recommendations
+                setShowRecommendations(true);
 
                 setIsServerProcessing(false);
             } else {
@@ -207,8 +229,18 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
                     format,
                 });
 
-                // Track download
+                // Track download and conversion
                 await trackDownload(originalFile.size, 'Resize Tool', originalFile.name);
+                trackImageDownload('Resize Tool', originalFile.size, `image/${format}`);
+
+                const processingTime = Date.now() - startTime;
+                trackToolConversion('Resize Tool', processingTime);
+
+                // Add to recent uploads
+                addRecentUpload('Resize Image', '/tools/resize');
+
+                // Show recommendations
+                setShowRecommendations(true);
             }
         } catch (err) {
             console.error('Download failed:', err);
@@ -262,6 +294,9 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
                         <UsageStats usage={usage} limits={limits} compact />
                     </div>
                 )}
+
+                {/* Recent Uploads */}
+                <RecentUploads />
 
                 {/* Main Content */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -499,7 +534,15 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
                         </div>
                     )}
                 </div>
+
+                {/* Tool Recommendations */}
+                {showRecommendations && (
+                    <ToolRecommendations currentTool="resize" />
+                )}
             </div>
+
+            {/* Bookmark Prompt */}
+            <BookmarkPrompt />
         </div>
     );
 }

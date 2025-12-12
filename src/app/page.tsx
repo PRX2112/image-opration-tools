@@ -106,8 +106,8 @@ export default function Home() {
     },
     {
       icon: Sparkles,
-      title: 'Always Free',
-      description: 'All features are completely free forever',
+      title: 'Generous Free Tier',
+      description: 'Core features are free forever. Upgrade for advanced tools.',
     },
   ];
 
@@ -134,9 +134,26 @@ export default function Home() {
               compress, and convert images with zero uploads and complete
               privacy.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a href="#tools" className="btn btn-primary text-lg px-8 py-4">
-                Get Started Free
+
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex items-center gap-2">
+                <Shield className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                <span>100% Private</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Zap className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                <span>Instant Processing</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                <span>Free Forever</span>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+              <a href="#tools" className="btn btn-primary text-lg px-8 py-4 shadow-xl hover:shadow-2xl transition-shadow">
+                Start Editing Now →
               </a>
               <a href="#features" className="btn btn-secondary text-lg px-8 py-4">
                 Learn More

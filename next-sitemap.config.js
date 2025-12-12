@@ -15,6 +15,23 @@ module.exports = {
     additionalPaths: async (config) => {
         const result = []
 
+        // SEO landing pages with high priority
+        const seoPages = [
+            '/resize-image-online',
+            '/compress-image-online',
+            '/crop-image-online',
+            '/convert-image-format',
+        ]
+
+        seoPages.forEach((page) => {
+            result.push({
+                loc: page,
+                changefreq: 'weekly',
+                priority: 0.9,
+                lastmod: new Date().toISOString(),
+            })
+        })
+
         // Manual list of rewrites from next.config.ts to match SEO landing pages
         const rewrites = [
             '/resize-jpg',

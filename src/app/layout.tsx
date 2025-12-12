@@ -57,6 +57,10 @@ export const metadata: Metadata = {
     creator: '@resizeme',
     images: ['/og-image.jpg'],
   },
+  icons: {
+    icon: '/icon',
+    apple: '/icon',
+  },
   verification: {
     google: "google-site-verification=VerificationCodeHere", // Replace with your actual code
   }
