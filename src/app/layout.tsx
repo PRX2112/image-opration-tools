@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import SessionProvider from "@/components/SessionProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { GoogleAnalytics } from '@next/third-parties/google';
+import InteractiveDotsBackground from "@/components/ui/InteractiveDotsBackground";
+import { ENABLE_INTERACTIVE_BACKGROUND } from "@/config/ui";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -87,7 +89,8 @@ export default function RootLayout({
         <SessionProvider>
           <ThemeProvider>
             <Header />
-            <main className="min-h-screen">
+            {ENABLE_INTERACTIVE_BACKGROUND && <InteractiveDotsBackground />}
+            <main className="min-h-screen relative z-10">
               {children}
             </main>
             <Footer />
