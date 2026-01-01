@@ -89,8 +89,8 @@ export default function Footer() {
                         {/* Brand Section */}
                         <div className="space-y-4">
                             <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
-                                    <ImageIcon className="w-5 h-5 text-white" aria-hidden="true" />
+                                <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+                                    <img src="/logo.png" className="w-5 h-5 text-white" aria-hidden="true" />
                                 </div>
                                 <h2 className="text-xl font-bold gradient-text">ResizeMe</h2>
                             </div>
