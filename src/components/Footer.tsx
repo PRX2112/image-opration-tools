@@ -98,22 +98,6 @@ export default function Footer() {
                                 Professional online image editing tools. Resize, crop, compress, and convert images for free in your browser with complete privacy.
                             </p>
 
-                            {/* Social Links */}
-                            <nav aria-label="Social media links">
-                                <div className="flex gap-3">
-                                    {socialLinks.map((social) => (
-                                        <a
-                                            key={social.name}
-                                            href={social.href}
-                                            className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-gradient-to-r hover:from-purple-500 hover:to-blue-500 hover:text-white transition-all duration-300 hover:scale-110"
-                                            aria-label={social.label}
-                                            title={social.label}
-                                        >
-                                            <social.icon className="w-5 h-5" aria-hidden="true" />
-                                        </a>
-                                    ))}
-                                </div>
-                            </nav>
 
                             {/* Trust Badges */}
                             <div className="mt-4 space-y-1 text-sm text-gray-600 dark:text-gray-400">

@@ -87,8 +87,8 @@ export default function Header() {
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
-                            <ImageIcon className="w-6 h-6 text-white" />
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-black to-blue-900 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
+                            <img src="/logo.png" alt="Logo" className="w-6 h-6 text-white" />
                         </div>
                         <span className="text-xl font-bold gradient-text hidden sm:block">
                             ResizeMe

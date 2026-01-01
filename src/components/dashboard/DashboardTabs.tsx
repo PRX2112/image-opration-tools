@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { LayoutDashboard, HardDrive, History, CreditCard, Image as ImageIcon } from 'lucide-react';
+import { formatBytes } from '@/utils/usageUtils';
 import DriveGallery from './DriveGallery';
 import BillingCard from './BillingCard';
 import DriveConnectionCard from '@/components/drive/DriveConnectionCard';
@@ -124,8 +125,8 @@ export default function DashboardTabs({ usage, limits, history, driveFiles, paym
                             <div className="bg-white dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-gray-700/50 p-6">
                                 <p className="text-gray-500 dark:text-gray-400 text-sm mb-1">Storage</p>
                                 <div className="flex items-end gap-2">
-                                    <p className="text-2xl font-bold text-gray-900 dark:text-white">{(usage.storageUsed / (1024 * 1024)).toFixed(1)}</p>
-                                    <p className="text-sm text-gray-400 mb-1">/ {limits.storage === Infinity ? '∞' : (limits.storage / (1024 * 1024 * 1024)).toFixed(0) + ' GB'} MB</p>
+                                    <p className="text-2xl font-bold text-gray-900 dark:text-white">{formatBytes(usage.storageUsed)}</p>
+                                    <p className="text-sm text-gray-400 mb-1">/ {limits.storage === Infinity ? '∞' : formatBytes(limits.storage)}</p>
                                 </div>
                                 <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-1.5 mt-3">
                                     <div className="bg-orange-500 h-1.5 rounded-full" style={{ width: `${limits.storage === Infinity ? 0 : Math.min((usage.storageUsed / limits.storage) * 100, 100)}%` }}></div>
@@ -214,6 +215,6 @@ export default function DashboardTabs({ usage, limits, history, driveFiles, paym
                     </div>
                 )}
             </div>
-        </div>
+        </div >
     );
 }

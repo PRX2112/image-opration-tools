@@ -60,8 +60,8 @@ export const metadata: Metadata = {
     images: ['/og-image.jpg'],
   },
   icons: {
-    icon: '/icon',
-    apple: '/icon',
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
   },
   verification: {
     google: "google-site-verification=VerificationCodeHere", // Replace with your actual code
@@ -76,6 +76,18 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "ResizeMe",
+              url: "https://resizeme.in",
+              logo: "https://resizeme.in/logo.png",
+            }),
+          }}
+        />
         {/* Google AdSense */}
         {process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID && process.env.NEXT_PUBLIC_ADS_ENABLED === 'true' && (
           <script

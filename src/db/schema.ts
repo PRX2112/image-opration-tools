@@ -171,6 +171,15 @@ export const accountsRelations = relations(accounts, ({ one }) => ({
     }),
 }));
 
+// Site stats table (for visitor counting)
+export const siteStats = pgTable('siteStats', {
+    id: text('id')
+        .primaryKey()
+        .$defaultFn(() => crypto.randomUUID()),
+    visitorCount: integer('visitorCount').default(0).notNull(),
+    updatedAt: timestamp('updatedAt', { mode: 'date' }).defaultNow().notNull(),
+});
+
 export const sessionsRelations = relations(sessions, ({ one }) => ({
     user: one(users, {
         fields: [sessions.userId],

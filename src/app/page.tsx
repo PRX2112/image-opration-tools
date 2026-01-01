@@ -1,6 +1,7 @@
 'use client';
 
 import ToolCard from '@/components/ToolCard';
+import VisitorCounter from '@/components/VisitorCounter';
 import {
   Maximize2,
   Crop,
@@ -134,7 +135,7 @@ export default function Home() {
             </p>
 
             {/* Trust Indicators */}
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-600 dark:text-gray-400">
+            <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-600 dark:text-gray-400 items-center">
               <div className="flex items-center gap-2">
                 <Shield className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                 <span>100% Private</span>
@@ -147,6 +148,7 @@ export default function Home() {
                 <Sparkles className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                 <span>Free Forever</span>
               </div>
+              <VisitorCounter />
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
