@@ -38,11 +38,11 @@ export default function Footer() {
     ];
 
     const companyLinks = [
+        { name: 'About Us', href: '/about', description: 'Learn about our mission' },
         { name: 'Pricing Plans', href: '/pricing', description: 'View our pricing' },
         { name: 'Privacy Policy', href: '/privacy', description: 'How we protect your data' },
         { name: 'Terms of Service', href: '/terms', description: 'Terms and conditions' },
         { name: 'Refund Policy', href: '/refund', description: 'Our refund policy' },
-        { name: 'Shipping Policy', href: '/shipping', description: 'Shipping information' },
         { name: 'Contact Us', href: '/contact', description: 'Get in touch' },
     ];
 

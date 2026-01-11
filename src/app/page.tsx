@@ -17,6 +17,7 @@ import {
   Maximize,
 } from 'lucide-react';
 import AdBanner from '@/components/ads/AdBanner';
+import UltimateGuide from '@/components/sections/UltimateGuide';
 
 export default function Home() {
   const tools = [
@@ -220,6 +221,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <UltimateGuide />
 
       {/* CTA Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
