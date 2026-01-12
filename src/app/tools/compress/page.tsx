@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: 'Compress Image Online - Reduce File Size',
     description: 'Compress JPG, PNG, WEBP images online without losing quality. Reduce file size up to 80% for faster websites.',
     alternates: {
-        canonical: '/tools/compress'
+        canonical: '/compress-image-online'
     }
 };
 

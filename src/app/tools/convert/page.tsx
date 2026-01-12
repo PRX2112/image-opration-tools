@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     title: 'Image Converter Online - Convert JPG, PNG, WEBP, SVG',
     description: 'Free online image converter. Convert between format like JPG, PNG, WEBP, SVG, and GIF instantly. Bulk conversion supported.',
     alternates: {
-        canonical: '/tools/convert'
+        canonical: '/convert-image-format'
     }
 };
 

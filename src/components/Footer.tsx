@@ -19,8 +19,8 @@ export default function Footer() {
         {
             title: 'Advanced Tools',
             links: [
-                { name: 'Rotate Image', href: '/tools/rotate', description: 'Rotate photos online' },
-                { name: 'Flip Image', href: '/tools/flip', description: 'Flip images horizontally or vertically' },
+                { name: 'Rotate Image', href: '/rotate-image', description: 'Rotate photos online' },
+                { name: 'Flip Image', href: '/flip-image', description: 'Flip images horizontally or vertically' },
                 { name: 'Enlarge Image', href: '/tools/enlarge', description: 'Upscale image quality' },
                 { name: 'Meme Generator', href: '/tools/meme-generator', description: 'Create memes online' },
                 { name: 'Color Picker', href: '/tools/color-picker', description: 'Extract colors from images' },

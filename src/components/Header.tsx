@@ -12,7 +12,7 @@ export default function Header() {
     const [expandedMobileCategory, setExpandedMobileCategory] = useState<string | null>(null);
 
     const resizeTools = [
-        { label: 'Image Resize', href: '/tools/resize', description: 'Resize to any dimension' },
+        { label: 'Image Resize', href: '/resize-image-online', description: 'Resize to any dimension' },
         { label: 'Bulk Resize', href: '/tools/resize/bulk', description: 'Resize multiple images' },
         { label: 'Resize PNG', href: '/tools/resize/png', description: 'PNG specific resizing' },
         { label: 'Resize JPG', href: '/tools/resize/jpg', description: 'JPG specific resizing' },
@@ -20,21 +20,21 @@ export default function Header() {
     ];
 
     const cropTools = [
-        { label: 'Image Crop', href: '/tools/crop', description: 'Crop with precision' },
+        { label: 'Image Crop', href: '/crop-image-online', description: 'Crop with precision' },
         { label: 'Crop PNG', href: '/tools/crop/png', description: 'PNG specific cropping' },
         { label: 'Crop JPG', href: '/tools/crop/jpg', description: 'JPG specific cropping' },
         { label: 'Crop WebP', href: '/tools/crop/webp', description: 'WebP specific cropping' },
     ];
 
     const compressTools = [
-        { label: 'Image Compress', href: '/tools/compress', description: 'Reduce file size' },
+        { label: 'Image Compress', href: '/compress-image-online', description: 'Reduce file size' },
         { label: 'Compress JPEG', href: '/tools/compress/jpeg', description: 'JPEG compression' },
         { label: 'Compress PNG', href: '/tools/compress/png', description: 'PNG compression' },
         { label: 'Compress GIF', href: '/tools/compress/gif', description: 'GIF compression' },
     ];
 
     const convertTools = [
-        { label: 'Format Convert', href: '/tools/convert', description: 'Convert between formats' },
+        { label: 'Format Convert', href: '/convert-image-format', description: 'Convert between formats' },
         { label: 'To SVG', href: '/tools/convert/svg', description: 'Convert to SVG' },
         { label: 'To PNG', href: '/tools/convert/png', description: 'Convert to PNG' },
         { label: 'To JPG', href: '/tools/convert/jpg', description: 'Convert to JPG' },
@@ -46,8 +46,8 @@ export default function Header() {
     const moreTools = [
         { label: 'Meme Generator', href: '/tools/meme-generator', description: 'Create memes' },
         { label: 'Color Picker', href: '/tools/color-picker', description: 'Extract colors' },
-        { label: 'Rotate Image', href: '/tools/rotate', description: 'Rotate images' },
-        { label: 'Flip Image', href: '/tools/flip', description: 'Flip horizontally/vertically' },
+        { label: 'Rotate Image', href: '/rotate-image', description: 'Rotate images' },
+        { label: 'Flip Image', href: '/flip-image', description: 'Flip horizontally/vertically' },
         { label: 'Image Enlarger', href: '/tools/enlarge', description: 'Upscale images' },
     ];
 

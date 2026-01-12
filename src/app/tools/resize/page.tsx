@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: 'Resize Image Online - Free, Fast & Secure',
     description: 'Resize JPG, PNG, WEBP images online for free. Change image dimensions by percentage or pixels without losing quality.',
     alternates: {
-        canonical: '/tools/resize'
+        canonical: '/resize-image-online'
     }
 };
 

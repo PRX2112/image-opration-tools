@@ -11,7 +11,7 @@ module.exports = {
             },
         ],
     },
-    exclude: ['/dashboard/*', '/admin/*', '/auth/*'],
+    exclude: ['/dashboard/*', '/admin/*', '/auth/*', '/tools/resize*', '/tools/crop*', '/tools/compress*', '/tools/convert*', '/tools/rotate*', '/tools/flip*'],
     additionalPaths: async (config) => {
         const result = []
 

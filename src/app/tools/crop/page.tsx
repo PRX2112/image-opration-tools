@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: 'Crop Image Online - Free Photo Cropper',
     description: 'Crop images online with ease. Use presets like 16:9, 1:1, or freeform cropping. Secure, client-side processing.',
     alternates: {
-        canonical: '/tools/crop'
+        canonical: '/crop-image-online'
     }
 };
 
