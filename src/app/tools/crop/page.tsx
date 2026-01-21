@@ -62,11 +62,30 @@ export default function CropPage() {
                     </section>
                 </div>
 
+
                 <section className="space-y-4">
                     <h2 className="text-2xl font-semibold">Supported Formats</h2>
                     <p className="text-gray-600 dark:text-gray-300">
                         You can crop <strong>JPG, PNG, and WEBP</strong> images. Perfect for adjusting profile pictures for Instagram, Facebook, Twitter, and LinkedIn.
                     </p>
+                </section>
+
+                <section className="space-y-4 pt-8 border-t border-gray-200 dark:border-gray-800">
+                    <h2 className="text-2xl font-semibold">Common Cropping Questions</h2>
+                    <div className="space-y-4">
+                        <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6">
+                            <h3 className="font-semibold text-lg mb-2">What is the best aspect ratio for Instagram?</h3>
+                            <p className="text-gray-600 dark:text-gray-400">
+                                For posts, a 1:1 (Square) or 4:5 (Portrait) ratio is best. For Stories, use 9:16. Our tool has built-in presets for all these sizes.
+                            </p>
+                        </div>
+                        <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6">
+                            <h3 className="font-semibold text-lg mb-2">does cropping lower the resolution?</h3>
+                            <p className="text-gray-600 dark:text-gray-400">
+                                Cropping removes pixels from the image, so the overall resolution (dimensions) will be smaller. However, the quality of the remaining pixels stays exactly the same.
+                            </p>
+                        </div>
+                    </div>
                 </section>
             </div>
 

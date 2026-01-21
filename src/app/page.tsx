@@ -222,7 +222,71 @@ export default function Home() {
         </div>
       </section>
 
+
+      {/* How It Works Section */}
+      <section className="py-20 bg-white dark:bg-gray-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              How to Use ResizeMe
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Optimizing your images is simple, fast, and secure.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center p-6">
+              <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/50 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold text-purple-600 dark:text-purple-400">1</div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Select Your Tool</h3>
+              <p className="text-gray-600 dark:text-gray-400">
+                Choose from our wide range of tools: Resize, Crop, Compress, Rotate, and more.
+              </p>
+            </div>
+            <div className="text-center p-6">
+              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold text-blue-600 dark:text-blue-400">2</div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Upload Image</h3>
+              <p className="text-gray-600 dark:text-gray-400">
+                Drag and drop your image or select it from your device. We support JPG, PNG, WebP, and more.
+              </p>
+            </div>
+            <div className="text-center p-6">
+              <div className="w-16 h-16 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold text-green-600 dark:text-green-400">3</div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Process & Download</h3>
+              <p className="text-gray-600 dark:text-gray-400">
+                Apply your changes instantly and download your optimized image. No sign-up required.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <UltimateGuide />
+
+      {/* FAQ Snippet for SEO */}
+      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+              Frequently Asked Questions
+            </h2>
+          </div>
+          <div className="space-y-6">
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Is ResizeMe free to use?</h3>
+              <p className="text-gray-600 dark:text-gray-300">Yes, ResizeMe is completely free for all basic image editing tasks. We offer premium features for advanced users, but the core tools will always be free.</p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Are my images secure?</h3>
+              <p className="text-gray-600 dark:text-gray-300">Absolutely. ResizeMe processes your images locally in your browser using modern web technologies. Your photos are never uploaded to our servers, ensuring 100% privacy.</p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">What image formats do you support?</h3>
+              <p className="text-gray-600 dark:text-gray-300">We support all major image formats including JPEG, PNG, WebP, SVG, and GIF. You can also convert between these formats using our Converter tool.</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* CTA Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">

@@ -62,12 +62,37 @@ export default function ResizePage() {
                     </section>
                 </div>
 
+
                 <section className="space-y-4">
                     <h2 className="text-2xl font-semibold">Supported Formats</h2>
                     <p className="text-gray-600 dark:text-gray-300">
                         We support all major image formats including <strong>JPG, JPEG, PNG, WEBP, and AVIF</strong>.
                         You can resize images for social media profile pictures, banners, or website optimization.
                     </p>
+                </section>
+
+                <section className="space-y-4 pt-8 border-t border-gray-200 dark:border-gray-800">
+                    <h2 className="text-2xl font-semibold">Frequency Asked Questions</h2>
+                    <div className="space-y-4">
+                        <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6">
+                            <h3 className="font-semibold text-lg mb-2">Does resizing reduce image quality?</h3>
+                            <p className="text-gray-600 dark:text-gray-400">
+                                It depends on how you resize. Scaling down (making smaller) usually maintains or improves perceived quality. Upscaling (making larger) can cause pixelation, but our AI-powered upscaler helps minimize this.
+                            </p>
+                        </div>
+                        <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6">
+                            <h3 className="font-semibold text-lg mb-2">Is my data safe?</h3>
+                            <p className="text-gray-600 dark:text-gray-400">
+                                Yes! We process all images locally in your browser. Unlike other sites, we don't upload your photos to a server, so your privacy is 100% guaranteed.
+                            </p>
+                        </div>
+                        <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6">
+                            <h3 className="font-semibold text-lg mb-2">Can I resize multiple images at once?</h3>
+                            <p className="text-gray-600 dark:text-gray-400">
+                                Yes, our tool supports batch processing. You can select multiple files and resize them all to the same dimensions simultaneously.
+                            </p>
+                        </div>
+                    </div>
                 </section>
             </div>
 

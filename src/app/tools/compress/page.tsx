@@ -62,12 +62,31 @@ export default function CompressPage() {
                     </section>
                 </div>
 
+
                 <section className="space-y-4">
                     <h2 className="text-2xl font-semibold">Supported Formats</h2>
                     <p className="text-gray-600 dark:text-gray-300">
                         Our compressor works perfectly with <strong>JPG, PNG, WEBP, and GIF</strong> files.
                         Ideal for optimizing website images, email attachments, and storage saving.
                     </p>
+                </section>
+
+                <section className="space-y-4 pt-8 border-t border-gray-200 dark:border-gray-800">
+                    <h2 className="text-2xl font-semibold">Image Compression FAQs</h2>
+                    <div className="space-y-4">
+                        <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6">
+                            <h3 className="font-semibold text-lg mb-2">How much will my file size reduce?</h3>
+                            <p className="text-gray-600 dark:text-gray-400">
+                                It varies by image, but we typically see reductions of 50-80% without noticeable quality loss. Complex photos may compress less than simple graphics.
+                            </p>
+                        </div>
+                        <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6">
+                            <h3 className="font-semibold text-lg mb-2">What is the difference between specific compression levels?</h3>
+                            <p className="text-gray-600 dark:text-gray-400">
+                                Higher compression levels result in smaller file sizes but may introduce some visual artifacts. Lower compression keeps more detail but saves less space. We recommend starting with the default "Balanced" setting.
+                            </p>
+                        </div>
+                    </div>
                 </section>
             </div>
 
