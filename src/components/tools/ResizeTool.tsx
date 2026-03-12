@@ -16,12 +16,7 @@ import {
     Monitor,
 } from 'lucide-react';
 import { formatFileSize, calculatePercentageSize, fileToBase64, downloadFile } from '@/utils/imageUtils';
-import UpgradePrompt from '@/components/UpgradePrompt';
-import UsageStats from '@/components/UsageStats';
-import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
-import { useSession } from 'next-auth/react';
-import { PLANS } from '@/config/plans';
-import AdBanner from '@/components/ads/AdBanner';
+
 import RecentUploads, { addRecentUpload } from '@/components/RecentUploads';
 import ToolRecommendations from '@/components/ToolRecommendations';
 import BookmarkPrompt, { incrementToolUsage } from '@/components/BookmarkPrompt';
@@ -75,15 +70,13 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
     const [format, setFormat] = useState(defaultFormat);
     const [useServerProcessing, setUseServerProcessing] = useState(true);
     const [isServerProcessing, setIsServerProcessing] = useState(false);
-    const [showUpgrade, setShowUpgrade] = useState(false);
-    const [upgradeReason, setUpgradeReason] = useState<'downloads' | 'file_size' | 'storage'>('downloads');
+
     const [processedImageBlob, setProcessedImageBlob] = useState<Blob | null>(null);
     const [processedFileName, setProcessedFileName] = useState<string>('');
     const [startTime, setStartTime] = useState<number>(0);
     const [showRecommendations, setShowRecommendations] = useState(false);
 
-    // Session for Drive integration
-    const { data: session } = useSession();
+
 
     // Usage tracking
     const { usage, limits, canDownload, canProcessFile, trackDownload, showUpgradePrompt } = useUsageTracking();
@@ -102,12 +95,8 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
     }, [defaultFormat]);
 
     const handleFileSelect = async (file: File) => {
-        // Check file size before loading
-        if (!canProcessFile(file.size)) {
-            setUpgradeReason('file_size');
-            setShowUpgrade(true);
-            return;
-        }
+        // No limit
+
 
         // Track upload and start timer
         trackImageUpload('Resize Tool', file.size, file.type);
@@ -153,12 +142,7 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
     const handleDownload = async () => {
         if (!originalFile || !originalImage) return;
 
-        // Check if user can download
-        if (!canDownload()) {
-            setUpgradeReason('downloads');
-            setShowUpgrade(true);
-            return;
-        }
+        // No limit
 
         try {
             if (useServerProcessing) {
@@ -258,15 +242,6 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-blue-900/20 py-12">
-            {/* Upgrade Prompt */}
-            {showUpgrade && usage && (
-                <UpgradePrompt
-                    reason={upgradeReason}
-                    currentPlan={usage.subscriptionTier}
-                    onClose={() => setShowUpgrade(false)}
-                />
-            )}
-
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-12 animate-fade-in">
@@ -288,12 +263,7 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
                     </a>
                 </div>
 
-                {/* Usage Stats - Show if user is logged in */}
-                {usage && limits && (
-                    <div className="mb-8 max-w-2xl mx-auto">
-                        <UsageStats usage={usage} limits={limits} compact />
-                    </div>
-                )}
+
 
                 {/* Recent Uploads */}
                 <RecentUploads />
@@ -507,30 +477,7 @@ export default function ResizeTool({ defaultFormat = 'png', title }: ResizeToolP
                                 {isProcessing || isServerProcessing ? 'Processing...' : `Download (${width} × ${height}px)`}
                             </button>
 
-                            {/* Save to Drive Button - Only for Pro/Business users */}
-                            {session && usage && processedImageBlob && (() => {
-                                const subscriptionTier = usage.subscriptionTier || 'free';
-                                const basePlan = subscriptionTier.split('_')[0];
-                                const plan = PLANS[basePlan];
 
-                                return plan?.driveIntegration ? (
-                                    <SaveToDriveButton
-                                        file={processedImageBlob}
-                                        fileName={processedFileName}
-                                        toolUsed="resize"
-                                    />
-                                ) : null;
-                            })()}
-
-                            {/* Info */}
-                            <div className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
-                                <p className="text-sm text-blue-800 dark:text-blue-300">
-                                    💡 {useServerProcessing ? 'Server-side processing with Sharp for best quality.' : 'Your image is processed in your browser.'}
-                                </p>
-                            </div>
-
-                            {/* Ad Banner for Free Users */}
-                            <AdBanner adSlot="resize-tool-bottom" />
                         </div>
                     )}
                 </div>

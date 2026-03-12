@@ -56,24 +56,6 @@ export function getRemainingStorage(used: number, limit: number): number {
     return Math.max(0, limit - used);
 }
 
-/**
- * Check if user should see upgrade prompt
- */
-export function shouldShowUpgradePrompt(
-    usage: { downloadsThisMonth: number; storageUsed: number },
-    limits: { downloadsPerMonth: number; storageLimit: number }
-): boolean {
-    const downloadPercentage = calculateUsagePercentage(
-        usage.downloadsThisMonth,
-        limits.downloadsPerMonth
-    );
-    const storagePercentage = calculateUsagePercentage(
-        usage.storageUsed,
-        limits.storageLimit
-    );
-
-    return downloadPercentage >= 80 || storagePercentage >= 80;
-}
 
 /**
  * Format file size limit for display

@@ -1,18 +1,14 @@
 /**
  * Validates if a file is a valid image
  */
-export function validateImageFile(file: File, maxSizeMB: number = 10): { valid: boolean; error?: string } {
+export function validateImageFile(file: File, maxSizeMB: number = Infinity): { valid: boolean; error?: string } {
     // Check file type
     if (!file.type.startsWith('image/')) {
         return { valid: false, error: 'Please upload an image file' };
     }
 
-    // Check file size
-    const maxSize = maxSizeMB * 1024 * 1024;
-    if (file.size > maxSize) {
-        return { valid: false, error: `File size must be less than ${maxSizeMB}MB` };
-    }
-
+    // No file size limit enforced (browser limits apply naturally)
+    
     return { valid: true };
 }
 

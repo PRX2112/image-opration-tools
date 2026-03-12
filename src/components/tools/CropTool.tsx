@@ -15,12 +15,6 @@ import {
     Maximize,
     Loader2,
 } from 'lucide-react';
-import UpgradePrompt from '@/components/UpgradePrompt';
-import UsageStats from '@/components/UsageStats';
-import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
-import { useSession } from 'next-auth/react';
-import { PLANS } from '@/config/plans';
-import AdBanner from '@/components/ads/AdBanner';
 
 const ASPECT_RATIOS = [
     { label: 'Free', value: undefined, icon: Maximize },
@@ -79,13 +73,8 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
     const [aspect, setAspect] = useState<number | undefined>(undefined);
     const [format, setFormat] = useState(defaultFormat);
     const imgRef = useRef<HTMLImageElement>(null);
-    const [showUpgrade, setShowUpgrade] = useState(false);
-    const [upgradeReason, setUpgradeReason] = useState<'downloads' | 'file_size' | 'storage'>('downloads');
     const [processedImageBlob, setProcessedImageBlob] = useState<Blob | null>(null);
     const [processedFileName, setProcessedFileName] = useState<string>('');
-
-    // Session for Drive integration
-    const { data: session } = useSession();
 
     // Usage tracking
     const { usage, limits, canDownload, canProcessFile, trackDownload } = useUsageTracking();
@@ -108,12 +97,6 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
     };
 
     const handleFileSelect = async (file: File) => {
-        // Check file size before loading
-        if (!canProcessFile(file.size)) {
-            setUpgradeReason('file_size');
-            setShowUpgrade(true);
-            return;
-        }
         await loadImageFile(file);
         setCrop(undefined);
         setCompletedCrop(undefined);
@@ -141,12 +124,7 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
     const handleDownload = async () => {
         if (!completedCrop || !imgRef.current) return;
 
-        // Check if user can download
-        if (!canDownload()) {
-            setUpgradeReason('downloads');
-            setShowUpgrade(true);
-            return;
-        }
+
 
         // The completedCrop contains coordinates relative to the DISPLAYED image size.
         // We need to scale them to the ORIGINAL image natural size for the server.
@@ -222,14 +200,7 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-blue-900/20 py-12">
-            {/* Upgrade Prompt */}
-            {showUpgrade && usage && (
-                <UpgradePrompt
-                    reason={upgradeReason}
-                    currentPlan={usage.subscriptionTier}
-                    onClose={() => setShowUpgrade(false)}
-                />
-            )}
+
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
@@ -244,12 +215,7 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
                     </p>
                 </div>
 
-                {/* Usage Stats */}
-                {usage && limits && (
-                    <div className="mb-8 max-w-2xl mx-auto">
-                        <UsageStats usage={usage} limits={limits} compact />
-                    </div>
-                )}
+
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Left: Cropper / Upload */}
@@ -372,23 +338,7 @@ export default function CropTool({ defaultFormat = 'png', title }: CropToolProps
                                 )}
                             </button>
 
-                            {/* Save to Drive Button - Only for Pro/Business users */}
-                            {session && usage && processedImageBlob && (() => {
-                                const subscriptionTier = usage.subscriptionTier || 'free';
-                                const basePlan = subscriptionTier.split('_')[0];
-                                const plan = PLANS[basePlan];
 
-                                return plan?.driveIntegration ? (
-                                    <SaveToDriveButton
-                                        file={processedImageBlob}
-                                        fileName={processedFileName}
-                                        toolUsed="crop"
-                                    />
-                                ) : null;
-                            })()}
-
-                            {/* Ad Banner for Free Users */}
-                            <AdBanner adSlot="crop-tool-bottom" />
                         </div>
                     )}
                 </div>

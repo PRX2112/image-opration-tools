@@ -131,11 +131,6 @@ export default function ContactPage() {
                             </h3>
                             <ul className="space-y-2">
                                 <li>
-                                    <a href="/pricing" className="text-blue-600 dark:text-blue-400 hover:underline">
-                                        Pricing Plans
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="/privacy" className="text-blue-600 dark:text-blue-400 hover:underline">
                                         Privacy Policy
                                     </a>
@@ -207,7 +202,6 @@ export default function ContactPage() {
                                         <option value="">Select a subject</option>
                                         <option value="general">General Inquiry</option>
                                         <option value="support">Technical Support</option>
-                                        <option value="billing">Billing Question</option>
                                         <option value="feature">Feature Request</option>
                                         <option value="bug">Bug Report</option>
                                         <option value="business">Business Partnership</option>

@@ -33,8 +33,8 @@ export async function checkAndIncrementVisitor() {
                 .returning();
             return updatedStat.visitorCount;
         }
-    } catch (error) {
-        console.error('Error incrementing visitor count:', error);
-        return 0; // Return 0 or handle error appropriately
+    } catch (error: any) {
+        console.warn(`Could not update visitor count (Db offline/Network error): ${error?.message || 'Unknown error'}`);
+        return 0; // Return 0 gracefully
     }
 }

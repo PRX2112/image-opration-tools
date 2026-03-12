@@ -5,7 +5,7 @@ import ToolRecommendations from '@/components/ToolRecommendations';
 
 export const metadata: Metadata = {
     title: 'Image Enlarger - Upscale Photos Online',
-    description: 'Enlarge images online without losing quality. Upscale photos by 2x or 4x using smart resizing algorithms. Improve image resolution with our Pro tools.',
+    description: 'Enlarge images online without losing quality. Upscale photos by 2x or 4x using smart resizing algorithms. Improve image resolution with our advanced AI tools.',
     alternates: {
         canonical: '/tools/enlarge'
     }

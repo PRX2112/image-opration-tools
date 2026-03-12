@@ -13,7 +13,7 @@ interface BulkFileUploadProps {
 export default function BulkFileUpload({
     onFilesSelect,
     accept = 'image/*',
-    maxSizeMB = 10,
+    maxSizeMB = Infinity,
     maxFiles = 10,
 }: BulkFileUploadProps) {
     const [isDragging, setIsDragging] = useState(false);
@@ -35,14 +35,7 @@ export default function BulkFileUpload({
                 continue; // Skip non-image files
             }
 
-            // Check file size
-            const maxSize = maxSizeMB * 1024 * 1024;
-            if (file.size > maxSize) {
-                // Skip oversized files or warn? For bulk, let's skip and maybe warn.
-                // For simplicity, just adding valid ones.
-                continue;
-            }
-
+            // Removed artificial file size limit check
             validFiles.push(file);
         }
 

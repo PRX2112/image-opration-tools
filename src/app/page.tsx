@@ -2,140 +2,172 @@
 
 import ToolCard from '@/components/ToolCard';
 import VisitorCounter from '@/components/VisitorCounter';
-import {
-  Maximize2,
-  Crop,
-  Minimize2,
-  RefreshCw,
-  Sparkles,
-  Shield,
-  Zap,
-  Smile,
-  Pipette,
-  RotateCw,
-  FlipHorizontal,
-  Maximize,
-} from 'lucide-react';
-import AdBanner from '@/components/ads/AdBanner';
+import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import UltimateGuide from '@/components/sections/UltimateGuide';
+import AdBanner from '@/components/AdBanner';
+import { useState } from 'react';
+import {
+  Maximize2, Crop, Minimize2, RefreshCw, Sparkles, Shield, Zap,
+  Smile, Pipette, RotateCw, FlipHorizontal, Maximize,
+  Users, Star, Clock, Lock, CheckCircle2, ChevronDown, ChevronUp,
+  ImageIcon, Eraser, Pencil
+} from 'lucide-react';
+
+const tools = [
+  {
+    icon: Maximize2, title: 'Image Resize', href: '/tools/resize',
+    description: 'Resize to any dimension. Perfect for social media, websites, and more.',
+    gradient: 'from-purple-500 to-blue-500', badge: 'Popular',
+  },
+  {
+    icon: Crop, title: 'Image Crop', href: '/tools/crop',
+    description: 'Crop with precision. Choose from preset aspect ratios or custom sizes.',
+    gradient: 'from-pink-500 to-rose-500',
+  },
+  {
+    icon: Minimize2, title: 'Image Compress', href: '/tools/compress',
+    description: 'Reduce file size without losing quality. Faster loading guaranteed.',
+    gradient: 'from-orange-500 to-yellow-500', badge: 'Popular',
+  },
+  {
+    icon: RefreshCw, title: 'Format Convert', href: '/tools/convert',
+    description: 'Convert between PNG, JPG, WebP, SVG, and more — instantly.',
+    gradient: 'from-green-500 to-teal-500',
+  },
+  {
+    icon: Smile, title: 'Meme Generator', href: '/tools/meme-generator',
+    description: 'Create memes with custom text, fonts, and emojis. Export as PNG or JPG.',
+    gradient: 'from-yellow-500 to-orange-500',
+  },
+  {
+    icon: Pipette, title: 'Color Picker', href: '/tools/color-picker',
+    description: 'Extract colors from any image. Get HEX, RGB, and HSL values instantly.',
+    gradient: 'from-blue-500 to-cyan-500',
+  },
+  {
+    icon: RotateCw, title: 'Rotate Image', href: '/tools/rotate',
+    description: 'Rotate by 90°, 180°, 270°, or custom angles. Fix orientation in seconds.',
+    gradient: 'from-indigo-500 to-purple-500',
+  },
+  {
+    icon: FlipHorizontal, title: 'Flip Image', href: '/tools/flip',
+    description: 'Flip horizontally or vertically. Create mirror effects with one click.',
+    gradient: 'from-red-500 to-pink-500',
+  },
+  {
+    icon: Maximize, title: 'Image Enlarger', href: '/tools/enlarge',
+    description: 'Upscale images up to 4x with smart sharpening. AI-powered enhancement.',
+    gradient: 'from-emerald-500 to-green-500',
+  },
+  {
+    icon: Pencil, title: 'Watermark', href: '/tools/watermark',
+    description: 'Add text or image watermarks to protect your photos.',
+    gradient: 'from-cyan-500 to-blue-500', badge: 'New',
+    badgeColor: 'bg-green-400 text-green-900',
+  },
+  {
+    icon: Eraser, title: 'Background Remover', href: '/tools/background-remover',
+    description: 'Remove image backgrounds in seconds using AI. Export with transparency.',
+    gradient: 'from-violet-500 to-purple-500', badge: 'New',
+    badgeColor: 'bg-green-400 text-green-900',
+  },
+  {
+    icon: ImageIcon, title: 'Bulk Resize', href: '/tools/resize/bulk',
+    description: 'Resize multiple images at once. Download all as a ZIP archive.',
+    gradient: 'from-sky-500 to-indigo-500',
+  },
+];
+
+const stats = [
+  { icon: Users, value: '10M+', label: 'Images Processed' },
+  { icon: Star, value: '4.9/5', label: 'User Rating' },
+  { icon: Clock, value: '< 2s', label: 'Average Processing' },
+  { icon: Lock, value: '100%', label: 'Private & Secure' },
+];
+
+const useCases = [
+  { emoji: '🎨', role: 'Designers', desc: 'Resize mockups, export assets, and convert formats in seconds.' },
+  { emoji: '📸', role: 'Photographers', desc: 'Compress RAW-exported JPEGs without visible quality loss.' },
+  { emoji: '🛍️', role: 'E-commerce Sellers', desc: 'Resize product photos to exact marketplace requirements.' },
+  { emoji: '📱', role: 'Content Creators', desc: 'Create perfectly sized images for Instagram, YouTube & TikTok.' },
+  { emoji: '💻', role: 'Developers', desc: 'Optimize images for web performance and Core Web Vitals.' },
+  { emoji: '🏢', role: 'Businesses', desc: 'Prepare images for presentations, reports, and marketing.' },
+];
+
+const faqs = [
+  {
+    q: 'Is ResizeMe completely free?',
+    a: 'Yes! Every tool on ResizeMe is 100% free with no hidden fees, no subscriptions, and no signup required.',
+  },
+  {
+    q: 'Are my images safe and private?',
+    a: 'Absolutely. ResizeMe processes images directly in your browser using WebAssembly. Your photos never leave your device.',
+  },
+  {
+    q: 'What image formats are supported?',
+    a: 'We support JPEG, PNG, WebP, GIF, SVG, HEIC and more. You can also convert between these formats using our Converter tool.',
+  },
+  {
+    q: 'Can I resize multiple images at once?',
+    a: 'Yes! Use our Bulk Resize tool to resize up to 10 images at once and download them all in a single ZIP file.',
+  },
+  {
+    q: 'Does compressing reduce image quality?',
+    a: 'Our smart compression algorithm removes invisible data while preserving visual quality. You control the quality slider for the right balance.',
+  },
+];
+
+function FAQ() {
+  const [open, setOpen] = useState<number | null>(0);
+  return (
+    <div className="space-y-3">
+      {faqs.map((faq, i) => (
+        <div key={i} className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-200">
+          <button
+            onClick={() => setOpen(open === i ? null : i)}
+            className="w-full flex justify-between items-center p-5 text-left"
+          >
+            <h3 className="font-semibold text-gray-900 dark:text-white pr-4">{faq.q}</h3>
+            {open === i
+              ? <ChevronUp className="w-5 h-5 text-primary flex-shrink-0" />
+              : <ChevronDown className="w-5 h-5 text-gray-400 flex-shrink-0" />}
+          </button>
+          {open === i && (
+            <div className="px-5 pb-5 text-gray-600 dark:text-gray-300 animate-fade-in">
+              {faq.a}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function Home() {
-  const tools = [
-    {
-      icon: Maximize2,
-      title: 'Image Resize',
-      description:
-        'Resize your images to any dimension while maintaining quality. Perfect for social media, websites, and more.',
-      href: '/tools/resize',
-      gradient: 'from-purple-500 to-blue-500',
-    },
-    {
-      icon: Crop,
-      title: 'Image Crop',
-      description:
-        'Crop and trim your images with precision. Choose from preset aspect ratios or create custom crops.',
-      href: '/tools/crop',
-      gradient: 'from-pink-500 to-rose-500',
-    },
-    {
-      icon: Minimize2,
-      title: 'Image Compress',
-      description:
-        'Reduce file size without losing quality. Optimize images for faster loading and better performance.',
-      href: '/tools/compress',
-      gradient: 'from-orange-500 to-yellow-500',
-    },
-    {
-      icon: RefreshCw,
-      title: 'Format Convert',
-      description:
-        'Convert between image formats instantly. Support for PNG, JPG, WebP, SVG, and more.',
-      href: '/tools/convert',
-      gradient: 'from-green-500 to-teal-500',
-    },
-    {
-      icon: Smile,
-      title: 'Meme Generator',
-      description:
-        'Create hilarious memes with custom text, fonts, and emojis. Export as PNG or JPG.',
-      href: '/tools/meme-generator',
-      gradient: 'from-yellow-500 to-orange-500',
-    },
-    {
-      icon: Pipette,
-      title: 'Color Picker',
-      description:
-        'Extract colors from any image. Get HEX, RGB, and HSL values instantly.',
-      href: '/tools/color-picker',
-      gradient: 'from-blue-500 to-cyan-500',
-    },
-    {
-      icon: RotateCw,
-      title: 'Rotate Image',
-      description:
-        'Rotate images by 90°, 180°, 270°, or custom angles. Perfect for orientation fixes.',
-      href: '/tools/rotate',
-      gradient: 'from-indigo-500 to-purple-500',
-    },
-    {
-      icon: FlipHorizontal,
-      title: 'Flip Image',
-      description:
-        'Flip images horizontally or vertically. Create mirror effects with one click.',
-      href: '/tools/flip',
-      gradient: 'from-red-500 to-pink-500',
-    },
-    {
-      icon: Maximize,
-      title: 'Image Enlarger',
-      description:
-        'Upscale images up to 4x with smart sharpening. AI-powered quality enhancement.',
-      href: '/tools/enlarge',
-      gradient: 'from-emerald-500 to-green-500',
-    },
-  ];
-
-  const features = [
-    {
-      icon: Zap,
-      title: 'Lightning Fast',
-      description: 'Process images instantly with client-side processing',
-    },
-    {
-      icon: Shield,
-      title: 'Privacy First',
-      description: 'Your images never leave your device',
-    },
-    {
-      icon: Sparkles,
-      title: 'Generous Free Tier',
-      description: 'Core features are free forever. Upgrade for advanced tools.',
-    },
-  ];
-
   return (
     <div className="relative">
-      {/* Hero Section */}
+
+      {/* ─── Hero Section ─── */}
       <section className="relative overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-300 dark:bg-purple-600 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-xl opacity-30 animate-float"></div>
-        <div className="absolute top-40 right-10 w-72 h-72 bg-blue-300 dark:bg-blue-600 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-xl opacity-30 animate-float" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-300 dark:bg-purple-600 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-xl opacity-30 animate-float" />
+        <div className="absolute top-40 right-10 w-72 h-72 bg-blue-300 dark:bg-blue-600 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-xl opacity-30 animate-float" style={{ animationDelay: '1s' }} />
+        <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-pink-300 dark:bg-pink-600 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-xl opacity-20 animate-float" style={{ animationDelay: '2s' }} />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32">
           <div className="text-center space-y-8 animate-fade-in">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 dark:bg-purple-900/40 border border-purple-200 dark:border-purple-700 text-purple-700 dark:text-purple-300 text-sm font-medium mb-2">
+              <Sparkles className="w-4 h-4" />
+              100% Free · No Signup · No Limits
+            </div>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
-              <span className="block text-gray-900 dark:text-white mb-2">
-                Transform Your Images
-              </span>
-              <span className="block gradient-text">Instantly & Free</span>
+              <span className="block text-gray-900 dark:text-white mb-2">Transform Your Images</span>
+              <span className="block shimmer-text">Instantly &amp; Free</span>
             </h1>
             <p className="max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-              Professional image tools right in your browser. Resize, crop,
-              compress, and convert images with zero uploads and complete
-              privacy.
+              Professional image tools right in your browser. Resize, crop, compress, and convert with zero uploads and complete privacy.
             </p>
 
-            {/* Trust Indicators */}
+            {/* Trust indicators */}
             <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-600 dark:text-gray-400 items-center">
               <div className="flex items-center gap-2">
                 <Shield className="w-5 h-5 text-purple-600 dark:text-purple-400" />
@@ -153,37 +185,44 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-              <a href="#tools" className="btn btn-primary text-lg px-8 py-4 shadow-xl hover:shadow-2xl transition-shadow">
+              <a href="#tools" className="btn btn-primary text-lg px-8 py-4 shadow-xl hover:shadow-2xl animate-pulse-glow">
                 Start Editing Now →
               </a>
               <a href="#features" className="btn btn-secondary text-lg px-8 py-4">
-                Learn More
+                See How It Works
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Tools Grid */}
-      <section id="tools" className="py-20 "> {/* bg-white dark:bg-gray-950 */}
+      {/* ─── Stats Bar ─── */}
+      <section className="py-10 bg-gradient-to-r from-purple-600 via-violet-600 to-blue-600">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {stats.map((s, i) => (
+              <div key={i} className="text-white animate-count-up" style={{ animationDelay: `${i * 100}ms` }}>
+                <s.icon className="w-7 h-7 mx-auto mb-2 opacity-80" />
+                <div className="text-3xl font-bold">{s.value}</div>
+                <div className="text-sm opacity-80 mt-1">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Tools Grid ─── */}
+      <section id="tools" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Powerful Image Tools
-            </h2>
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Powerful Image Tools</h2>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Everything you need to edit and optimize your images, all in one
-              place
+              Everything you need to edit and optimize images — all in one place, all free.
             </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {tools.map((tool, index) => (
-              <div
-                key={tool.title}
-                className="animate-fade-in"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
+              <div key={tool.title} className="animate-slide-in-up" style={{ animationDelay: `${index * 60}ms` }}>
                 <ToolCard {...tool} />
               </div>
             ))}
@@ -191,121 +230,170 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" className="py-20 bg-gray-50 dark:bg-gray-900">
+      {/* ─── In-Feed Homepage Ad ─── */}
+      <section className="py-8 bg-gray-50/50 dark:bg-gray-900/20">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center text-xs text-gray-400 mb-2 uppercase tracking-wide font-medium">Advertisement</div>
+          <AdBanner dataAdSlot="HOMEPAGE_FEED_SLOT" dataAdFormat="fluid" />
+        </div>
+      </section>
+
+      {/* ─── Before / After Section ─── */}
+      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              See the Difference
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400">
+              Drag the slider to compare original and compressed images side-by-side.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <BeforeAfterSlider
+                beforeSrc="/before.jpg"
+                afterSrc="/after.jpg"
+                beforeLabel="Original"
+                beforeSubLabel="2.4 MB"
+                afterLabel="Compressed"
+                afterSubLabel="210 KB"
+              />
+              <p className="mt-3 text-center text-sm text-gray-500 dark:text-gray-400">
+                👆 Drag the slider to compare
+              </p>
+            </div>
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                91% smaller — zero visible difference
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Our smart compression algorithm removes invisible metadata and applies perceptual encoding, dramatically reducing file size while preserving what your eyes actually see.
+              </p>
+              <ul className="space-y-3">
+                {[
+                  'Websites load 10× faster',
+                  'Higher Google PageSpeed scores',
+                  'Save storage space',
+                  'Share images faster',
+                ].map(item => (
+                  <li key={item} className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <a href="/tools/compress" className="btn btn-primary inline-flex">
+                Try Image Compressor →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Features Section ─── */}
+      <section id="features" className="py-20 bg-white dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Why Choose ResizeMe?
-            </h2>
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Why Choose ResizeMe?</h2>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <div
-                key={feature.title}
-                className="card text-center animate-fade-in"
-                style={{ animationDelay: `${index * 150}ms` }}
-              >
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center mx-auto mb-6">
-                  <feature.icon className="w-8 h-8 text-white" />
+            {[
+              { icon: Zap, title: 'Lightning Fast', desc: 'Process images in under 2 seconds using WebAssembly technology.', gradient: 'from-yellow-400 to-orange-500' },
+              { icon: Shield, title: 'Privacy First', desc: 'Your images never leave your device. All processing is done locally in your browser.', gradient: 'from-green-500 to-teal-500' },
+              { icon: Sparkles, title: 'Completely Free', desc: 'Every tool, every feature, forever free. No signup, no credit card, no limits.', gradient: 'from-purple-500 to-blue-500' },
+            ].map((f, i) => (
+              <div key={f.title} className="card text-center animate-fade-in" style={{ animationDelay: `${i * 150}ms` }}>
+                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${f.gradient} flex items-center justify-center mx-auto mb-6 shadow-lg`}>
+                  <f.icon className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  {feature.description}
-                </p>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{f.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{f.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* ─── Who Uses ResizeMe ─── */}
+      <section className="py-20 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Trusted by Everyone
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400">
+              From individual creators to enterprise teams — ResizeMe fits every workflow.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {useCases.map((uc, i) => (
+              <div key={uc.role} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 animate-fade-in" style={{ animationDelay: `${i * 80}ms` }}>
+                <div className="text-3xl mb-3">{uc.emoji}</div>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{uc.role}</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">{uc.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {/* How It Works Section */}
+      {/* ─── How It Works ─── */}
       <section className="py-20 bg-white dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              How to Use ResizeMe
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Optimizing your images is simple, fast, and secure.
-            </p>
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">How It Works</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400">Three simple steps — done in seconds.</p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/50 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold text-purple-600 dark:text-purple-400">1</div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Select Your Tool</h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Choose from our wide range of tools: Resize, Crop, Compress, Rotate, and more.
-              </p>
-            </div>
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold text-blue-600 dark:text-blue-400">2</div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Upload Image</h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Drag and drop your image or select it from your device. We support JPG, PNG, WebP, and more.
-              </p>
-            </div>
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold text-green-600 dark:text-green-400">3</div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Process & Download</h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Apply your changes instantly and download your optimized image. No sign-up required.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+            {/* Connector line (desktop) */}
+            {[
+              { n: '1', color: 'bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400', title: 'Select Your Tool', desc: 'Choose from Resize, Crop, Compress, Rotate, Convert, and more.' },
+              { n: '2', color: 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400', title: 'Upload Image', desc: 'Drag & drop or select files. Supports JPG, PNG, WebP, and more.' },
+              { n: '3', color: 'bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400', title: 'Download Result', desc: 'Apply changes instantly and download your optimized image.' },
+            ].map(s => (
+              <div key={s.n} className="text-center p-6 relative z-10">
+                <div className={`w-16 h-16 ${s.color} rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-sm`}>{s.n}</div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{s.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{s.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       <UltimateGuide />
 
-      {/* FAQ Snippet for SEO */}
+      {/* ─── FAQ ─── */}
       <section className="py-20 bg-gray-50 dark:bg-gray-900">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              Frequently Asked Questions
-            </h2>
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Frequently Asked Questions</h2>
           </div>
-          <div className="space-y-6">
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Is ResizeMe free to use?</h3>
-              <p className="text-gray-600 dark:text-gray-300">Yes, ResizeMe is completely free for all basic image editing tasks. We offer premium features for advanced users, but the core tools will always be free.</p>
-            </div>
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Are my images secure?</h3>
-              <p className="text-gray-600 dark:text-gray-300">Absolutely. ResizeMe processes your images locally in your browser using modern web technologies. Your photos are never uploaded to our servers, ensuring 100% privacy.</p>
-            </div>
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">What image formats do you support?</h3>
-              <p className="text-gray-600 dark:text-gray-300">We support all major image formats including JPEG, PNG, WebP, SVG, and GIF. You can also convert between these formats using our Converter tool.</p>
-            </div>
-          </div>
+          <FAQ />
         </div>
       </section>
 
-      {/* CTA Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
-        <AdBanner adSlot="homepage-bottom" />
-      </div>
+      {/* ─── CTA Section ─── */}
       <section className="py-20 bg-white dark:bg-gray-950">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="card relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-blue-500/10"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-blue-500/5 to-pink-500/10 animate-gradient" />
             <div className="relative z-10 space-y-6">
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
                 Ready to Transform Your Images?
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-400">
-                Start using our free tools now. No signup required.
+                Join millions of users who trust ResizeMe for their image editing needs.
               </p>
-              <a href="#tools" className="btn btn-primary text-lg px-8 py-4 inline-flex">
-                Start Now
-              </a>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#tools" className="btn btn-primary text-lg px-8 py-4 inline-flex animate-pulse-glow">
+                  Start Now — It&apos;s Free
+                </a>
+                <a href="/tools/compress" className="btn btn-secondary text-lg px-8 py-4 inline-flex">
+                  Compress an Image
+                </a>
+              </div>
             </div>
           </div>
         </div>

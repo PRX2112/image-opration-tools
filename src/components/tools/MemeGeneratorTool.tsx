@@ -4,8 +4,7 @@ import { useRef, useEffect, useState } from 'react';
 import { useMemeGenerator, MemeText } from '@/hooks/useMemeGenerator';
 import { useUsageTracking } from '@/hooks/useUsageTracking';
 import FileUpload from '@/components/FileUpload';
-import UpgradePrompt from '@/components/UpgradePrompt';
-import UsageStats from '@/components/UsageStats';
+
 import {
     Download,
     RotateCcw,
@@ -15,10 +14,6 @@ import {
     Trash2,
     Move
 } from 'lucide-react';
-import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
-import { useSession } from 'next-auth/react';
-import { PLANS } from '@/config/plans';
-import AdBanner from '@/components/ads/AdBanner';
 
 interface MemeGeneratorToolProps {
     title?: string;
@@ -40,12 +35,8 @@ export default function MemeGeneratorTool({ title }: MemeGeneratorToolProps) {
         reset
     } = useMemeGenerator();
 
-    const [showUpgrade, setShowUpgrade] = useState(false);
-    const [upgradeReason, setUpgradeReason] = useState<'downloads' | 'file_size' | 'storage'>('downloads');
     const [processedImageBlob, setProcessedImageBlob] = useState<Blob | null>(null);
     const [processedFileName, setProcessedFileName] = useState<string>('');
-    const { data: session } = useSession();
-
     // Usage tracking
     const { usage, limits, canDownload, canProcessFile, trackDownload } = useUsageTracking();
 
@@ -115,22 +106,14 @@ export default function MemeGeneratorTool({ title }: MemeGeneratorToolProps) {
     };
 
     const handleFileSelect = async (file: File) => {
-        // Check file size before loading
-        if (!canProcessFile(file.size)) {
-            setUpgradeReason('file_size');
-            setShowUpgrade(true);
-            return;
-        }
+        // No file size limits in free version
+
         await loadFile(file);
     };
 
     const handleDownload = async () => {
-        // Check if user can download
-        if (!canDownload()) {
-            setUpgradeReason('downloads');
-            setShowUpgrade(true);
-            return;
-        }
+        // No download limits
+
 
         downloadMeme();
 
@@ -154,15 +137,6 @@ export default function MemeGeneratorTool({ title }: MemeGeneratorToolProps) {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50 dark:from-yellow-900/20 dark:via-orange-900/20 dark:to-red-900/20 py-12">
-            {/* Upgrade Prompt */}
-            {showUpgrade && usage && (
-                <UpgradePrompt
-                    reason={upgradeReason}
-                    currentPlan={usage.subscriptionTier}
-                    onClose={() => setShowUpgrade(false)}
-                />
-            )}
-
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-12 animate-fade-in">
@@ -176,12 +150,7 @@ export default function MemeGeneratorTool({ title }: MemeGeneratorToolProps) {
                     </p>
                 </div>
 
-                {/* Usage Stats */}
-                {usage && limits && (
-                    <div className="mb-8 max-w-2xl mx-auto">
-                        <UsageStats usage={usage} limits={limits} compact />
-                    </div>
-                )}
+
 
                 {!originalFile ? (
                     <div className="max-w-2xl mx-auto animate-fade-in">
@@ -331,22 +300,7 @@ export default function MemeGeneratorTool({ title }: MemeGeneratorToolProps) {
                                 Download Meme
                             </button>
 
-                            {/* Save to Drive Button */}
-                            {session && usage && processedImageBlob && (() => {
-                                const subscriptionTier = usage.subscriptionTier || 'free';
-                                const basePlan = subscriptionTier.split('_')[0];
-                                const plan = PLANS[basePlan];
 
-                                return plan?.driveIntegration ? (
-                                    <SaveToDriveButton
-                                        file={processedImageBlob}
-                                        fileName={processedFileName}
-                                        toolUsed="meme-generator"
-                                    />
-                                ) : null;
-                            })()}
-                            {/* Ad Banner for Free Users */}
-                            <AdBanner adSlot="meme-generator-bottom" />
                         </div>
                     </div>
                 )}

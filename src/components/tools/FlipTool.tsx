@@ -12,12 +12,7 @@ import {
     FlipVertical,
     Save
 } from 'lucide-react';
-import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
-import { useSession } from 'next-auth/react';
-import { PLANS } from '@/config/plans';
 import { useUsageTracking } from '@/hooks/useUsageTracking';
-import AdBanner from '@/components/ads/AdBanner';
-
 interface FlipToolProps {
     title?: string;
 }
@@ -41,7 +36,7 @@ export default function FlipTool({ title }: FlipToolProps) {
 
     const [processedImageBlob, setProcessedImageBlob] = useState<Blob | null>(null);
     const [processedFileName, setProcessedFileName] = useState<string>('');
-    const { data: session } = useSession();
+
     const { usage } = useUsageTracking();
 
     const handleSave = async () => {
@@ -88,7 +83,6 @@ export default function FlipTool({ title }: FlipToolProps) {
                         <FileUpload
                             onFileSelect={loadFile}
                             accept="image/*"
-                            maxSizeMB={10}
                         />
                         {error && (
                             <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-600 dark:text-red-400 text-sm text-center">
@@ -192,20 +186,7 @@ export default function FlipTool({ title }: FlipToolProps) {
                                         Download Result
                                     </button>
 
-                                    {/* Save to Drive Button */}
-                                    {session && usage && processedImageBlob && (() => {
-                                        const subscriptionTier = usage.subscriptionTier || 'free';
-                                        const basePlan = subscriptionTier.split('_')[0];
-                                        const plan = PLANS[basePlan];
 
-                                        return plan?.driveIntegration ? (
-                                            <SaveToDriveButton
-                                                file={processedImageBlob}
-                                                fileName={processedFileName}
-                                                toolUsed="flip"
-                                            />
-                                        ) : null;
-                                    })()}
                                 </>
                             )}
 
@@ -215,8 +196,7 @@ export default function FlipTool({ title }: FlipToolProps) {
                                 </div>
                             )}
 
-                            {/* Ad Banner for Free Users */}
-                            <AdBanner adSlot="flip-tool-bottom" />
+
                         </div>
                     </div>
                 )}

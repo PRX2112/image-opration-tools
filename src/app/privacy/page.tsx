@@ -43,10 +43,7 @@ export default function PrivacyPage() {
                                 <li>IP address and location data</li>
                             </ul>
 
-                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">2.3 Payment Information</h3>
-                            <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                Payment processing is handled by Razorpay. We do not store your complete credit card information. We only retain transaction IDs and payment status for record-keeping purposes.
-                            </p>
+
                         </section>
 
                         <section className="mb-8">
@@ -56,8 +53,6 @@ export default function PrivacyPage() {
                             </p>
                             <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mb-4 space-y-2">
                                 <li>Providing and maintaining our image processing services</li>
-                                <li>Managing your account and subscription</li>
-                                <li>Processing payments and preventing fraud</li>
                                 <li>Sending service-related notifications and updates</li>
                                 <li>Improving our services and developing new features</li>
                                 <li>Analyzing usage patterns and optimizing performance</li>
@@ -83,10 +78,7 @@ export default function PrivacyPage() {
                                 <li>Transmitted using secure, encrypted connections (HTTPS)</li>
                             </ul>
 
-                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">4.3 Image History (Pro/Business Plans)</h3>
-                            <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                For Pro and Business subscribers, we store metadata about processed images (file names, sizes, processing dates) but not the actual image content, unless you explicitly save images to cloud storage.
-                            </p>
+
                         </section>
 
                         <section className="mb-8">
@@ -95,7 +87,7 @@ export default function PrivacyPage() {
                                 We do not sell, trade, or rent your personal information to third parties. We may share your information only in the following circumstances:
                             </p>
                             <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mb-4 space-y-2">
-                                <li><strong>Service Providers:</strong> With trusted third-party service providers (e.g., Razorpay for payments, hosting providers) who assist in operating our service</li>
+                                <li><strong>Service Providers:</strong> With trusted third-party service providers (e.g., hosting providers) who assist in operating our service</li>
                                 <li><strong>Legal Requirements:</strong> When required by law, court order, or government regulation</li>
                                 <li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets</li>
                                 <li><strong>Protection:</strong> To protect our rights, property, or safety, or that of our users</li>
@@ -140,7 +132,6 @@ export default function PrivacyPage() {
                                 We use cookies and similar tracking technologies to:
                             </p>
                             <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mb-4 space-y-2">
-                                <li>Maintain your login session</li>
                                 <li>Remember your preferences (theme, language)</li>
                                 <li>Analyze site usage and performance</li>
                                 <li>Provide personalized content</li>
@@ -153,7 +144,7 @@ export default function PrivacyPage() {
                         <section className="mb-8">
                             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">9. Advertising</h2>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                This site displays ads provided by Google AdSense to support the free tier of our service.
+                                This site may display ads provided by Google AdSense to support our free service.
                             </p>
 
                             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">9.1 Google AdSense & Cookies</h3>

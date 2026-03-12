@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        // Keep metadata if requested (Pro feature - for now just acknowledge the flag)
+        // Keep metadata if requested
         if (preserveMetadata) {
             sharpInstance = sharpInstance.withMetadata();
         }

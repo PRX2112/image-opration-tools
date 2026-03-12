@@ -18,12 +18,6 @@ import {
     ReactCompareSlider,
     ReactCompareSliderImage,
 } from 'react-compare-slider';
-import UpgradePrompt from '@/components/UpgradePrompt';
-import UsageStats from '@/components/UsageStats';
-import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
-import { useSession } from 'next-auth/react';
-import { PLANS } from '@/config/plans';
-import AdBanner from '@/components/ads/AdBanner';
 
 interface EnlargeToolProps {
     title?: string;
@@ -45,50 +39,26 @@ export default function EnlargeTool({ title }: EnlargeToolProps) {
         reset,
     } = useImageEnlarge();
 
-    const [showUpgrade, setShowUpgrade] = useState(false);
-    const [upgradeReason, setUpgradeReason] = useState<'downloads' | 'file_size' | 'storage'>('downloads');
     const [processedImageBlob, setProcessedImageBlob] = useState<Blob | null>(null);
     const [processedFileName, setProcessedFileName] = useState<string>('');
-
-    // Session for Drive integration
-    const { data: session } = useSession();
 
     // Usage tracking
     const { usage, limits, canDownload, canProcessFile, trackDownload } = useUsageTracking();
 
-    // Check if user has Pro or Business plan for AI upscaling
-    const isPremiumUser = usage && (usage.subscriptionTier === 'pro' || usage.subscriptionTier === 'business');
+
 
     const handleFileSelect = async (file: File) => {
-        // Check file size before loading
-        if (!canProcessFile(file.size)) {
-            setUpgradeReason('file_size');
-            setShowUpgrade(true);
-            return;
-        }
         await loadFile(file);
     };
 
     const handleEnlarge = async () => {
-        // Check if user has premium plan for AI upscaling
-        if (!isPremiumUser) {
-            setUpgradeReason('file_size'); // Using file_size as proxy for feature upgrade
-            setShowUpgrade(true);
-            return;
-        }
-
         await enlargeImage();
     };
 
     const handleDownload = async () => {
         if (!result) return;
 
-        // Check if user can download
-        if (!canDownload()) {
-            setUpgradeReason('downloads');
-            setShowUpgrade(true);
-            return;
-        }
+
 
         downloadFile(result.image, `enlarged-${factor}x-image.${originalFile?.name.split('.').pop() || 'png'}`);
 
@@ -114,14 +84,7 @@ export default function EnlargeTool({ title }: EnlargeToolProps) {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-indigo-900/20 dark:to-purple-900/20 py-12">
-            {/* Upgrade Prompt */}
-            {showUpgrade && usage && (
-                <UpgradePrompt
-                    reason={upgradeReason}
-                    currentPlan={usage.subscriptionTier}
-                    onClose={() => setShowUpgrade(false)}
-                />
-            )}
+
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
@@ -134,19 +97,9 @@ export default function EnlargeTool({ title }: EnlargeToolProps) {
                     <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-4">
                         Upscale your images by 2x or 4x with smart enhancement
                     </p>
-                    {!isPremiumUser && (
-                        <p className="text-sm text-amber-600 dark:text-amber-400 font-medium">
-                            ⭐ Pro or Business plan required for AI upscaling
-                        </p>
-                    )}
                 </div>
 
-                {/* Usage Stats */}
-                {usage && limits && (
-                    <div className="mb-8 max-w-2xl mx-auto">
-                        <UsageStats usage={usage} limits={limits} compact />
-                    </div>
-                )}
+
 
                 {!originalFile ? (
                     <div className="max-w-2xl mx-auto animate-fade-in">
@@ -270,18 +223,13 @@ export default function EnlargeTool({ title }: EnlargeToolProps) {
                             {!result ? (
                                 <button
                                     onClick={handleEnlarge}
-                                    disabled={isProcessing || !isPremiumUser}
+                                    disabled={isProcessing}
                                     className="btn btn-primary w-full text-lg py-4 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl shadow-indigo-500/20"
                                 >
                                     {isProcessing ? (
                                         <>
                                             <Loader2 className="w-5 h-5 animate-spin mr-2" />
                                             Upscaling...
-                                        </>
-                                    ) : !isPremiumUser ? (
-                                        <>
-                                            <Wand2 className="w-5 h-5 mr-2" />
-                                            Upgrade to Pro for AI Upscaling
                                         </>
                                     ) : (
                                         <>
@@ -300,20 +248,7 @@ export default function EnlargeTool({ title }: EnlargeToolProps) {
                                         Download Result
                                     </button>
 
-                                    {/* Save to Drive Button - Only for Pro/Business users */}
-                                    {session && usage && processedImageBlob && (() => {
-                                        const subscriptionTier = usage.subscriptionTier || 'free';
-                                        const basePlan = subscriptionTier.split('_')[0];
-                                        const plan = PLANS[basePlan];
 
-                                        return plan?.driveIntegration ? (
-                                            <SaveToDriveButton
-                                                file={processedImageBlob}
-                                                fileName={processedFileName}
-                                                toolUsed="enlarge"
-                                            />
-                                        ) : null;
-                                    })()}
                                 </>
                             )}
 
@@ -323,8 +258,7 @@ export default function EnlargeTool({ title }: EnlargeToolProps) {
                                 </div>
                             )}
 
-                            {/* Ad Banner for Free Users */}
-                            <AdBanner adSlot="enlarge-tool-bottom" />
+
                         </div>
                     </div>
                 )}

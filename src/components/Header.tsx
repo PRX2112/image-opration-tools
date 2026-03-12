@@ -1,10 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { Menu, X, Image as ImageIcon, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import DropdownMenu from './DropdownMenu';
-import UserNav from './UserNav';
 import ThemeToggle from './ThemeToggle';
 
 export default function Header() {
@@ -14,36 +13,41 @@ export default function Header() {
     const resizeTools = [
         { label: 'Image Resize', href: '/resize-image-online', description: 'Resize to any dimension' },
         { label: 'Bulk Resize', href: '/tools/resize/bulk', description: 'Resize multiple images' },
-        { label: 'Resize PNG', href: '/tools/resize/png', description: 'PNG specific resizing' },
-        { label: 'Resize JPG', href: '/tools/resize/jpg', description: 'JPG specific resizing' },
-        { label: 'Resize WebP', href: '/tools/resize/webp', description: 'WebP specific resizing' },
+        { label: 'Resize to 100KB', href: '/resize-image-to-100kb', description: 'Hit exact file size' },
+        { label: '1920×1080 (Full HD)', href: '/resize-image-to-1920x1080', description: 'Wallpapers & presentations' },
+        { label: 'For Instagram', href: '/resize-image-for-instagram', description: 'Perfect Instagram sizes' },
+        { label: 'For WhatsApp DP', href: '/resize-image-for-whatsapp', description: 'WhatsApp profile photo' },
+        { label: 'For YouTube', href: '/resize-image-for-youtube', description: 'Thumbnail & channel art' },
+        { label: 'Passport Photo', href: '/resize-image-for-passport', description: 'ID & visa photo sizes' },
+    ];
+
+    const compressTools = [
+        { label: 'Image Compress', href: '/compress-image-online', description: 'Reduce file size' },
+        { label: 'Compress JPG', href: '/compress-jpg-online', description: 'JPEG compression' },
+        { label: 'Compress PNG', href: '/compress-png-online', description: 'PNG compression' },
+        { label: 'Reduce Image Size', href: '/reduce-image-size-online', description: 'Any format' },
+        { label: 'Compress to 50KB', href: '/compress-image-to-50kb', description: 'Hit 50KB target' },
+        { label: 'Compress to 200KB', href: '/compress-image-to-200kb', description: 'Hit 200KB target' },
+    ];
+
+    const convertTools = [
+        { label: 'Format Convert', href: '/convert-image-format', description: 'Convert between formats' },
+        { label: 'WebP to PNG', href: '/webp-to-png', description: 'WebP → PNG' },
+        { label: 'PNG to JPG', href: '/png-to-jpg', description: 'PNG → JPG' },
+        { label: 'JPG to PNG', href: '/convert-jpg-to-png', description: 'JPG → PNG' },
+        { label: 'PNG to WebP', href: '/convert-png-to-webp', description: 'PNG → WebP' },
+        { label: 'HEIC to JPG', href: '/tools/convert/heic-to-jpg', description: 'iPhone photos' },
     ];
 
     const cropTools = [
         { label: 'Image Crop', href: '/crop-image-online', description: 'Crop with precision' },
         { label: 'Crop PNG', href: '/tools/crop/png', description: 'PNG specific cropping' },
         { label: 'Crop JPG', href: '/tools/crop/jpg', description: 'JPG specific cropping' },
-        { label: 'Crop WebP', href: '/tools/crop/webp', description: 'WebP specific cropping' },
-    ];
-
-    const compressTools = [
-        { label: 'Image Compress', href: '/compress-image-online', description: 'Reduce file size' },
-        { label: 'Compress JPEG', href: '/tools/compress/jpeg', description: 'JPEG compression' },
-        { label: 'Compress PNG', href: '/tools/compress/png', description: 'PNG compression' },
-        { label: 'Compress GIF', href: '/tools/compress/gif', description: 'GIF compression' },
-    ];
-
-    const convertTools = [
-        { label: 'Format Convert', href: '/convert-image-format', description: 'Convert between formats' },
-        { label: 'To SVG', href: '/tools/convert/svg', description: 'Convert to SVG' },
-        { label: 'To PNG', href: '/tools/convert/png', description: 'Convert to PNG' },
-        { label: 'To JPG', href: '/tools/convert/jpg', description: 'Convert to JPG' },
-        { label: 'HEIC to JPG', href: '/tools/convert/heic-to-jpg', description: 'HEIC to JPG' },
-        { label: 'WebP to PNG', href: '/tools/convert/webp-to-png', description: 'WebP to PNG' },
-        { label: 'PNG to JPG', href: '/tools/convert/png-to-jpg', description: 'PNG to JPG' },
     ];
 
     const moreTools = [
+        { label: 'Watermark', href: '/tools/watermark', description: 'Add text/image watermark' },
+        { label: 'Background Remover', href: '/tools/background-remover', description: 'AI background removal' },
         { label: 'Meme Generator', href: '/tools/meme-generator', description: 'Create memes' },
         { label: 'Color Picker', href: '/tools/color-picker', description: 'Extract colors' },
         { label: 'Rotate Image', href: '/rotate-image', description: 'Rotate images' },
@@ -102,18 +106,11 @@ export default function Header() {
                         <DropdownMenu label="Compress" items={compressTools} />
                         <DropdownMenu label="Convert" items={convertTools} />
                         <DropdownMenu label="More" items={moreTools} />
-                        <Link
-                            href="/pricing"
-                            className="px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium"
-                        >
-                            Pricing
-                        </Link>
                     </div>
 
-                    {/* Right side: Theme Toggle + User Nav */}
+                    {/* Right side: Theme Toggle */}
                     <div className="hidden md:flex items-center gap-3">
                         <ThemeToggle />
-                        <UserNav />
                     </div>
 
                     {/* Mobile Menu Button + Theme Toggle */}
@@ -142,35 +139,6 @@ export default function Header() {
                             <MobileMenuItem label="Compress" items={compressTools} category="compress" />
                             <MobileMenuItem label="Convert" items={convertTools} category="convert" />
                             <MobileMenuItem label="More Tools" items={moreTools} category="more" />
-
-                            <div className="bg-gray-100 dark:bg-gray-800 h-px my-2 mx-4" />
-
-                            <Link
-                                href="/pricing"
-                                className="px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-                                onClick={() => setMobileMenuOpen(false)}
-                            >
-                                Pricing
-                            </Link>
-
-                            <div className="bg-gray-100 dark:bg-gray-800 h-px my-2 mx-4" />
-
-                            <div className="flex flex-col gap-2 px-4 pb-4">
-                                <Link
-                                    href="/login"
-                                    className="btn btn-ghost w-full justify-center"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                >
-                                    Login
-                                </Link>
-                                <Link
-                                    href="/signup"
-                                    className="btn btn-primary w-full justify-center"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                >
-                                    Sign Up
-                                </Link>
-                            </div>
                         </div>
                     </div>
                 )}
@@ -178,4 +146,3 @@ export default function Header() {
         </header>
     );
 }
-

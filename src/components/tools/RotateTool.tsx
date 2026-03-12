@@ -11,12 +11,7 @@ import {
     RotateCw,
     Save
 } from 'lucide-react';
-import SaveToDriveButton from '@/components/drive/SaveToDriveButton';
-import { useSession } from 'next-auth/react';
-import { PLANS } from '@/config/plans';
 import { useUsageTracking } from '@/hooks/useUsageTracking';
-import AdBanner from '@/components/ads/AdBanner';
-
 interface RotateToolProps {
     title?: string;
 }
@@ -40,7 +35,7 @@ export default function RotateTool({ title }: RotateToolProps) {
 
     const [processedImageBlob, setProcessedImageBlob] = useState<Blob | null>(null);
     const [processedFileName, setProcessedFileName] = useState<string>('');
-    const { data: session } = useSession();
+
     const { usage } = useUsageTracking();
 
     const handleSave = async () => {
@@ -87,7 +82,6 @@ export default function RotateTool({ title }: RotateToolProps) {
                         <FileUpload
                             onFileSelect={loadFile}
                             accept="image/*"
-                            maxSizeMB={10}
                         />
                         {error && (
                             <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-600 dark:text-red-400 text-sm text-center">
@@ -238,20 +232,7 @@ export default function RotateTool({ title }: RotateToolProps) {
                                         Download Result
                                     </button>
 
-                                    {/* Save to Drive Button */}
-                                    {session && usage && processedImageBlob && (() => {
-                                        const subscriptionTier = usage.subscriptionTier || 'free';
-                                        const basePlan = subscriptionTier.split('_')[0];
-                                        const plan = PLANS[basePlan];
 
-                                        return plan?.driveIntegration ? (
-                                            <SaveToDriveButton
-                                                file={processedImageBlob}
-                                                fileName={processedFileName}
-                                                toolUsed="rotate"
-                                            />
-                                        ) : null;
-                                    })()}
                                 </>
                             )}
 
@@ -261,8 +242,7 @@ export default function RotateTool({ title }: RotateToolProps) {
                                 </div>
                             )}
 
-                            {/* Ad Banner for Free Users */}
-                            <AdBanner adSlot="rotate-tool-bottom" />
+
                         </div>
                     </div>
                 )}

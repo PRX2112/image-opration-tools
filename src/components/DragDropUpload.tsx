@@ -149,15 +149,6 @@ export default function DragDropUpload({
                 </div>
             )}
 
-            {/* Free Tier Notice */}
-            <div className="mt-4 p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
-                <p className="text-sm text-blue-800 dark:text-blue-300">
-                    💡 Free tier: {maxSize / (1024 * 1024)}MB max file size.{' '}
-                    <a href="/pricing" className="font-semibold underline hover:text-blue-600">
-                        Upgrade for more
-                    </a>
-                </p>
-            </div>
         </div>
     );
 }

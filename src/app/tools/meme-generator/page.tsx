@@ -54,7 +54,7 @@ export default function MemeGeneratorPage() {
                         <ul className="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300">
                             <li>😂 Custom text positioning</li>
                             <li>🎨 Stroke and Shadow effects</li>
-                            <li>🚫 No watermark (Pro option)</li>
+                            <li>🚫 No watermark</li>
                             <li>🚀 Instant generation</li>
                         </ul>
                     </section>

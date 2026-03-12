@@ -14,7 +14,7 @@ interface FileUploadProps {
 export default function FileUpload({
     onFileSelect,
     accept = 'image/*',
-    maxSizeMB = 10,
+    maxSizeMB = Infinity,
     currentFile,
     onClear,
 }: FileUploadProps) {
@@ -30,13 +30,8 @@ export default function FileUpload({
             return false;
         }
 
-        // Check file size
-        const maxSize = maxSizeMB * 1024 * 1024;
-        if (file.size > maxSize) {
-            setError(`File size must be less than ${maxSizeMB}MB`);
-            return false;
-        }
-
+        // Removed artificial file size limit
+        
         return true;
     };
 
@@ -139,7 +134,7 @@ export default function FileUpload({
                             {isDragging ? 'Drop your image here' : 'Drop your image here'}
                         </p>
                         <p className="text-sm text-gray-500">
-                            or click to browse {maxSizeMB === Infinity ? '(Unlimited size)' : `(max ${maxSizeMB}MB)`}
+                            or click to browse (Unlimited size)
                         </p>
                     </div>
 

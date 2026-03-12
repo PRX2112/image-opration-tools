@@ -55,7 +55,7 @@ export default function ChatWidget() {
                                     </button>
                                     <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary hover:bg-primary/5 transition-colors">
                                         <p className="text-sm font-medium text-gray-900 dark:text-white">
-                                            Pricing information
+                                            Is ResizeMe free to use?
                                         </p>
                                     </button>
                                 </div>
