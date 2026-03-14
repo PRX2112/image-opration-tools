@@ -5,7 +5,7 @@ import ToolRecommendations from '@/components/ToolRecommendations';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-    title: 'Resize Image Online Free - Fast & High Quality | ResizeMe',
+    title: 'Resize Image Online Free - Fast & High Quality ',
     description: 'Resize images online for free. Change image dimensions, resize by percentage, or resize for social media. Supports JPG, PNG, WEBP. No signup required.',
     keywords: ['resize image online', 'resize image', 'image resizer', 'resize photo', 'resize picture online free', 'change image size'],
     alternates: {

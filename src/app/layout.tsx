@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL || 'https://resizeme.in'),
   title: {
     default: "ResizeMe - Free Online Image Tools",
-    template: "%s | ResizeMe"
+    template: "%s "
   },
   description: "Professional image tools for resizing, cropping, compressing, and converting. Fast, secure, and privacy-focused. All processing happens in your browser/server.",
   keywords: ["image resizer", "photo editor", "online image tools", "compress image", "crop image", "convert image format", "free online tools"],
@@ -115,7 +115,7 @@ export default function RootLayout({
           <main className="min-h-screen relative z-10">
             {children}
           </main>
-          
+
           {/* Global Footer Ad Unit */}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full border-t border-gray-100 dark:border-gray-800/50 mt-12 bg-gray-50/50 dark:bg-gray-900/20">
             <div className="text-center text-xs text-gray-400 mb-2 uppercase tracking-wide font-medium">Advertisement</div>

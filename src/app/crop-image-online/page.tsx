@@ -5,7 +5,7 @@ import ToolRecommendations from '@/components/ToolRecommendations';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-    title: 'Crop Image Online Free - Trim & Cut Photos | ResizeMe',
+    title: 'Crop Image Online Free - Trim & Cut Photos ',
     description: 'Crop images online for free. Trim photos, cut unwanted areas, use preset aspect ratios. Perfect for social media, profile pictures, and more.',
     keywords: ['crop image', 'crop image online', 'trim photo', 'cut image', 'crop photo online free', 'image cropper'],
     alternates: {

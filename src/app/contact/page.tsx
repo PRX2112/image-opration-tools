@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Loader2, MessageSquare, Clock } from 'lucide-react';
 
 export default function ContactPage() {
     const [formData, setFormData] = useState({
@@ -54,7 +54,7 @@ export default function ContactPage() {
                         Get in Touch
                     </h1>
                     <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                        Have questions or feedback? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+                        If you have questions, feedback, or suggestions about ResizeMe, we would love to hear from you.
                     </p>
                 </div>
 
@@ -69,7 +69,7 @@ export default function ContactPage() {
                                 </div>
                                 <div>
                                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                                        Email Us
+                                        Support Email
                                     </h3>
                                     <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">
                                         For general inquiries and support
@@ -83,42 +83,39 @@ export default function ContactPage() {
                                 </div>
                             </div>
                         </div>
-
-                        {/* Business Inquiries */}
+                        
+                        {/* What You Can Contact Us About */}
                         <div className="bg-white dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-gray-700/50 p-6 shadow-lg">
                             <div className="flex items-start gap-4">
                                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center flex-shrink-0">
-                                    <Phone className="w-6 h-6 text-white" />
+                                    <MessageSquare className="w-6 h-6 text-white" />
                                 </div>
                                 <div>
                                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                                        Business Inquiries
+                                        What You Can Contact Us About
                                     </h3>
-                                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">
-                                        For partnerships and enterprise solutions
-                                    </p>
-                                    <a
-                                        href="mailto:handleresizeme@gmail.com"
-                                        className="text-blue-600 dark:text-blue-400 hover:underline"
-                                    >
-                                        handleresizeme@gmail.com
-                                    </a>
+                                    <ul className="text-gray-600 dark:text-gray-400 text-sm space-y-2 list-disc list-inside">
+                                        <li>Bug reports</li>
+                                        <li>Feature suggestions</li>
+                                        <li>Partnership inquiries</li>
+                                        <li>Technical support</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Location */}
+                        {/* Response Time */}
                         <div className="bg-white dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-gray-700/50 p-6 shadow-lg">
                             <div className="flex items-start gap-4">
                                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center flex-shrink-0">
-                                    <MapPin className="w-6 h-6 text-white" />
+                                    <Clock className="w-6 h-6 text-white" />
                                 </div>
                                 <div>
                                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                                        Location
+                                        Response Time
                                     </h3>
                                     <p className="text-gray-600 dark:text-gray-400 text-sm">
-                                        India
+                                        We usually respond within 24–48 hours.
                                     </p>
                                 </div>
                             </div>

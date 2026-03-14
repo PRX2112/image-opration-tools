@@ -8,7 +8,10 @@ export default function AboutPage() {
                         About ResizeMe
                     </h1>
                     <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
-                        We are on a mission to make professional image editing accessible to everyone, directly in the browser, with a focus on speed and privacy.
+                        <strong>ResizeMe</strong> is a free online image editing platform designed to make image resizing, cropping, compressing, and converting simple, fast, and accessible for everyone.
+                    </p>
+                    <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed mt-4">
+                        Whether you're preparing images for social media, websites, documents, or personal use, ResizeMe provides powerful tools that work directly in your browser without requiring downloads, installations, or accounts.
                     </p>
                 </div>
 
@@ -19,52 +22,118 @@ export default function AboutPage() {
                         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Our Mission</h2>
                         <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
                             <p>
-                                In a digital world heavily reliant on visual content, we noticed a problem: simple image tasks were often complicated. Users had to choose between downloading heavy software for basic edits or uploading their private photos to slow, ad-ridden servers.
+                                Our mission is to provide <strong>simple, fast, and privacy-focused image tools</strong> that anyone can use instantly. Many image editing tools are complex, slow, or require users to upload files to remote servers. ResizeMe was created to offer a better alternative — one that prioritizes <strong>speed, simplicity, and privacy</strong>.
                             </p>
                             <p>
-                                <strong>ResizeMe was built to change that.</strong>
+                                We believe basic image editing should be easy and accessible for everyone.
+                            </p>
+                        </div>
+                    </section>
+                    
+                    {/* Privacy */}
+                    <section className="bg-white dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-gray-700/50 p-8 md:p-12 shadow-xl">
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Privacy-First Image Processing</h2>
+                        <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
+                            <p>
+                                ResizeMe is designed with privacy in mind.
                             </p>
                             <p>
-                                We believe that you shouldn't have to compromise your privacy or patience just to crop a photo or convert a file type. Our goal is to provide a comprehensive suite of image tools that run entirely on your device—fast, free, and secure.
+                                All image processing is performed <strong>locally within your web browser</strong> using modern technologies such as <strong>HTML5 Canvas and WebAssembly</strong>. This means:
+                            </p>
+                            <ul>
+                                <li>Your images <strong>never leave your device</strong></li>
+                                <li>Your images are <strong>not uploaded to our servers</strong></li>
+                                <li>Your images are <strong>not stored or shared</strong></li>
+                            </ul>
+                            <p>
+                                Everything happens directly on your computer or mobile device, giving you complete control over your files.
+                            </p>
+                        </div>
+                    </section>
+                    
+                    {/* Features */}
+                    <section className="bg-white dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-gray-700/50 p-8 md:p-12 shadow-xl">
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">What You Can Do With ResizeMe</h2>
+                        <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
+                            <p>
+                                ResizeMe offers a variety of tools to help you quickly edit and optimize images online, including:
+                            </p>
+                            <ul>
+                                <li>Resize images to custom dimensions</li>
+                                <li>Compress images to reduce file size</li>
+                                <li>Crop images to the desired aspect ratio</li>
+                                <li>Convert images between formats</li>
+                                <li>Prepare images for social media platforms</li>
+                                <li>Optimize images for websites and blogs</li>
+                            </ul>
+                            <p>
+                                All tools are designed to be <strong>fast, easy to use, and accessible from any device</strong>.
                             </p>
                         </div>
                     </section>
 
-                    {/* Core Values */}
+                    {/* Speed & Simplicity */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <section className="bg-white dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-gray-700/50 p-8 shadow-lg">
                             <div className="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center mb-6">
-                                <span className="text-2xl">🔒</span>
+                                <span className="text-2xl">⚡</span>
                             </div>
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Privacy First</h3>
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Built for Speed and Simplicity</h3>
                             <p className="text-gray-600 dark:text-gray-400">
-                                This is our most important value. Unlike other tools, we don't want your data. We engineered our tools to process images using WebAssembly and HTML5 Canvas, meaning your files are processed locally on your computer and never uploaded to our servers.
+                                ResizeMe works entirely in your browser, which means you can start editing images instantly without waiting for uploads or downloads.
+                            </p>
+                            <p className="text-gray-600 dark:text-gray-400 mt-2">
+                                The interface is designed to be clean and simple so that anyone — from beginners to professionals — can resize or optimize images quickly.
                             </p>
                         </section>
 
+                        {/* Audience */}
                         <section className="bg-white dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-gray-700/50 p-8 shadow-lg">
                             <div className="w-12 h-12 rounded-lg bg-purple-100 dark:bg-purple-900/50 flex items-center justify-center mb-6">
-                                <span className="text-2xl">⚡</span>
+                                <span className="text-2xl">👥</span>
                             </div>
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Lightning Fast</h3>
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Who Can Use ResizeMe</h3>
                             <p className="text-gray-600 dark:text-gray-400">
-                                Time is precious. By cutting out the server upload/download process, our tools work instantly. Whether you're resizing one image or a hundred, the processing happens as fast as your device allows, with no network lag.
+                                ResizeMe is useful for many types of users, including content creators, bloggers, students, designers, website owners, and social media managers.
+                            </p>
+                            <p className="text-gray-600 dark:text-gray-400 mt-2">
+                                Anyone who needs a <strong>quick and reliable online image editing tool</strong> can use ResizeMe.
                             </p>
                         </section>
                     </div>
 
-                    {/* Story */}
+                    {/* Improvements & Contact */}
                     <section className="bg-white dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-gray-700/50 p-8 md:p-12 shadow-xl">
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">The Story</h2>
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Continuous Improvements</h2>
                         <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
                             <p>
-                                ResizeMe started as a small personal project in 2024. As developers and content creators ourselves, we were frustrated with the existing online tools. They were either too expensive, too complex, or filled with intrusive pop-ups.
+                                We are constantly working to improve ResizeMe by adding new features, improving performance, and making the tools even easier to use.
                             </p>
                             <p>
-                                We decided to build the tool we wanted to use: <strong>Clean, fast, and respectful of the user.</strong>
+                                User feedback plays an important role in helping us improve the platform.
                             </p>
+                        </div>
+                        
+                        <hr className="border-gray-200 dark:border-gray-700 my-8" />
+                        
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Contact Us</h2>
+                        <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
                             <p>
-                                What began as a simple resizer has grown into a powerful platform handling thousands of images daily. We are constantly adding new features like AI enhancement, meme generation, and precise color tools, all while maintaining our core promise of browser-based processing.
+                                If you have questions, feedback, or suggestions, we would love to hear from you.
+                            </p>
+                            <div className="bg-gray-100 dark:bg-gray-900/50 rounded-lg p-6 space-y-2 not-prose mt-6">
+                                <p className="text-gray-700 dark:text-gray-300">
+                                    <strong>Email:</strong> handleresizeme@gmail.com
+                                </p>
+                                <p className="text-gray-700 dark:text-gray-300">
+                                    <strong>Support:</strong> handleresizeme@gmail.com
+                                </p>
+                                <p className="text-gray-700 dark:text-gray-300">
+                                    <strong>Website:</strong> https://resizeme.in
+                                </p>
+                            </div>
+                            <p className="mt-6 font-semibold">
+                                Thank you for using ResizeMe.
                             </p>
                         </div>
                     </section>

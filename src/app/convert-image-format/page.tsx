@@ -5,7 +5,7 @@ import ToolRecommendations from '@/components/ToolRecommendations';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-    title: 'Convert Image Format Online Free - JPG, PNG, WEBP | ResizeMe',
+    title: 'Convert Image Format Online Free - JPG, PNG, WEBP ',
     description: 'Convert images between formats online for free. Change JPG to PNG, PNG to WEBP, HEIC to JPG, and more. Fast, secure, no signup required.',
     keywords: ['convert image', 'image converter', 'convert jpg to png', 'convert png to jpg', 'convert to webp', 'change image format'],
     alternates: {

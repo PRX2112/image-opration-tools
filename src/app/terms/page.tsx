@@ -7,186 +7,179 @@ export default function TermsPage() {
                         Terms of Service
                     </h1>
                     <p className="text-gray-600 dark:text-gray-400 mb-8">
-                        Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                        <strong>Last Updated:</strong> March 14, 2026
                     </p>
 
                     <div className="prose prose-lg dark:prose-invert max-w-none">
+                        <p className="text-gray-700 dark:text-gray-300 mb-4">
+                            Welcome to ResizeMe (https://resizeme.in). By accessing or using this website, you agree to comply with and be bound by the following Terms of Service.
+                        </p>
+                        <p className="text-gray-700 dark:text-gray-300 mb-8">
+                            If you do not agree with these terms, please do not use the website.
+                        </p>
+
+                        <hr className="border-gray-200 dark:border-gray-700 my-8" />
+
                         <section className="mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">1. Acceptance of Terms</h2>
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">1. Description of Service</h2>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                Welcome to ResizeMe. By accessing or using our service, you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, please do not use our service.
+                                ResizeMe provides free online image editing tools including image resizing, cropping, compressing, converting, and other related utilities.
                             </p>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                These Terms constitute a legally binding agreement between you and ResizeMe ("we," "us," or "our"). We reserve the right to update these Terms at any time, and your continued use of the service constitutes acceptance of any changes.
+                                All image processing occurs locally in your web browser using modern technologies such as HTML5 Canvas and WebAssembly.
+                            </p>
+                            <p className="text-gray-700 dark:text-gray-300 mb-4">
+                                Your images are not uploaded to our servers.
                             </p>
                         </section>
 
-                        <section className="mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">2. Description of Service</h2>
-                            <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                ResizeMe is a completely free online image processing platform that provides tools for:
-                            </p>
-                            <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mb-4 space-y-2">
-                                <li>Image resizing and scaling</li>
-                                <li>Image cropping and rotation</li>
-                                <li>Image compression and format conversion</li>
-                                <li>Image enhancement and upscaling</li>
-                                <li>Meme generation and other creative tools</li>
-                                <li>Batch processing</li>
-                            </ul>
-                            <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                All features are available free of charge without any hidden fees or subscriptions.
-                            </p>
-                        </section>
+                        <hr className="border-gray-200 dark:border-gray-700 my-8" />
 
                         <section className="mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">3. Acceptable Use Policy</h2>
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">2. User Responsibilities</h2>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                You agree NOT to use ResizeMe to:
+                                By using ResizeMe, you agree that you will:
                             </p>
                             <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mb-4 space-y-2">
-                                <li>Process illegal, harmful, or offensive content</li>
-                                <li>Violate any intellectual property rights</li>
-                                <li>Upload malware, viruses, or malicious code</li>
-                                <li>Attempt to gain unauthorized access to our systems</li>
-                                <li>Use automated tools to abuse the service (scraping, bots)</li>
-                                <li>Resell or redistribute our services without permission</li>
-                                <li>Process images containing child exploitation material</li>
-                                <li>Harass, threaten, or harm others</li>
-                                <li>Violate any applicable laws or regulations</li>
+                                <li>Use the service only for lawful purposes</li>
+                                <li>Not upload or process images that violate copyright or intellectual property laws</li>
+                                <li>Not upload harmful, illegal, abusive, or offensive content</li>
+                                <li>Not attempt to disrupt or interfere with the operation of the website</li>
+                                <li>Not use automated bots or scraping tools without permission</li>
                             </ul>
                         </section>
 
-                        <section className="mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">4. Intellectual Property Rights</h2>
+                        <hr className="border-gray-200 dark:border-gray-700 my-8" />
 
-                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">4.1 Your Content</h3>
+                        <section className="mb-8">
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">3. Image Processing and Privacy</h2>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                You retain all rights to images you upload and process. By using our service, you grant us a limited license to:
+                                ResizeMe processes images directly in your browser.
+                            </p>
+                            <p className="text-gray-700 dark:text-gray-300 mb-4">
+                                This means:
                             </p>
                             <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mb-4 space-y-2">
-                                <li>Process your images as requested</li>
-                                <li>Use anonymized data for service improvement</li>
+                                <li>Images are not uploaded to our servers</li>
+                                <li>Images are not stored by ResizeMe</li>
+                                <li>All processing happens locally on your device</li>
                             </ul>
-
-                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">4.2 Our Content</h3>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                All content on ResizeMe, including but not limited to text, graphics, logos, software, and design, is owned by us or our licensors and protected by copyright, trademark, and other intellectual property laws.
+                                For more information, please review our <a href="/privacy" className="text-blue-600 dark:text-blue-400 hover:underline">Privacy Policy</a>.
                             </p>
                         </section>
 
-                        <section className="mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">5. Privacy and Data Protection</h2>
-                            <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                Your privacy is important to us. Our collection and use of personal information is governed by our <a href="/privacy" className="text-blue-600 dark:text-blue-400 hover:underline">Privacy Policy</a>, which is incorporated into these Terms by reference.
-                            </p>
-                            <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                Key points:
-                            </p>
-                            <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mb-4 space-y-2">
-                                <li>Most processing happens in your browser</li>
-                                <li>Server-processed images are deleted immediately after processing</li>
-                                <li>We do not sell your data to third parties</li>
-                            </ul>
-                        </section>
+                        <hr className="border-gray-200 dark:border-gray-700 my-8" />
 
                         <section className="mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">6. Disclaimers and Limitations of Liability</h2>
-
-                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">6.1 Service "As Is"</h3>
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">4. Intellectual Property</h2>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                ResizeMe is provided "as is" and "as available" without warranties of any kind, either express or implied, including but not limited to:
+                                All website content including the design, branding, code, and text on ResizeMe are protected by copyright and intellectual property laws.
                             </p>
-                            <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mb-4 space-y-2">
-                                <li>Merchantability or fitness for a particular purpose</li>
-                                <li>Uninterrupted or error-free operation</li>
-                                <li>Accuracy, reliability, or quality of results</li>
-                                <li>Security of data transmission</li>
-                            </ul>
-
-                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">6.2 Limitation of Liability</h3>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                To the maximum extent permitted by law, ResizeMe shall not be liable for:
+                                You may not copy, reproduce, distribute, or modify any part of the website without written permission.
                             </p>
-                            <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mb-4 space-y-2">
-                                <li>Indirect, incidental, special, or consequential damages</li>
-                                <li>Loss of profits, data, or business opportunities</li>
-                                <li>Third-party actions or content</li>
-                            </ul>
-
-                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">6.3 Backup Responsibility</h3>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                You are solely responsible for maintaining backups of your original images. We are not responsible for any loss of data.
+                                Users retain full ownership of any images they process using the service.
                             </p>
                         </section>
 
+                        <hr className="border-gray-200 dark:border-gray-700 my-8" />
+
                         <section className="mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">7. Indemnification</h2>
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">5. Advertising</h2>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                You agree to indemnify, defend, and hold harmless ResizeMe, its officers, directors, employees, and agents from any claims, damages, losses, liabilities, and expenses (including legal fees) arising from:
+                                ResizeMe may display advertisements provided by third-party advertising networks such as Google AdSense.
+                            </p>
+                            <p className="text-gray-700 dark:text-gray-300 mb-4">
+                                These advertisements help support the operation and maintenance of the website.
+                            </p>
+                        </section>
+
+                        <hr className="border-gray-200 dark:border-gray-700 my-8" />
+
+                        <section className="mb-8">
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">6. Disclaimer of Warranties</h2>
+                            <p className="text-gray-700 dark:text-gray-300 mb-4">
+                                The service is provided "as is" and "as available" without warranties of any kind.
+                            </p>
+                            <p className="text-gray-700 dark:text-gray-300 mb-4">
+                                We do not guarantee that:
                             </p>
                             <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mb-4 space-y-2">
-                                <li>Your use of the service</li>
-                                <li>Your violation of these Terms</li>
-                                <li>Your violation of any third-party rights</li>
-                                <li>Content you upload or process</li>
-                            </ul>
-                        </section>
-
-                        <section className="mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">8. Modifications to Service</h2>
-                            <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                We reserve the right to:
-                            </p>
-                            <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mb-4 space-y-2">
-                                <li>Modify, suspend, or discontinue any part of the service</li>
-                                <li>Change features or functionality</li>
-                                <li>Update these Terms at any time</li>
+                                <li>The website will always be available</li>
+                                <li>The service will be error-free or uninterrupted</li>
+                                <li>Results will meet your expectations</li>
                             </ul>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                We will provide reasonable notice of material changes when possible.
+                                Use of the website is at your own risk.
                             </p>
                         </section>
 
+                        <hr className="border-gray-200 dark:border-gray-700 my-8" />
+
                         <section className="mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">9. General Provisions</h2>
-
-                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">9.1 Entire Agreement</h3>
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">7. Limitation of Liability</h2>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                These Terms, together with our Privacy Policy, constitute the entire agreement between you and ResizeMe.
-                            </p>
-
-                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">9.2 Severability</h3>
-                            <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                If any provision of these Terms is found to be unenforceable, the remaining provisions will remain in full force and effect.
-                            </p>
-
-                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">9.3 Waiver</h3>
-                            <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                Our failure to enforce any right or provision of these Terms will not be deemed a waiver of such right or provision.
+                                To the maximum extent permitted by law, ResizeMe shall not be liable for any direct, indirect, incidental, or consequential damages resulting from the use or inability to use the service.
                             </p>
                         </section>
 
+                        <hr className="border-gray-200 dark:border-gray-700 my-8" />
+
                         <section className="mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">10. Contact Information</h2>
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">8. Service Modifications</h2>
                             <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                If you have any questions about these Terms, please contact us:
+                                We reserve the right to modify, update, suspend, or discontinue any part of the service at any time without notice.
+                            </p>
+                        </section>
+
+                        <hr className="border-gray-200 dark:border-gray-700 my-8" />
+
+                        <section className="mb-8">
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">9. Termination</h2>
+                            <p className="text-gray-700 dark:text-gray-300 mb-4">
+                                We reserve the right to restrict or terminate access to users who violate these Terms of Service or misuse the website.
+                            </p>
+                        </section>
+
+                        <hr className="border-gray-200 dark:border-gray-700 my-8" />
+
+                        <section className="mb-8">
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">10. Governing Law</h2>
+                            <p className="text-gray-700 dark:text-gray-300 mb-4">
+                                These Terms shall be governed by and interpreted in accordance with the laws applicable in your jurisdiction.
+                            </p>
+                        </section>
+
+                        <hr className="border-gray-200 dark:border-gray-700 my-8" />
+
+                        <section className="mb-8">
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">11. Changes to These Terms</h2>
+                            <p className="text-gray-700 dark:text-gray-300 mb-4">
+                                We may update these Terms of Service from time to time. Continued use of the website after changes indicates acceptance of the updated terms.
+                            </p>
+                        </section>
+
+                        <hr className="border-gray-200 dark:border-gray-700 my-8" />
+
+                        <section className="mb-8">
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">12. Contact Us</h2>
+                            <p className="text-gray-700 dark:text-gray-300 mb-4">
+                                If you have any questions regarding these Terms of Service, please contact us at:
                             </p>
                             <div className="bg-gray-100 dark:bg-gray-900/50 rounded-lg p-6 space-y-2">
                                 <p className="text-gray-700 dark:text-gray-300">
                                     <strong>Email:</strong> handleresizeme@gmail.com
                                 </p>
                                 <p className="text-gray-700 dark:text-gray-300">
+                                    <strong>Support:</strong> handleresizeme@gmail.com
+                                </p>
+                                <p className="text-gray-700 dark:text-gray-300">
                                     <strong>Website:</strong> https://resizeme.in
                                 </p>
                             </div>
                         </section>
-
-                        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-                            <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
-                                By using ResizeMe, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.
-                            </p>
-                        </div>
                     </div>
                 </div>
             </div>

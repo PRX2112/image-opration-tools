@@ -5,7 +5,7 @@ import ToolRecommendations from '@/components/ToolRecommendations';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-    title: 'Compress Image Online Free - Reduce File Size | ResizeMe',
+    title: 'Compress Image Online Free - Reduce File Size',
     description: 'Compress images online for free. Reduce JPG, PNG, WEBP file size without losing quality. Perfect for websites, emails, and social media.',
     keywords: ['compress image', 'compress image online', 'reduce image size', 'image compression', 'optimize image', 'reduce file size'],
     alternates: {
