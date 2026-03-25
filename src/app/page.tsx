@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import ToolCard from '@/components/ToolCard';
 import VisitorCounter from '@/components/VisitorCounter';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
@@ -86,34 +87,30 @@ const stats = [
 ];
 
 const useCases = [
-  { emoji: '🎨', role: 'Designers', desc: 'Resize mockups, export assets, and convert formats in seconds.' },
-  { emoji: '📸', role: 'Photographers', desc: 'Compress RAW-exported JPEGs without visible quality loss.' },
-  { emoji: '🛍️', role: 'E-commerce Sellers', desc: 'Resize product photos to exact marketplace requirements.' },
-  { emoji: '📱', role: 'Content Creators', desc: 'Create perfectly sized images for Instagram, YouTube & TikTok.' },
-  { emoji: '💻', role: 'Developers', desc: 'Optimize images for web performance and Core Web Vitals.' },
-  { emoji: '🏢', role: 'Businesses', desc: 'Prepare images for presentations, reports, and marketing.' },
+  { emoji: '✍️', role: 'Bloggers', desc: 'Optimized images for faster page loads and better SEO rankings.' },
+  { emoji: '📱', role: 'Social Media Managers', desc: 'Get perfect sizes for Instagram, Facebook, and YouTube.' },
+  { emoji: '💻', role: 'Web Developers', desc: 'Improve performance and Core Web Vitals with optimized assets.' },
+  { emoji: '🎨', role: 'Designers', desc: 'Convert formats and compress images without losing quality.' },
+  { emoji: '🎓', role: 'Students', desc: 'Quickly resize images for presentations and assignments.' },
+  { emoji: '🏢', role: 'Professionals', desc: 'Prepare images for reports, emails, and marketing materials.' },
 ];
 
 const faqs = [
   {
-    q: 'Is ResizeMe completely free?',
-    a: 'Yes! Every tool on ResizeMe is 100% free with no hidden fees, no subscriptions, and no signup required.',
+    q: 'Does resizing reduce image quality?',
+    a: 'Not necessarily. Our tools are designed to maintain the best possible quality while adjusting dimensions.',
+  },
+  {
+    q: 'Is this tool free to use?',
+    a: 'Yes, all features are completely free with no hidden costs.',
+  },
+  {
+    q: 'Do I need to create an account?',
+    a: 'No, you can use all tools instantly without signing up.',
   },
   {
     q: 'Are my images safe and private?',
-    a: 'Absolutely. ResizeMe processes images directly in your browser using WebAssembly. Your photos never leave your device.',
-  },
-  {
-    q: 'What image formats are supported?',
-    a: 'We support JPEG, PNG, WebP, GIF, SVG, HEIC and more. You can also convert between these formats using our Converter tool.',
-  },
-  {
-    q: 'Can I resize multiple images at once?',
-    a: 'Yes! Use our Bulk Resize tool to resize up to 10 images at once and download them all in a single ZIP file.',
-  },
-  {
-    q: 'Does compressing reduce image quality?',
-    a: 'Our smart compression algorithm removes invisible data while preserving visual quality. You control the quality slider for the right balance.',
+    a: 'We prioritize your privacy and security. All image processing happens directly in your browser, and your files are never uploaded or stored on our servers. You remain in full control of your data at all times.',
   },
 ];
 
@@ -157,29 +154,29 @@ export default function Home() {
           <div className="text-center space-y-8 animate-fade-in">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 dark:bg-purple-900/40 border border-purple-200 dark:border-purple-700 text-purple-700 dark:text-purple-300 text-sm font-medium mb-2">
               <Sparkles className="w-4 h-4" />
-              100% Free · No Signup · No Limits
+              100% Free · Fast · Secure · Private
             </div>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
-              <span className="block text-gray-900 dark:text-white mb-2">Transform Your Images</span>
-              <span className="block shimmer-text">Instantly &amp; Free</span>
+              <span className="block text-gray-900 dark:text-white mb-2">Resize Images Online</span>
+              <span className="block shimmer-text">Without Losing Quality</span>
             </h1>
             <p className="max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-              Professional image tools right in your browser. Resize, crop, compress, and convert with zero uploads and complete privacy.
+              Resize, compress, and optimize your images instantly with our free online tools. Whether you're preparing images for websites, social media, or professional use, ResizeMe helps you get the perfect size and format in seconds.
             </p>
 
             {/* Trust indicators */}
             <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-600 dark:text-gray-400 items-center">
               <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-green-500" />
+                <span>No signup required</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-green-500" />
+                <span>Supports JPG, PNG, WebP</span>
+              </div>
+              <div className="flex items-center gap-2">
                 <Shield className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                <span>100% Private</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Zap className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                <span>Instant Processing</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                <span>Free Forever</span>
+                <span>Fast, secure, and private</span>
               </div>
               <VisitorCounter />
             </div>
@@ -215,9 +212,9 @@ export default function Home() {
       <section id="tools" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Powerful Image Tools</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Everything you need to edit and optimize images — all in one place, all free.
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Free Online Image Tools</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto text-balance">
+              ResizeMe provides a collection of powerful yet simple tools designed to handle all your image optimization needs: Image Resizer, Compressor, Format Converter, and more. All tools are browser-based, meaning your images are processed securely without being stored on our servers.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -320,10 +317,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Trusted by Everyone
+              Who is ResizeMe For?
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400">
-              From individual creators to enterprise teams — ResizeMe fits every workflow.
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              ResizeMe is designed for anyone who works with images. Whether you need to resize a single image or optimize multiple files, our tools make the process simple and efficient.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -362,6 +359,122 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── SEO Text Content ─── */}
+      <section className="py-20 bg-gray-50/80 dark:bg-gray-900/50 border-y border-gray-100 dark:border-gray-800">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+          <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 md:text-4xl">What is Image Resizing?</h2>
+            <p className="text-lg leading-relaxed">
+              Image resizing is the process of adjusting the dimensions (width and height) of an image without significantly affecting its quality. It is commonly used to optimize images for websites, social media platforms, email attachments, and storage efficiency.
+            </p>
+            <p className="text-lg leading-relaxed">
+              Large images can slow down websites and negatively impact user experience. By resizing images properly, you can improve page load speed, enhance performance, and ensure compatibility across different devices.
+            </p>
+
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mt-12 mb-6 md:text-4xl">Why Optimizing Images is Important</h2>
+            <p className="text-lg leading-relaxed">
+              Optimizing your images is not just about reducing file size — it's about improving overall performance and usability.
+            </p>
+            <ul className="space-y-3 mt-4 text-lg">
+              <li className="flex items-start gap-2"><CheckCircle2 className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" /> <span><strong>Faster website loading speed</strong> → Better SEO rankings</span></li>
+              <li className="flex items-start gap-2"><CheckCircle2 className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" /> <span><strong>Improved user experience</strong> → Lower bounce rates</span></li>
+              <li className="flex items-start gap-2"><CheckCircle2 className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" /> <span><strong>Reduced storage usage</strong> → Efficient file management</span></li>
+              <li className="flex items-start gap-2"><CheckCircle2 className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" /> <span><strong>Better compatibility</strong> → Works across all devices and platforms</span></li>
+            </ul>
+            <p className="mt-6 text-lg leading-relaxed">
+              Whether you're a blogger, developer, designer, or business owner, properly optimized images are essential.
+            </p>
+
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mt-12 mb-6 md:text-4xl">Social Media Image Size Guide</h2>
+            <p className="text-lg leading-relaxed">
+              Different platforms require different image sizes. Using incorrect dimensions can result in cropped or blurry images.
+            </p>
+            <p className="text-lg leading-relaxed">Here are some commonly used sizes:</p>
+            <ul className="space-y-3 mt-4 text-lg bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
+              <li className="flex justify-between items-center border-b border-gray-100 dark:border-gray-700 pb-3">
+                <strong className="text-gray-900 dark:text-white">Instagram Post</strong>
+                <span className="font-mono text-purple-600 dark:text-purple-400">1080 × 1080 px</span>
+              </li>
+              <li className="flex justify-between items-center border-b border-gray-100 dark:border-gray-700 py-3">
+                <strong className="text-gray-900 dark:text-white">Facebook Cover</strong>
+                <span className="font-mono text-purple-600 dark:text-purple-400">820 × 312 px</span>
+              </li>
+              <li className="flex justify-between items-center pt-3">
+                <strong className="text-gray-900 dark:text-white">YouTube Thumbnail</strong>
+                <span className="font-mono text-purple-600 dark:text-purple-400">1280 × 720 px</span>
+              </li>
+            </ul>
+            <p className="mt-6 text-lg">
+              👉 <a href="/tools/resize" className="text-purple-600 dark:text-purple-400 font-semibold hover:underline bg-purple-50 dark:bg-purple-900/30 px-3 py-1 rounded-md">Use our tools</a> to instantly resize images for any platform without guesswork.
+            </p>
+
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mt-12 mb-6 md:text-4xl">Your Privacy Matters</h2>
+            <div className="flex flex-col md:flex-row gap-6 items-start bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-100 dark:border-blue-800/30">
+              <div className="bg-blue-100 dark:bg-blue-900/50 p-3 rounded-full text-blue-600 dark:text-blue-400 flex-shrink-0">
+                <Shield className="w-8 h-8" />
+              </div>
+              <div>
+                <p className="text-lg leading-relaxed">
+                  We prioritize your privacy and security. All image processing happens directly in your browser, and your files are never uploaded or stored on our servers.
+                </p>
+                <p className="text-lg leading-relaxed mt-2">
+                  You remain in full control of your data at all times.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Why I Built ResizeMe ─── */}
+      <section className="py-20 bg-white dark:bg-gray-950">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-purple-50 dark:bg-purple-900/10 rounded-3xl p-8 md:p-12 border border-purple-100 dark:border-purple-800/30">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">Why I Built ResizeMe</h2>
+            <div className="prose prose-lg dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
+              <p>
+                Hi, I'm the creator of ResizeMe. I built this platform because I was frustrated with the current state of online image tools. Every time I needed to quickly resize a photo or crop a logo, I was met with websites that either demanded an account, bombarded me with pop-up ads, or secretly uploaded my private files to their servers.
+              </p>
+              <p>
+                I wanted a tool that felt like a native desktop app—lightning fast, beautiful to look at, and fiercely protective of user privacy. By leveraging modern browser technologies like WebAssembly, ResizeMe processes every image locally on your device. We never see your photos, and we never will. It's free, it respects your time, and it just works.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Guides & Resources ─── */}
+      <section className="py-20 bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Learn More About Image Optimization</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400">Dive deeper into our comprehensive guides to master your digital assets.</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Link href="/what-is-image-resizing" className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all hover:-translate-y-1">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">What is Image Resizing?</h3>
+              <p className="text-gray-600 dark:text-gray-400">Read the complete guide on how resizing differs from cropping and why it matters.</p>
+            </Link>
+            <Link href="/why-image-optimization-matters" className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all hover:-translate-y-1">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Why Image Optimization Matters</h3>
+              <p className="text-gray-600 dark:text-gray-400">Discover the real-world impact of optimization on SEO, Core Web Vitals, and UX.</p>
+            </Link>
+            <Link href="/social-media-image-sizes" className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all hover:-translate-y-1">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Social Media Image Sizes 2026</h3>
+              <p className="text-gray-600 dark:text-gray-400">The definitive pixel-perfect guide for Instagram, Facebook, YouTube, and X.</p>
+            </Link>
+            <Link href="/image-format-guide" className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all hover:-translate-y-1">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Image Format Guide</h3>
+              <p className="text-gray-600 dark:text-gray-400">JPEG vs PNG vs WebP vs SVG. Learn exactly which format to use and when.</p>
+            </Link>
+            <Link href="/compress-images-without-losing-quality" className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all hover:-translate-y-1">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Compress Without Losing Quality</h3>
+              <p className="text-gray-600 dark:text-gray-400">Understand the magic behind lossy algorithms and chroma subsampling.</p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <UltimateGuide />
 
       {/* ─── FAQ ─── */}
@@ -381,10 +494,10 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-blue-500/5 to-pink-500/10 animate-gradient" />
             <div className="relative z-10 space-y-6">
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
-                Ready to Transform Your Images?
+                Start Resizing Your Images Now
               </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-400">
-                Join millions of users who trust ResizeMe for their image editing needs.
+              <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Use our free tools to resize, compress, and optimize your images in seconds — no technical skills required.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="#tools" className="btn btn-primary text-lg px-8 py-4 inline-flex animate-pulse-glow">
